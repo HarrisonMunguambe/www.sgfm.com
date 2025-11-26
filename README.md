@@ -23,6 +23,3 @@ O frontend consome uma API Laravel.
 - NPM 9+ ou Yarn
 
 ---
-
-## 🔧 Instalação e Setup
-
