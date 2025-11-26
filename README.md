@@ -1,2 +1,28 @@
-# www.sgfm.com
-Front-end do Sistema de Gestão de Fundo de Maneio - Fundo de maneio é um valor destinado a despesas do escritório, estas podem variar em transporte, consumíveis como água, material como papel, pilhas e outras emergências.
+
+---
+# 
+# Fundo de Maneio — Frontend (Vue.js)
+
+Este repositório contém a aplicação frontend do Sistema de Gestão de Fundo de Maneio, construída em **Vue.js**.  
+O frontend consome uma API Laravel.
+
+---
+
+## 🚀 Tecnologias
+- Vue 3 (Composition API)
+- Pinia (gestão de estado)
+- Vue Router
+- Axios
+- Bootstrap ou PrimeVue (opcional)
+- Vite
+
+---
+
+## 📦 Requisitos
+- Node.js 18+
+- NPM 9+ ou Yarn
+
+---
+
+## 🔧 Instalação e Setup
+
