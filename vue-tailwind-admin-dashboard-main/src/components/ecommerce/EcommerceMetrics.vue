@@ -107,3 +107,11 @@
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+// Teste CORS básico
+fetch('http://localhost:8000/api/teste')
+  .then((res) => res.text())
+  .then((data) => console.log('✅ CORS funciona:', data))
+  .catch((err) => console.error('❌ Erro CORS:', err))
+</script>
