@@ -146,6 +146,6 @@ const router = createRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  document.title = `Vue.js ${to.meta.title} | TailAdmin - Vue.js Tailwind CSS Dashboard Template`
+  document.title = ` ${to.meta.title} | SGFM`
   next()
 })
