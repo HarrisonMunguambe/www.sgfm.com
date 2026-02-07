@@ -151,7 +151,7 @@
               Edit Personal Information
             </h4>
             <p class="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-              Update your details to keep your profile up-to-date.
+              Update your details to keep your profile up-to-date allways.
             </p>
           </div>
           <form class="flex flex-col">
