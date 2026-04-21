@@ -50,21 +50,42 @@
       <!-- Desktop right side -->
       <div class="hidden md:flex items-center gap-3">
         <ThemeToggle />
-        <router-link
-          to="/login"
-          class="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition px-3 py-2"
-        >
-          Entrar
-        </router-link>
-        <router-link
-          to="/register"
-          class="inline-flex items-center gap-1.5 text-sm font-medium text-white px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-5px_rgba(139,92,246,0.6)] hover:-translate-y-0.5 transition"
-        >
-          Começar
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M7 4l6 6-6 6V4z" />
-          </svg>
-        </router-link>
+        <template v-if="!authed">
+          <router-link
+            to="/login"
+            class="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition px-3 py-2"
+          >
+            Entrar
+          </router-link>
+          <router-link
+            to="/register"
+            class="inline-flex items-center gap-1.5 text-sm font-medium text-white px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-5px_rgba(139,92,246,0.6)] hover:-translate-y-0.5 transition"
+          >
+            Começar
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M7 4l6 6-6 6V4z" />
+            </svg>
+          </router-link>
+        </template>
+        <template v-else>
+          <button
+            type="button"
+            @click="onLogout"
+            :disabled="loggingOut"
+            class="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition px-3 py-2 disabled:opacity-60"
+          >
+            {{ loggingOut ? 'A sair…' : 'Sair' }}
+          </button>
+          <router-link
+            to="/dashboard"
+            class="inline-flex items-center gap-1.5 text-sm font-medium text-white px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-5px_rgba(139,92,246,0.6)] hover:-translate-y-0.5 transition"
+          >
+            Ir para dashboard
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M7 4l6 6-6 6V4z" />
+            </svg>
+          </router-link>
+        </template>
       </div>
 
       <!-- Mobile: toggle + hamburger -->
@@ -125,23 +146,45 @@
 
           <div class="h-px bg-slate-200 dark:bg-white/10 my-2"></div>
 
-          <router-link
-            to="/login"
-            @click="open = false"
-            class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition"
-          >
-            Entrar
-          </router-link>
-          <router-link
-            to="/register"
-            @click="open = false"
-            class="mt-1 inline-flex items-center justify-center gap-2 text-sm font-medium text-white px-4 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]"
-          >
-            Começar agora
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M7 4l6 6-6 6V4z" />
-            </svg>
-          </router-link>
+          <template v-if="!authed">
+            <router-link
+              to="/login"
+              @click="open = false"
+              class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition"
+            >
+              Entrar
+            </router-link>
+            <router-link
+              to="/register"
+              @click="open = false"
+              class="mt-1 inline-flex items-center justify-center gap-2 text-sm font-medium text-white px-4 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]"
+            >
+              Começar agora
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M7 4l6 6-6 6V4z" />
+              </svg>
+            </router-link>
+          </template>
+          <template v-else>
+            <button
+              type="button"
+              @click="onLogout"
+              :disabled="loggingOut"
+              class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition text-left disabled:opacity-60"
+            >
+              {{ loggingOut ? 'A sair…' : 'Sair' }}
+            </button>
+            <router-link
+              to="/dashboard"
+              @click="open = false"
+              class="mt-1 inline-flex items-center justify-center gap-2 text-sm font-medium text-white px-4 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]"
+            >
+              Ir para dashboard
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M7 4l6 6-6 6V4z" />
+              </svg>
+            </router-link>
+          </template>
         </div>
       </div>
     </transition>
@@ -150,12 +193,16 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
+import { isAuthenticated, logout } from '@/services/auth'
 
 const scrolled = ref(false)
 const open = ref(false)
 const route = useRoute()
+const router = useRouter()
+const authed = ref(isAuthenticated())
+const loggingOut = ref(false)
 
 const mobileLinks = [
   { to: '/#features', label: 'Funcionalidades' },
@@ -168,8 +215,22 @@ function onScroll() {
   scrolled.value = window.scrollY > 20
 }
 
+async function onLogout() {
+  if (loggingOut.value) return
+  loggingOut.value = true
+  try {
+    await logout()
+    authed.value = false
+  } finally {
+    loggingOut.value = false
+    open.value = false
+    if (route.meta.requiresAuth) router.push('/')
+  }
+}
+
 watch(() => route.fullPath, () => {
   open.value = false
+  authed.value = isAuthenticated()
 })
 
 onMounted(() => window.addEventListener('scroll', onScroll))

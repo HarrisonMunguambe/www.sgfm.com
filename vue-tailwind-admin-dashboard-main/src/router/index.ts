@@ -54,17 +54,12 @@ const router = createRouter({
     {
       path: '/dashboard',
       name: 'Dashboard',
-      component: () => import('@/views/Dashboard/Welcome.vue'),
+      component: () => import('@/views/Ecommerce.vue'),
       meta: { title: 'Dashboard', requiresAuth: true },
     },
 
     // ---- Admin template routes (kept for future use, all protected) ----
-    {
-      path: '/dashboard/ecommerce',
-      name: 'Ecommerce',
-      component: () => import('@/views/Ecommerce.vue'),
-      meta: { title: 'eCommerce', requiresAuth: true },
-    },
+    { path: '/dashboard/ecommerce', redirect: '/dashboard' },
     {
       path: '/dashboard/calendar',
       name: 'Calendar',

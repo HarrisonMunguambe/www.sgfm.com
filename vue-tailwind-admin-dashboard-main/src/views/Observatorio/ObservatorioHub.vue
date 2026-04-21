@@ -18,7 +18,7 @@
           class="mb-5 flex items-center gap-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400 flex-wrap"
         >
           <router-link to="/" class="hover:text-sky-600 dark:hover:text-cyan-300 transition">
-            Landing
+            Início
           </router-link>
           <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
             <path d="M7 4l6 6-6 6V4z" />

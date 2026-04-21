@@ -29,7 +29,7 @@
             <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
               <path d="M17 10H5l4-4-1.4-1.4L1.2 11l6.4 6.4L9 16l-4-4h12z" />
             </svg>
-            Voltar à landing
+            Voltar ao início
           </router-link>
           <ThemeToggle />
         </div>

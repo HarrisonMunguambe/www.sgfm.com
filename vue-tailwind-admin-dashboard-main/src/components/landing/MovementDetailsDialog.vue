@@ -3,152 +3,158 @@
     <transition name="dlg-overlay">
       <div
         v-if="open && movement"
-        class="fixed inset-0 z-[9000] flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm"
+        class="fixed inset-0 z-[9000] overflow-y-auto bg-slate-900/50 backdrop-blur-sm"
         @click.self="$emit('close')"
       >
-        <transition name="dlg-card" appear>
-          <div
-            v-if="open"
-            class="relative w-full max-w-xl rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_40px_80px_-20px_rgba(15,23,42,0.25)] overflow-hidden"
-          >
-            <!-- Header neon accent -->
+        <div
+          class="min-h-full flex items-center justify-center p-4 sm:p-6"
+          @click.self="$emit('close')"
+        >
+          <transition name="dlg-card" appear>
             <div
-              :class="[
-                'h-1.5 w-full',
-                movement.type === 'in'
-                  ? 'bg-gradient-to-r from-emerald-400 to-teal-500'
-                  : 'bg-gradient-to-r from-rose-500 to-orange-500',
-              ]"
-            ></div>
+              v-if="open"
+              class="relative w-full max-w-3xl my-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 shadow-[0_40px_80px_-20px_rgba(15,23,42,0.25)] overflow-hidden"
+            >
+              <!-- Header neon accent -->
+              <div
+                :class="[
+                  'h-1.5 w-full',
+                  movement.type === 'in'
+                    ? 'bg-gradient-to-r from-emerald-400 to-teal-500'
+                    : 'bg-gradient-to-r from-rose-500 to-orange-500',
+                ]"
+              ></div>
 
-            <div class="p-6 sm:p-8">
-              <!-- Top row: close + status -->
-              <div class="flex items-start justify-between mb-6">
-                <div class="flex items-center gap-3">
-                  <div
-                    :class="[
-                      'h-12 w-12 rounded-xl flex items-center justify-center',
-                      movement.type === 'in'
-                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
-                        : 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300',
-                    ]"
-                  >
-                    <svg
-                      v-if="movement.type === 'in'"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M10 4v10l4-4 1.4 1.4L10 17 4.6 11.4 6 10l4 4V4z" />
-                    </svg>
-                    <svg
-                      v-else
-                      width="22"
-                      height="22"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path d="M10 16V6l4 4 1.4-1.4L10 3 4.6 8.6 6 10l4-4v10z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="text-xs font-medium uppercase tracking-widest text-slate-500">
-                      {{ movement.type === 'in' ? 'Entrada de fundo' : 'Despesa aprovada' }}
-                    </div>
-                    <div class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white">
-                      {{ movement.description }}
-                    </div>
-                  </div>
-                </div>
-                <button
-                  @click="$emit('close')"
-                  class="h-9 w-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/5 transition"
-                  aria-label="Fechar"
-                >
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                      d="M6.7 5.3L5.3 6.7 8.6 10l-3.3 3.3 1.4 1.4L10 11.4l3.3 3.3 1.4-1.4L11.4 10l3.3-3.3-1.4-1.4L10 8.6z"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <!-- Amount -->
-              <div class="rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 p-5 mb-6">
-                <div class="flex items-end justify-between flex-wrap gap-2">
-                  <div>
-                    <div class="text-xs uppercase tracking-widest text-slate-500">Valor</div>
+              <div class="p-6 sm:p-8">
+                <!-- Top row: close + status -->
+                <div class="flex items-start justify-between mb-6">
+                  <div class="flex items-center gap-3">
                     <div
                       :class="[
-                        'mt-1 text-3xl sm:text-4xl font-bold tracking-tight tabular-nums',
+                        'h-12 w-12 rounded-xl flex items-center justify-center',
                         movement.type === 'in'
-                          ? 'text-emerald-600 dark:text-emerald-400'
-                          : 'text-rose-600 dark:text-rose-400',
+                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300'
+                          : 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300',
                       ]"
                     >
-                      {{ movement.type === 'in' ? '+' : '−' }}{{ formatMZN(movement.amount) }}
+                      <svg
+                        v-if="movement.type === 'in'"
+                        width="22"
+                        height="22"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M10 4v10l4-4 1.4 1.4L10 17 4.6 11.4 6 10l4 4V4z" />
+                      </svg>
+                      <svg v-else width="22" height="22" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10 16V6l4 4 1.4-1.4L10 3 4.6 8.6 6 10l4-4v10z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div class="text-xs font-medium uppercase tracking-widest text-slate-500">
+                        {{ movement.type === 'in' ? 'Entrada de fundo' : 'Despesa aprovada' }}
+                      </div>
+                      <div class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white">
+                        {{ movement.description }}
+                      </div>
                     </div>
                   </div>
-                  <span
-                    :class="[
-                      'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border',
-                      details.status === 'Aprovado'
-                        ? 'text-emerald-700 border-emerald-300 bg-emerald-50 dark:text-emerald-300 dark:border-emerald-400/30 dark:bg-emerald-500/10'
-                        : 'text-amber-700 border-amber-300 bg-amber-50 dark:text-amber-300 dark:border-amber-400/30 dark:bg-amber-500/10',
-                    ]"
+                  <button
+                    @click="$emit('close')"
+                    class="h-9 w-9 rounded-lg flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/5 transition"
+                    aria-label="Fechar"
                   >
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+                      <path
+                        d="M6.7 5.3L5.3 6.7 8.6 10l-3.3 3.3 1.4 1.4L10 11.4l3.3 3.3 1.4-1.4L11.4 10l3.3-3.3-1.4-1.4L10 8.6z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Amount -->
+                <div
+                  class="rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 p-5 mb-6"
+                >
+                  <div class="flex items-end justify-between flex-wrap gap-2">
+                    <div>
+                      <div class="text-xs uppercase tracking-widest text-slate-500">Valor</div>
+                      <div
+                        :class="[
+                          'mt-1 text-3xl sm:text-4xl font-bold tracking-tight tabular-nums',
+                          movement.type === 'in'
+                            ? 'text-emerald-600 dark:text-emerald-400'
+                            : 'text-rose-600 dark:text-rose-400',
+                        ]"
+                      >
+                        {{ movement.type === 'in' ? '+' : '−' }}{{ formatMZN(movement.amount) }}
+                      </div>
+                    </div>
                     <span
                       :class="[
-                        'h-1.5 w-1.5 rounded-full',
-                        details.status === 'Aprovado' ? 'bg-emerald-500' : 'bg-amber-500',
+                        'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border',
+                        details.status === 'Aprovado'
+                          ? 'text-emerald-700 border-emerald-300 bg-emerald-50 dark:text-emerald-300 dark:border-emerald-400/30 dark:bg-emerald-500/10'
+                          : 'text-amber-700 border-amber-300 bg-amber-50 dark:text-amber-300 dark:border-amber-400/30 dark:bg-amber-500/10',
                       ]"
-                    ></span>
-                    {{ details.status }}
-                  </span>
+                    >
+                      <span
+                        :class="[
+                          'h-1.5 w-1.5 rounded-full',
+                          details.status === 'Aprovado' ? 'bg-emerald-500' : 'bg-amber-500',
+                        ]"
+                      ></span>
+                      {{ details.status }}
+                    </span>
+                  </div>
+
+                  <!-- Mini breakdown -->
+                  <div class="mt-5 grid grid-cols-3 gap-3">
+                    <div>
+                      <div class="text-[10px] uppercase tracking-widest text-slate-500">
+                        Subtotal
+                      </div>
+                      <div
+                        class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums"
+                      >
+                        {{ formatMZN(details.subtotal) }}
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-widest text-slate-500">
+                        IVA (17%)
+                      </div>
+                      <div
+                        class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums"
+                      >
+                        {{ formatMZN(details.tax) }}
+                      </div>
+                    </div>
+                    <div>
+                      <div class="text-[10px] uppercase tracking-widest text-slate-500">Total</div>
+                      <div
+                        class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums"
+                      >
+                        {{ formatMZN(movement.amount) }}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- Mini breakdown -->
-                <div class="mt-5 grid grid-cols-3 gap-3">
-                  <div>
-                    <div class="text-[10px] uppercase tracking-widest text-slate-500">
-                      Subtotal
-                    </div>
-                    <div class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums">
-                      {{ formatMZN(details.subtotal) }}
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-[10px] uppercase tracking-widest text-slate-500">
-                      IVA (17%)
-                    </div>
-                    <div class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums">
-                      {{ formatMZN(details.tax) }}
-                    </div>
-                  </div>
-                  <div>
-                    <div class="text-[10px] uppercase tracking-widest text-slate-500">Total</div>
-                    <div class="mt-0.5 text-sm font-semibold text-slate-900 dark:text-white tabular-nums">
-                      {{ formatMZN(movement.amount) }}
-                    </div>
-                  </div>
+                <!-- Details grid -->
+                <div class="grid sm:grid-cols-2 gap-3 mb-6">
+                  <DetailRow label="Referência" :value="details.ref" mono />
+                  <DetailRow label="Data / Hora" :value="details.datetime" />
+                  <DetailRow label="Departamento" :value="movement.dept" />
+                  <DetailRow label="Categoria" :value="details.category" />
+                  <DetailRow label="Solicitante" :value="details.requester" />
+                  <DetailRow label="Aprovador" :value="details.approver" />
+                  <DetailRow label="Método" :value="details.method" />
+                  <DetailRow label="Fornecedor / Contraparte" :value="details.counterpart" />
                 </div>
-              </div>
 
-              <!-- Details grid -->
-              <div class="grid sm:grid-cols-2 gap-3 mb-6">
-                <DetailRow label="Referência" :value="details.ref" mono />
-                <DetailRow label="Data / Hora" :value="details.datetime" />
-                <DetailRow label="Departamento" :value="movement.dept" />
-                <DetailRow label="Categoria" :value="details.category" />
-                <DetailRow label="Solicitante" :value="details.requester" />
-                <DetailRow label="Aprovador" :value="details.approver" />
-                <DetailRow label="Método" :value="details.method" />
-                <DetailRow label="Fornecedor / Contraparte" :value="details.counterpart" />
-              </div>
-
-              <!-- Audit trail -->
-              <div class="mb-6">
+                <!-- Audit trail -->
+                <!-- <div class="mb-6">
                 <div class="text-xs uppercase tracking-widest text-slate-500 mb-3">
                   Trilha de auditoria
                 </div>
@@ -182,45 +188,40 @@
                     </div>
                   </li>
                 </ol>
-              </div>
+              </div> -->
 
-              <!-- Actions -->
-              <div class="flex flex-wrap gap-3 justify-end">
-                <button
-                  @click="$emit('close')"
-                  class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10 transition"
-                >
-                  Fechar
-                </button>
-                <button
-                  class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 inline-flex items-center gap-2 dark:text-slate-200 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10 transition"
-                >
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                    <path
-                      d="M10 2a1 1 0 011 1v8.6l2.3-2.3 1.4 1.4L10 15.4 5.3 10.7l1.4-1.4L9 11.6V3a1 1 0 011-1zm-7 14h14v2H3v-2z"
-                    />
-                  </svg>
-                  Exportar PDF
-                </button>
-                <button
-                  class="px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-6px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-4px_rgba(139,92,246,0.65)] hover:-translate-y-0.5 inline-flex items-center gap-2 transition"
-                >
-                  Ver requisição
-                  <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M7 4l6 6-6 6V4z" />
-                  </svg>
-                </button>
+                <!-- Actions -->
+                <div class="flex flex-wrap gap-3 justify-end">
+                  <button
+                    class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 inline-flex items-center gap-2 dark:text-slate-200 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10 transition"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                      <path
+                        d="M10 2a1 1 0 011 1v8.6l2.3-2.3 1.4 1.4L10 15.4 5.3 10.7l1.4-1.4L9 11.6V3a1 1 0 011-1zm-7 14h14v2H3v-2z"
+                      />
+                    </svg>
+                    Exportar PDF
+                  </button>
+                  <button
+                    class="px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-6px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-4px_rgba(139,92,246,0.65)] hover:-translate-y-0.5 inline-flex items-center gap-2 transition"
+                  >
+                    Ver requisição
+                    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M7 4l6 6-6 6V4z" />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        </transition>
+          </transition>
+        </div>
       </div>
     </transition>
   </teleport>
 </template>
 
 <script setup lang="ts">
-import { computed, h, defineComponent } from 'vue'
+import { computed, h, defineComponent, watch, onBeforeUnmount } from 'vue'
 
 interface Movement {
   key: number
@@ -238,6 +239,31 @@ const props = defineProps<{
 
 defineEmits<{ (e: 'close'): void }>()
 
+function lockScroll(lock: boolean) {
+  if (typeof document === 'undefined') return
+  const body = document.body
+  if (lock) {
+    const sbw = window.innerWidth - document.documentElement.clientWidth
+    body.dataset.prevOverflow = body.style.overflow
+    body.dataset.prevPaddingRight = body.style.paddingRight
+    body.style.overflow = 'hidden'
+    if (sbw > 0) body.style.paddingRight = `${sbw}px`
+  } else {
+    body.style.overflow = body.dataset.prevOverflow || ''
+    body.style.paddingRight = body.dataset.prevPaddingRight || ''
+    delete body.dataset.prevOverflow
+    delete body.dataset.prevPaddingRight
+  }
+}
+
+watch(
+  () => props.open,
+  (v) => lockScroll(v),
+  { immediate: true },
+)
+
+onBeforeUnmount(() => lockScroll(false))
+
 const DetailRow = defineComponent({
   props: {
     label: { type: String, required: true },
@@ -253,11 +279,7 @@ const DetailRow = defineComponent({
             'rounded-lg bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 px-3 py-2.5',
         },
         [
-          h(
-            'div',
-            { class: 'text-[10px] uppercase tracking-widest text-slate-500' },
-            p.label,
-          ),
+          h('div', { class: 'text-[10px] uppercase tracking-widest text-slate-500' }, p.label),
           h(
             'div',
             {
@@ -289,7 +311,12 @@ const requesters = [
   'Jorge Sitoe',
 ]
 const approvers = ['Dir. Financeira', 'CFO', 'Gestor de Fundo', 'Tesoureiro']
-const methods = ['Caixa pequena', 'Transferência interbancária', 'M-Pesa empresarial', 'Cartão corporativo']
+const methods = [
+  'Caixa pequena',
+  'Transferência interbancária',
+  'M-Pesa empresarial',
+  'Cartão corporativo',
+]
 const counterparts = [
   'Papelaria Escolar, Lda',
   'Petromoc',
@@ -300,7 +327,13 @@ const counterparts = [
   'Restaurante Zambi',
 ]
 const categoriesIn = ['Reposição de caixa', 'Devolução de adiantamento', 'Reembolso interno']
-const categoriesOut = ['Material de escritório', 'Combustível', 'Deslocação', 'Serviços', 'Representação']
+const categoriesOut = [
+  'Material de escritório',
+  'Combustível',
+  'Deslocação',
+  'Serviços',
+  'Representação',
+]
 
 const details = computed(() => {
   const m = props.movement

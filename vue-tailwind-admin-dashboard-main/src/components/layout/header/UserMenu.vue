@@ -8,7 +8,7 @@
         <img src="/images/user/usuario.png" alt="User" />
       </span>
 
-      <span class="block mr-1 font-medium text-theme-sm">Musharof </span>
+      <span class="block mr-1 font-medium text-theme-sm">{{ displayFirstName }}</span>
 
       <ChevronDownIcon :class="{ 'rotate-180': dropdownOpen }" />
     </button>
@@ -20,10 +20,10 @@
     >
       <div>
         <span class="block font-medium text-gray-700 text-theme-sm dark:text-gray-400">
-          Musharof Chowdhury
+          {{ displayName }}
         </span>
         <span class="mt-0.5 block text-theme-xs text-gray-500 dark:text-gray-400">
-          randomuser@pimjo.com
+          {{ displayEmail }}
         </span>
       </div>
 
@@ -42,16 +42,17 @@
           </router-link>
         </li>
       </ul>
-      <router-link
-        to="/signin"
+      <button
+        type="button"
         @click="signOut"
-        class="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+        :disabled="loggingOut"
+        class="flex items-center gap-3 px-3 py-2 mt-3 font-medium text-gray-700 rounded-lg group text-theme-sm hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300 disabled:opacity-60 w-full text-left"
       >
         <LogoutIcon
           class="text-gray-500 group-hover:text-gray-700 dark:group-hover:text-gray-300"
         />
-        Sign out
-      </router-link>
+        {{ loggingOut ? 'A sair…' : 'Sair' }}
+      </button>
     </div>
     <!-- Dropdown End -->
   </div>
@@ -59,16 +60,24 @@
 
 <script setup>
 import { UserCircleIcon, ChevronDownIcon, LogoutIcon, SettingsIcon, InfoCircleIcon } from '@/icons'
-import { RouterLink } from 'vue-router'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { getStoredUser, logout } from '@/services/auth'
 
+const router = useRouter()
 const dropdownOpen = ref(false)
 const dropdownRef = ref(null)
+const loggingOut = ref(false)
+
+const storedUser = computed(() => getStoredUser())
+const displayName = computed(() => storedUser.value?.name || 'Utilizador SGFM')
+const displayFirstName = computed(() => (displayName.value || '').split(' ')[0])
+const displayEmail = computed(() => storedUser.value?.email || '')
 
 const menuItems = [
-  { href: '/profile', icon: UserCircleIcon, text: 'Edit profile' },
-  { href: '/chat', icon: SettingsIcon, text: 'Account settings' },
-  { href: '/profile', icon: InfoCircleIcon, text: 'Support' },
+  { href: '/dashboard/profile', icon: UserCircleIcon, text: 'Perfil' },
+  { href: '/dashboard/profile', icon: SettingsIcon, text: 'Definições' },
+  { href: '/dashboard/profile', icon: InfoCircleIcon, text: 'Suporte' },
 ]
 
 const toggleDropdown = () => {
@@ -79,10 +88,16 @@ const closeDropdown = () => {
   dropdownOpen.value = false
 }
 
-const signOut = () => {
-  // Implement sign out logic here
-  console.log('Signing out...')
-  closeDropdown()
+const signOut = async () => {
+  if (loggingOut.value) return
+  loggingOut.value = true
+  try {
+    await logout()
+  } finally {
+    loggingOut.value = false
+    closeDropdown()
+    router.push('/')
+  }
 }
 
 const handleClickOutside = (event) => {
