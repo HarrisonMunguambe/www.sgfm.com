@@ -3,9 +3,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
         <div>
-          <p
-            class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase"
-          >
+          <p class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase">
             Observatório Financeiro
           </p>
           <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
@@ -13,9 +11,18 @@
             <span class="sgfm-gradient-text">não pode ignorar</span>
           </h2>
         </div>
-        <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-          <span class="sgfm-ticker-dot"></span>
-          Atualizado {{ lastUpdate }}
+        <div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
+          <span class="inline-flex items-center gap-2">
+            <span class="sgfm-ticker-dot"></span>
+            Atualizado {{ lastUpdate }}
+          </span>
+          <span class="hidden sm:inline-block h-3 w-px bg-slate-300 dark:bg-white/15"></span>
+          <span class="inline-flex items-center gap-1.5">
+            <b class="text-slate-700 dark:text-slate-200 font-semibold tabular-nums">{{
+              totalInsights
+            }}</b>
+            análises disponíveis
+          </span>
         </div>
       </div>
 
@@ -51,7 +58,9 @@
           </p>
 
           <!-- Divider pushes footer to the bottom consistently -->
-          <div class="mt-5 pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between mt-auto">
+          <div
+            class="mt-5 pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between mt-auto"
+          >
             <span class="text-xs text-slate-500">{{ n.source }}</span>
             <router-link
               :to="`/observatorio/${n.slug}`"
@@ -67,7 +76,7 @@
       </div>
 
       <!-- Prominent centered CTA to explore the full Observatório -->
-      <div class="mt-12 sm:mt-14 flex flex-col items-center gap-3">
+      <div class="mt-12 sm:mt-14 flex justify-center">
         <router-link
           to="/observatorio"
           class="group inline-flex items-center justify-center gap-2.5 px-7 sm:px-8 py-3.5 rounded-xl text-sm sm:text-base font-semibold text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-500 shadow-[0_15px_35px_-10px_rgba(79,70,229,0.55)] hover:shadow-[0_18px_40px_-6px_rgba(139,92,246,0.65)] hover:-translate-y-0.5 transition-all"
@@ -83,9 +92,6 @@
             <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
           </svg>
         </router-link>
-        <span class="text-xs text-slate-500 dark:text-slate-400">
-          {{ totalInsights }} análises disponíveis no Observatório Financeiro
-        </span>
       </div>
     </div>
   </section>
