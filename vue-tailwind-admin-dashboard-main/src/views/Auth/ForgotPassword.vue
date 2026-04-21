@@ -17,9 +17,11 @@
       </div>
 
       <!-- RIGHT — form -->
-      <div class="relative flex items-center justify-center px-4 py-20 sm:p-10">
-        <div class="absolute top-4 right-4 sm:top-5 sm:right-5 flex items-center gap-2 sm:gap-3">
-          <ThemeToggle />
+      <div class="relative flex flex-col">
+        <!-- Top bar (in-flow to prevent overlap with stepper/form content) -->
+        <div
+          class="flex items-center justify-end gap-3 px-4 sm:px-6 lg:px-10 pt-4 sm:pt-5 lg:pt-6"
+        >
           <router-link
             to="/login"
             class="hidden sm:inline-flex items-center gap-2 text-slate-500 hover:text-sky-600 dark:text-slate-400 dark:hover:text-cyan-300 transition text-sm"
@@ -29,8 +31,13 @@
             </svg>
             Voltar ao login
           </router-link>
+          <ThemeToggle />
         </div>
 
+        <!-- Content centered in remaining vertical space -->
+        <div
+          class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-10 py-8 sm:py-10"
+        >
         <div class="w-full max-w-md sgfm-rise">
           <router-link to="/" class="inline-flex items-center gap-2 mb-6 lg:hidden">
             <div
@@ -206,6 +213,7 @@
               </form>
             </div>
           </transition>
+        </div>
         </div>
       </div>
     </div>

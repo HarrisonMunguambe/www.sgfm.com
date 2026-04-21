@@ -51,10 +51,10 @@
             </transition>
           </div>
 
-          <div class="mt-2.5 hidden sm:block">
+          <div class="mt-2.5 hidden sm:block text-center">
             <div
               :class="[
-                'text-xs font-semibold transition-colors',
+                'text-xs font-semibold transition-colors whitespace-nowrap',
                 i + 1 <= current
                   ? 'text-slate-900 dark:text-white'
                   : 'text-slate-400 dark:text-slate-500',
@@ -65,7 +65,7 @@
             <div
               v-if="s.hint"
               :class="[
-                'text-[10px] mt-0.5 transition-colors',
+                'hidden xl:block text-[10px] mt-0.5 transition-colors whitespace-nowrap',
                 i + 1 <= current
                   ? 'text-slate-500 dark:text-slate-400'
                   : 'text-slate-400 dark:text-slate-600',
