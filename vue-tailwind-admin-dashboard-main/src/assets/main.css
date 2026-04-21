@@ -758,3 +758,187 @@ span.flatpickr-weekday,
 .edit-button {
   @apply flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto;
 }
+
+/* ========================================================================
+   SGFM — Light fintech theme with neon accents + glassmorphism
+   Uses the app's existing ThemeProvider: default light, `dark` class for dark.
+   ======================================================================== */
+
+.sgfm-surface {
+  background:
+    radial-gradient(1000px 500px at 12% -10%, rgba(99, 102, 241, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 5%, rgba(0, 242, 254, 0.10), transparent 60%),
+    radial-gradient(1100px 700px at 50% 120%, rgba(139, 92, 246, 0.08), transparent 60%),
+    #f8fafc;
+  color: #0f172a;
+  min-height: 100vh;
+  /* clip decorative blobs that extend beyond the viewport — no horizontal scroll */
+  overflow-x: clip;
+}
+.dark .sgfm-surface {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(99, 102, 241, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, rgba(0, 242, 254, 0.18), transparent 60%),
+    radial-gradient(1000px 600px at 50% 120%, rgba(139, 92, 246, 0.22), transparent 60%),
+    #0a0a0f;
+  color: #f8fafc;
+}
+
+.sgfm-grid-bg {
+  background-image:
+    linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 116, 139, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+.dark .sgfm-grid-bg {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+}
+
+.sgfm-gradient-text {
+  background: linear-gradient(120deg, #0ea5e9 0%, #4f46e5 45%, #8b5cf6 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.dark .sgfm-gradient-text {
+  background: linear-gradient(120deg, #00f2fe 0%, #4facfe 40%, #8b5cf6 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.sgfm-glass {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+.dark .sgfm-glass {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: none;
+}
+
+.sgfm-neon-cyan {
+  box-shadow:
+    0 0 14px rgba(14, 165, 233, 0.20),
+    0 10px 30px -12px rgba(14, 165, 233, 0.35);
+}
+.dark .sgfm-neon-cyan {
+  box-shadow:
+    0 0 18px rgba(0, 242, 254, 0.35),
+    0 0 40px -10px rgba(0, 242, 254, 0.45);
+}
+
+.sgfm-neon-violet {
+  box-shadow:
+    0 0 14px rgba(139, 92, 246, 0.20),
+    0 10px 30px -12px rgba(139, 92, 246, 0.35);
+}
+.dark .sgfm-neon-violet {
+  box-shadow:
+    0 0 18px rgba(139, 92, 246, 0.35),
+    0 0 40px -10px rgba(139, 92, 246, 0.45);
+}
+
+@keyframes sgfm-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.sgfm-float { animation: sgfm-float 5s ease-in-out infinite; }
+
+@keyframes sgfm-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+.sgfm-pulse { animation: sgfm-pulse 2.5s ease-in-out infinite; }
+
+@keyframes sgfm-shimmer {
+  0% { background-position: -400% 0; }
+  100% { background-position: 400% 0; }
+}
+.sgfm-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(14, 165, 233, 0.35),
+    rgba(139, 92, 246, 0.35),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: sgfm-shimmer 3s linear infinite;
+}
+
+@keyframes sgfm-typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+@keyframes sgfm-caret {
+  50% { border-color: transparent; }
+}
+.sgfm-typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #0ea5e9;
+  animation:
+    sgfm-typewriter 3s steps(40, end) forwards,
+    sgfm-caret 0.9s step-end infinite;
+}
+.dark .sgfm-typewriter {
+  border-right-color: #00f2fe;
+}
+
+@keyframes sgfm-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sgfm-rise { animation: sgfm-rise 0.7s ease-out both; }
+.sgfm-rise.delay-1 { animation-delay: 0.12s; }
+.sgfm-rise.delay-2 { animation-delay: 0.24s; }
+.sgfm-rise.delay-3 { animation-delay: 0.36s; }
+.sgfm-rise.delay-4 { animation-delay: 0.48s; }
+
+.sgfm-step-dot {
+  @apply inline-flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold;
+}
+
+.sgfm-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 163, 184, 0.5),
+    transparent
+  );
+}
+.dark .sgfm-divider {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(148, 163, 184, 0.3),
+    transparent
+  );
+}
+
+/* Split auth layout — brand panel left, form right */
+.sgfm-brand-panel {
+  background:
+    radial-gradient(600px 400px at 20% 20%, rgba(14, 165, 233, 0.45), transparent 60%),
+    radial-gradient(700px 500px at 90% 80%, rgba(139, 92, 246, 0.55), transparent 60%),
+    linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+}
+
+.sgfm-ticker-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: #10b981;
+  box-shadow: 0 0 12px #10b981;
+  animation: sgfm-pulse 1.8s ease-in-out infinite;
+}
