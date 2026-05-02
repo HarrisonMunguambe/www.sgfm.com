@@ -5,12 +5,12 @@
       <div class="hidden lg:block">
         <AuthBrandPanel
           tag="Recuperar acesso"
-          title="Esqueceu a senha?"
-          titleAccent="Sem stress."
-          description="Em três passos rápidos volta a ter acesso ao seu SGFM. Tudo seguro: verificação por OTP e auditoria completa."
+          title="Esqueceu a palavra-passe?"
+          titleAccent="Sem preocupações."
+          description="Em três passos simples volta a ter acesso ao seu SGFM. Processo seguro: verificação por OTP e auditoria completa."
           :bullets="[
-            'Código de verificação por email e SMS',
-            'Política de senhas robusta com validação em tempo real',
+            'Código de verificação por e-mail e SMS',
+            'Política de palavras-passe robusta, com validação em tempo real',
             'A sua conta mantém-se auditada em cada passo',
           ]"
         />
@@ -39,13 +39,8 @@
           class="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-10 py-8 sm:py-10"
         >
         <div class="w-full max-w-md sgfm-rise">
-          <router-link to="/" class="inline-flex items-center gap-2 mb-6 lg:hidden">
-            <div
-              class="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white"
-            >
-              S
-            </div>
-            <span class="text-slate-900 dark:text-white font-semibold text-lg">SGFM</span>
+          <router-link to="/" class="inline-flex items-center mb-6 lg:hidden">
+            <AppLogo full imgClass="h-10 w-auto max-w-[180px]" :width="150" :height="40" />
           </router-link>
 
           <AuthStepper :steps="stepperSteps" :current="step" class="mb-10" />
@@ -54,9 +49,9 @@
             <!-- STEP 1: email -->
             <div v-if="step === 1" key="1">
               <div class="mb-6">
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Esqueceu a senha?</h1>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Esqueceu a palavra-passe?</h1>
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
-                  Informe o email associado à sua conta e enviaremos um código de recuperação.
+                  Indique o e-mail associado à sua conta e enviaremos um código de recuperação.
                 </p>
               </div>
 
@@ -64,7 +59,7 @@
                 <InputNeon
                   id="fp-email"
                   v-model="email"
-                  label="Email"
+                  label="E-mail"
                   type="email"
                   :error="emailError"
                   required
@@ -82,7 +77,7 @@
                     to="/login"
                     class="text-sky-600 hover:text-sky-700 dark:text-cyan-300 dark:hover:text-cyan-200 font-medium ml-1"
                   >
-                    Entrar
+                    Iniciar sessão
                   </router-link>
                 </p>
               </form>
@@ -109,7 +104,7 @@
                   >. Válido por 10 minutos.
                 </p>
                 <p class="mt-2 text-xs text-sky-600 dark:text-cyan-300/80">
-                  Dica de teste: use <b>123456</b>
+                  Sugestão de teste: use <b>123456</b>
                 </p>
               </div>
 
@@ -137,7 +132,7 @@
                     class="hover:text-sky-600 dark:hover:text-cyan-300 transition"
                     @click="step = 1"
                   >
-                    ← Alterar email
+                    ← Alterar e-mail
                   </button>
                   <button
                     type="button"
@@ -162,7 +157,7 @@
                     />
                   </svg>
                 </div>
-                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Definir nova senha</h1>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Definir nova palavra-passe</h1>
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
                   Crie uma palavra-passe forte que ainda não tenha usado antes.
                 </p>
@@ -190,10 +185,10 @@
                   @blur="validateNew('confirmPassword')"
                 />
 
-                <!-- Força da senha -->
+                <!-- Força da palavra-passe -->
                 <div class="pt-1">
                   <div class="flex items-center justify-between text-xs mb-1.5">
-                    <span class="text-slate-600 dark:text-slate-400">Força da senha</span>
+                    <span class="text-slate-600 dark:text-slate-400">Força da palavra-passe</span>
                     <span :class="['font-medium', strengthLabel.color]">
                       {{ strengthLabel.text }}
                     </span>
@@ -231,6 +226,7 @@ import ToastContainer from '@/components/neon/ToastContainer.vue'
 import AuthBrandPanel from '@/components/landing/AuthBrandPanel.vue'
 import AuthStepper from '@/components/landing/AuthStepper.vue'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
+import AppLogo from '@/components/common/AppLogo.vue'
 import InputOtp from 'primevue/inputotp'
 import { useToast } from '@/composables/useToast'
 
@@ -245,7 +241,7 @@ const loading = ref(false)
 
 const stepperSteps = [
   {
-    label: 'Email',
+    label: 'E-mail',
     hint: 'Identifique-se',
     icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M3 4h14a1 1 0 011 1v10a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1zm1 2v8h12V6H4zm6 3l4-2H6l4 2z"/></svg>',
   },
@@ -255,7 +251,7 @@ const stepperSteps = [
     icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a5 5 0 00-5 5v2H4a1 1 0 00-1 1v7a1 1 0 001 1h12a1 1 0 001-1v-7a1 1 0 00-1-1h-1V7a5 5 0 00-5-5zm0 2a3 3 0 013 3v2H7V7a3 3 0 013-3z"/></svg>',
   },
   {
-    label: 'Nova senha',
+    label: 'Nova palavra-passe',
     hint: 'Defina nova',
     icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M8 13.2L4.8 10l-1.4 1.4L8 16l9-9-1.4-1.4z"/></svg>',
   },
@@ -265,8 +261,8 @@ const stepperSteps = [
 const email = ref('')
 const emailError = ref<string | undefined>()
 function validateEmail() {
-  if (!email.value) emailError.value = 'Informe o email'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) emailError.value = 'Email inválido'
+  if (!email.value) emailError.value = 'Indique o e-mail'
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) emailError.value = 'E-mail inválido'
   else emailError.value = undefined
 }
 
@@ -276,7 +272,7 @@ async function submitEmail() {
   loading.value = true
   try {
     await wait(700)
-    toast.success('Código enviado', 'Verifique o seu email e SMS')
+    toast.success('Código enviado', 'Verifique o seu e-mail e SMS.')
     step.value = 2
   } finally {
     loading.value = false
@@ -307,7 +303,7 @@ async function submitOtp() {
 }
 
 function resend() {
-  toast.info('Código reenviado', 'Verifique novamente email e SMS')
+  toast.info('Código reenviado', 'Verifique novamente o e-mail e SMS.')
 }
 
 // ---------- STEP 3: new password ----------
@@ -378,7 +374,7 @@ async function submitNewPassword() {
   loading.value = true
   try {
     await wait(800)
-    toast.success('Palavra-passe redefinida', 'Pode agora entrar com a nova senha')
+    toast.success('Palavra-passe redefinida', 'Pode agora iniciar sessão com a nova palavra-passe.')
     setTimeout(() => router.push('/login'), 600)
   } finally {
     loading.value = false

@@ -4,7 +4,7 @@
       v-if="show"
       @click="scrollTop"
       title="Voltar ao topo"
-      class="fixed bottom-6 right-6 z-40 h-12 w-12 rounded-full flex items-center justify-center text-white bg-gradient-to-br from-sky-500 to-indigo-600 shadow-[0_12px_30px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_15px_35px_-5px_rgba(139,92,246,0.65)] hover:-translate-y-1 transition-all"
+      class="group fixed bottom-24 right-6 z-40 h-12 w-12 rounded-full flex items-center justify-center text-white bg-gradient-to-br from-sky-500 to-indigo-600 shadow-[0_12px_30px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_15px_35px_-5px_rgba(139,92,246,0.65)] hover:-translate-y-1 transition-all"
       aria-label="Voltar ao topo"
     >
       <span

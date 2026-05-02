@@ -11,12 +11,12 @@
     <!-- Top bar -->
     <div class="relative flex items-center justify-between gap-2 mb-6 sm:mb-8">
       <router-link to="/" class="flex items-center gap-2 min-w-0">
-        <div
-          class="h-9 w-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white shrink-0"
-        >
-          S
-        </div>
-        <span class="text-slate-900 dark:text-white font-semibold tracking-wide">SGFM</span>
+        <span class="sm:hidden shrink-0">
+          <AppLogo :full="false" imgClass="h-9 w-9" :width="32" :height="32" />
+        </span>
+        <span class="hidden sm:block shrink-0">
+          <AppLogo full imgClass="h-9 w-auto max-w-[160px]" :width="150" :height="40" />
+        </span>
         <span class="text-xs text-slate-500 ml-2 hidden sm:inline">Dashboard</span>
       </router-link>
 
@@ -104,6 +104,7 @@ import ToastContainer from '@/components/neon/ToastContainer.vue'
 import { useToast } from '@/composables/useToast'
 import { getStoredUser, logout } from '@/services/auth'
 import InfoRow from '@/components/neon/InfoRow.vue'
+import AppLogo from '@/components/common/AppLogo.vue'
 
 const router = useRouter()
 const toast = useToast()

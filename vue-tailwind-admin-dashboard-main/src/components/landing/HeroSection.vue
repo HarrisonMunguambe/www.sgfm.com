@@ -75,7 +75,7 @@
               d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
             />
           </svg>
-          99.98% uptime
+          99,98% de disponibilidade
         </div>
         <div class="flex items-center gap-2">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="#10b981">
@@ -83,7 +83,7 @@
               d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
             />
           </svg>
-          Conforme auditoria
+          Conforme os requisitos de auditoria
         </div>
       </div>
     </div>

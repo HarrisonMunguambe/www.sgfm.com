@@ -4,12 +4,9 @@
       <div class="grid md:grid-cols-4 gap-8 mb-10">
         <div>
           <div class="flex items-center gap-2 mb-4">
-            <div
-              class="h-9 w-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white"
-            >
-              S
-            </div>
-            <span class="text-slate-900 dark:text-white font-semibold">SGFM</span>
+            <router-link to="/" class="inline-flex items-center">
+              <AppLogo full imgClass="h-9 w-auto max-w-[160px]" :width="150" :height="40" />
+            </router-link>
           </div>
           <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
             Sistema de Gestão de Fundo de Maneio — controlo financeiro com IA para organizações
@@ -106,5 +103,7 @@
 </template>
 
 <script setup lang="ts">
+import AppLogo from '@/components/common/AppLogo.vue'
+
 const year = new Date().getFullYear()
 </script>

@@ -7,11 +7,12 @@
             Ao vivo
           </p>
           <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
-            Observe o seu fundo <span class="sgfm-gradient-text">a respirar</span>
+            Acompanhe o seu fundo <span class="sgfm-gradient-text">em tempo real</span>
           </h2>
           <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
-            Este não é um placeholder — é uma simulação real do painel do SGFM. Saldo atualiza,
-            movimentações chegam, alertas disparam. Imagine isto com os dados da sua empresa.
+            Isto não é apenas uma demonstração — é uma simulação real do painel do SGFM. O saldo é
+            atualizado, as movimentações chegam e os alertas são acionados. Imagine isto com os dados
+            da sua empresa.
           </p>
 
           <ul class="mt-6 space-y-3">

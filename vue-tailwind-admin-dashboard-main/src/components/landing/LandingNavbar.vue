@@ -11,12 +11,12 @@
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
     >
       <router-link to="/" class="flex items-center gap-2 shrink-0">
-        <div
-          class="h-9 w-9 rounded-lg bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white shadow-lg shadow-sky-500/20"
-        >
-          S
-        </div>
-        <span class="text-slate-900 dark:text-white font-semibold tracking-wide">SGFM</span>
+        <span class="sm:hidden">
+          <AppLogo :full="false" imgClass="h-9 w-9" :width="32" :height="32" />
+        </span>
+        <span class="hidden sm:block">
+          <AppLogo full imgClass="h-9 w-auto max-w-[160px]" :width="150" :height="40" />
+        </span>
       </router-link>
 
       <!-- Desktop nav links (>= lg) -->
@@ -55,13 +55,13 @@
             to="/login"
             class="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition px-3 py-2"
           >
-            Entrar
+            Iniciar sessão
           </router-link>
           <router-link
             to="/register"
             class="inline-flex items-center gap-1.5 text-sm font-medium text-white px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-5px_rgba(139,92,246,0.6)] hover:-translate-y-0.5 transition"
           >
-            Começar
+            Criar conta
             <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
               <path d="M7 4l6 6-6 6V4z" />
             </svg>
@@ -80,7 +80,7 @@
             to="/dashboard"
             class="inline-flex items-center gap-1.5 text-sm font-medium text-white px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-5px_rgba(139,92,246,0.6)] hover:-translate-y-0.5 transition"
           >
-            Ir para dashboard
+            Ir para o painel
             <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
               <path d="M7 4l6 6-6 6V4z" />
             </svg>
@@ -152,14 +152,14 @@
               @click="open = false"
               class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition"
             >
-              Entrar
+              Iniciar sessão
             </router-link>
             <router-link
               to="/register"
               @click="open = false"
               class="mt-1 inline-flex items-center justify-center gap-2 text-sm font-medium text-white px-4 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]"
             >
-              Começar agora
+              Criar conta
               <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M7 4l6 6-6 6V4z" />
               </svg>
@@ -179,7 +179,7 @@
               @click="open = false"
               class="mt-1 inline-flex items-center justify-center gap-2 text-sm font-medium text-white px-4 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]"
             >
-              Ir para dashboard
+              Ir para o painel
               <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M7 4l6 6-6 6V4z" />
               </svg>
@@ -196,6 +196,7 @@ import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
 import { isAuthenticated, logout } from '@/services/auth'
+import AppLogo from '@/components/common/AppLogo.vue'
 
 const scrolled = ref(false)
 const open = ref(false)

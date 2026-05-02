@@ -4,14 +4,14 @@
       <!-- LEFT — brand / storytelling -->
       <div class="hidden lg:block">
         <AuthBrandPanel
-          tag="Entre no SGFM"
+          tag="Inicie sessão no SGFM"
           title="Bem-vindo"
           titleAccent="de volta."
-          description="A sua organização confia no SGFM para controlar cada Metical do fundo de maneio. Em segundos, volta a ter visibilidade total."
+          description="A sua organização confia no SGFM para controlar cada metical do fundo de maneio. Em segundos, volta a ter visibilidade total."
           :bullets="[
             'Painel em tempo real com saldo e movimentações',
             'Aprovações com um clique em qualquer dispositivo',
-            'Auditoria completa e insights com IA incluídos',
+            'Auditoria completa e informações com IA incluídas',
           ]"
         />
       </div>
@@ -42,18 +42,13 @@
           <!-- Mobile logo -->
           <router-link
             to="/"
-            class="inline-flex items-center gap-2 mb-8 lg:hidden"
+            class="inline-flex items-center mb-8 lg:hidden"
           >
-            <div
-              class="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white"
-            >
-              S
-            </div>
-            <span class="text-slate-900 dark:text-white font-semibold text-lg">SGFM</span>
+            <AppLogo full imgClass="h-10 w-auto max-w-[180px]" :width="150" :height="40" />
           </router-link>
 
           <div class="mb-8">
-            <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Entrar na conta</h1>
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Iniciar sessão</h1>
             <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
               Introduza as suas credenciais para continuar.
             </p>
@@ -88,13 +83,13 @@
                 fill="#EB4335"
               />
             </svg>
-            Entrar com Google
+            Continuar com Google
           </button>
 
           <div class="flex items-center gap-3 my-6">
             <div class="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
             <span class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-              ou com email
+              ou com e-mail
             </span>
             <div class="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
           </div>
@@ -103,8 +98,8 @@
             <InputNeon
               id="login"
               v-model="form.login"
-              label="Email ou telefone"
-              placeholder="nome@empresa.com ou +258 ..."
+              label="E-mail ou telefone"
+              placeholder="nome@empresa.com ou +258…"
               :error="errors.login"
               required
               autocomplete="username"
@@ -132,23 +127,23 @@
                   type="checkbox"
                   class="h-4 w-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/50 dark:border-white/20 dark:bg-white/5 dark:text-cyan-400"
                 />
-                Manter sessão iniciada
+                Manter a sessão iniciada
               </label>
               <router-link
                 to="/forgot-password"
                 class="text-sky-600 hover:text-sky-700 dark:text-cyan-300 dark:hover:text-cyan-200 transition"
               >
-                Esqueceu a senha?
+                Esqueceu a palavra-passe?
               </router-link>
             </div>
 
             <ButtonNeon type="submit" block :loading="loading" variant="primary">
-              Entrar
+              Iniciar sessão
             </ButtonNeon>
           </form>
 
           <p class="mt-8 text-sm text-center text-slate-600 dark:text-slate-400">
-            Ainda não tem conta?
+            Ainda não tem uma conta?
             <router-link
               to="/register"
               class="text-sky-600 hover:text-sky-700 dark:text-cyan-300 dark:hover:text-cyan-200 font-medium ml-1"
@@ -173,6 +168,7 @@ import ButtonNeon from '@/components/neon/ButtonNeon.vue'
 import ToastContainer from '@/components/neon/ToastContainer.vue'
 import AuthBrandPanel from '@/components/landing/AuthBrandPanel.vue'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
+import AppLogo from '@/components/common/AppLogo.vue'
 import { useToast } from '@/composables/useToast'
 import { login as doLogin } from '@/services/auth'
 import { API_BASE_URL } from '@/services/api'
@@ -186,14 +182,14 @@ const loading = ref(false)
 
 function validateField(f: 'login' | 'password') {
   if (f === 'login') {
-    if (!form.login) errors.login = 'Informe o email ou telefone'
+    if (!form.login) errors.login = 'Indique o e-mail ou o telefone'
     else if (!/^([^\s@]+@[^\s@]+\.[^\s@]+|\+?\d[\d\s-]{5,})$/.test(form.login))
       errors.login = 'Formato inválido'
     else errors.login = undefined
   }
   if (f === 'password') {
     if (!form.password) errors.password = 'Informe a palavra-passe'
-    else if (form.password.length < 4) errors.password = 'Mínimo 4 caracteres'
+    else if (form.password.length < 4) errors.password = 'Mínimo de 4 caracteres'
     else errors.password = undefined
   }
 }
@@ -209,10 +205,10 @@ async function onSubmit() {
   loading.value = true
   try {
     await doLogin(form.login, form.password)
-    toast.success('Bem-vindo ao SGFM', 'Sessão iniciada com sucesso')
+    toast.success('Bem-vindo ao SGFM', 'Sessão iniciada com sucesso.')
     router.push('/dashboard')
   } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : 'Não foi possível iniciar sessão'
+    const msg = e instanceof Error ? e.message : 'Não foi possível iniciar sessão.'
     toast.error('Falha na autenticação', msg)
   } finally {
     loading.value = false

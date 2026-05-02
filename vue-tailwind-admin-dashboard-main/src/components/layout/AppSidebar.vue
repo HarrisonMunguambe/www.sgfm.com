@@ -20,28 +20,19 @@
       ]"
     >
       <router-link to="/">
-        <img
+        <AppLogo
           v-if="isExpanded || isHovered || isMobileOpen"
-          class="dark:hidden"
-          src="/images/logo/logo.svg"
-          alt="Logo"
-          width="150"
-          height="40"
+          full
+          imgClass="h-10 w-auto max-w-[170px]"
+          :width="150"
+          :height="40"
         />
-        <img
-          v-if="isExpanded || isHovered || isMobileOpen"
-          class="hidden dark:block"
-          src="/images/logo/logo-dark.svg"
-          alt="Logo"
-          width="150"
-          height="40"
-        />
-        <img
+        <AppLogo
           v-else
-          src="/images/logo/logo-icon.svg"
-          alt="Logo"
-          width="32"
-          height="32"
+          :full="false"
+          imgClass="h-8 w-8"
+          :width="32"
+          :height="32"
         />
       </router-link>
     </div>
@@ -214,6 +205,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
+import AppLogo from "@/components/common/AppLogo.vue";
 
 import {
   GridIcon,

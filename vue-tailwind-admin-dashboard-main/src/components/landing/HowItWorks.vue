@@ -6,7 +6,7 @@
           Como funciona
         </p>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-          Três passos. <span class="sgfm-gradient-text">Zero fricção.</span>
+          Três passos. <span class="sgfm-gradient-text">Sem fricção.</span>
         </h2>
         <p class="mt-4 text-slate-600 dark:text-slate-400 max-w-xl mx-auto">
           Do pedido à aprovação e à conciliação — tudo num só fluxo, inteligente e auditável.
@@ -58,7 +58,7 @@ const steps = [
   },
   {
     title: 'Aprovação inteligente',
-    desc: 'IA prioriza, deteta duplicações e encaminha ao aprovador correto com contexto completo.',
+    desc: 'A IA prioriza, deteta duplicações e encaminha ao aprovador correto com contexto completo.',
     color: 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300 sgfm-neon-violet',
     icon: '<svg width="26" height="26" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M10 2l2.5 5 5.5.8-4 3.9 1 5.5L10 14.8 5 17.2l1-5.5-4-3.9 5.5-.8L10 2z"/></svg>',
   },

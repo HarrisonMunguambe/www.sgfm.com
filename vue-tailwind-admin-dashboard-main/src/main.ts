@@ -14,6 +14,8 @@ import VueApexCharts from 'vue3-apexcharts'
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import { definePreset } from '@primeuix/themes'
+import { applyThemeToDocument, getInitialTheme } from './utils/theme'
+import { initChatbase } from './services/chatbase'
 
 // SGFM color preset — sky/indigo primary so it matches the landing accents
 const SGFMPreset = definePreset(Aura, {
@@ -35,6 +37,12 @@ const SGFMPreset = definePreset(Aura, {
 })
 
 const app = createApp(App)
+
+// Apply theme as early as possible to keep dark/light consistent across all routes (landing/auth/dashboard)
+applyThemeToDocument(getInitialTheme())
+
+// Global Chatbase embed (all pages)
+initChatbase()
 
 app.use(router)
 app.use(VueApexCharts)

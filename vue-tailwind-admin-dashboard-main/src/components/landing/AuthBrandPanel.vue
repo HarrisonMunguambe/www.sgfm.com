@@ -11,12 +11,13 @@
     <div class="relative h-full flex flex-col justify-between p-8 sm:p-12">
       <!-- Top: logo -->
       <router-link to="/" class="inline-flex items-center gap-2 w-max">
-        <div
-          class="h-10 w-10 rounded-xl bg-gradient-to-br from-cyan-300 to-violet-400 flex items-center justify-center font-black text-slate-900"
-        >
-          S
-        </div>
-        <span class="text-white font-semibold tracking-wide text-lg">SGFM</span>
+        <AppLogo
+          full
+          forceTheme="dark"
+          imgClass="h-9 w-auto max-w-[170px]"
+          :width="150"
+          :height="40"
+        />
       </router-link>
 
       <!-- Middle: headline -->
@@ -70,7 +71,7 @@
               d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
             />
           </svg>
-          Conformidade auditoria
+          Conformidade com auditoria
         </div>
       </div>
     </div>
@@ -78,6 +79,8 @@
 </template>
 
 <script setup lang="ts">
+import AppLogo from '@/components/common/AppLogo.vue'
+
 withDefaults(
   defineProps<{
     tag?: string
@@ -94,7 +97,7 @@ withDefaults(
       'O SGFM reúne requisições, aprovações e reposições de fundo de maneio num único fluxo — com previsões inteligentes para antecipar desvios.',
     bullets: () => [
       'Aprovações em segundos, auditáveis de ponta a ponta',
-      'Alertas IA quando um gasto foge do padrão histórico',
+      'Alertas com IA quando um gasto foge do padrão histórico',
       'Relatórios prontos para exportar em PDF ou Excel',
     ],
   },

@@ -6,7 +6,7 @@
           Pronto?
         </p>
         <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-          Escolha como quer entrar no <span class="sgfm-gradient-text">SGFM</span>
+          Escolha como pretende aceder ao <span class="sgfm-gradient-text">SGFM</span>
         </h2>
       </div>
 
@@ -25,12 +25,12 @@
             </div>
             <h3 class="text-xl font-semibold text-slate-900 dark:text-white">Já tenho conta</h3>
             <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              Entre com o seu email ou telefone e palavra-passe. Suportamos login social com Google.
+              Inicie sessão com o seu e-mail ou telefone e a palavra-passe. Também pode continuar com Google.
             </p>
             <div
               class="mt-6 inline-flex items-center gap-2 text-sky-600 dark:text-cyan-300 text-sm font-medium group-hover:gap-3 transition-all"
             >
-              Entrar
+              Iniciar sessão
               <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
               </svg>
@@ -61,7 +61,7 @@
             <div
               class="mt-6 inline-flex items-center gap-2 text-violet-600 dark:text-violet-300 text-sm font-medium group-hover:gap-3 transition-all"
             >
-              Começar registo
+              Iniciar registo
               <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
               </svg>

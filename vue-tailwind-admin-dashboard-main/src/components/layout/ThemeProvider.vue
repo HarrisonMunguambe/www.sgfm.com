@@ -3,37 +3,43 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide, onMounted, watch, computed } from 'vue'
+import { ref, provide, watch, computed, onMounted, onBeforeUnmount } from 'vue'
+import {
+  type Theme,
+  applyThemeToDocument,
+  getInitialTheme,
+  getStoredTheme,
+  isTheme,
+} from '@/utils/theme'
 
-type Theme = 'light' | 'dark'
-
-const theme = ref<Theme>('light')
-const isInitialized = ref(false)
-
+const theme = ref<Theme>(getInitialTheme())
 const isDarkMode = computed(() => theme.value === 'dark')
 
 const toggleTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
 }
 
-onMounted(() => {
-  const savedTheme = localStorage.getItem('theme') as Theme | null
-  const initialTheme = savedTheme || 'light' // Default to light theme
-
-  theme.value = initialTheme
-  isInitialized.value = true
-})
-
-watch([theme, isInitialized], ([newTheme, newIsInitialized]) => {
-  if (newIsInitialized) {
-    localStorage.setItem('theme', newTheme)
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
+watch(
+  theme,
+  (newTheme) => {
+    try {
+      localStorage.setItem('theme', newTheme)
+    } catch {
+      // ignore
     }
-  }
-})
+    applyThemeToDocument(newTheme)
+  },
+  { immediate: true },
+)
+
+function onStorage(e: StorageEvent) {
+  if (e.key !== 'theme') return
+  const next = isTheme(e.newValue) ? (e.newValue as Theme) : getStoredTheme() ?? theme.value
+  if (next !== theme.value) theme.value = next
+}
+
+onMounted(() => window.addEventListener('storage', onStorage))
+onBeforeUnmount(() => window.removeEventListener('storage', onStorage))
 
 provide('theme', {
   isDarkMode,

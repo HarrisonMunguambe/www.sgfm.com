@@ -7,11 +7,11 @@
           tag="Junte-se ao SGFM"
           title="Comece a gerir o fundo em"
           titleAccent="menos de 2 minutos."
-          description="Registe a sua organização em 3 passos simples. Convide a sua equipa depois e ative os insights de IA quando estiver pronto."
+          description="Registe a sua organização em 3 passos simples. Convide a sua equipa depois e ative as análises com IA quando estiver pronto."
           :bullets="[
             'Registo guiado com verificação OTP',
             'Estrutura por departamentos e cargos configurável',
-            'Login social com Google suportado',
+            'Início de sessão com Google disponível',
           ]"
         />
       </div>
@@ -42,14 +42,9 @@
           <!-- Mobile logo -->
           <router-link
             to="/"
-            class="inline-flex items-center gap-2 mb-6 lg:hidden"
+            class="inline-flex items-center mb-6 lg:hidden"
           >
-            <div
-              class="h-10 w-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center font-black text-white"
-            >
-              S
-            </div>
-            <span class="text-slate-900 dark:text-white font-semibold text-lg">SGFM</span>
+            <AppLogo full imgClass="h-10 w-auto max-w-[180px]" :width="150" :height="40" />
           </router-link>
 
           <!-- Stepper -->
@@ -63,7 +58,7 @@
                   Criar a sua conta SGFM
                 </h1>
                 <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
-                  Começamos pelos dados básicos. Leva menos de 1 minuto.
+                  Começamos pelos dados básicos. Demora menos de 1 minuto.
                 </p>
               </div>
 
@@ -72,7 +67,7 @@
                   <InputNeon
                     id="reg-email"
                     v-model="s1.email"
-                    label="Email"
+                    label="E-mail"
                     type="email"
                     :error="e1.email"
                     required
@@ -165,7 +160,7 @@
                     to="/login"
                     class="text-sky-600 hover:text-sky-700 dark:text-cyan-300 dark:hover:text-cyan-200 font-medium"
                   >
-                    Entrar
+                    Iniciar sessão
                   </router-link>
                 </p>
               </form>
@@ -189,7 +184,7 @@
                 <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
                   Enviámos um código de 6 dígitos para
                   <span class="text-slate-900 dark:text-white font-medium">{{
-                    s1.email || 'o seu email'
+                    s1.email || 'o seu e-mail'
                   }}</span>
                   e por SMS para
                   <span class="text-slate-900 dark:text-white font-medium">{{
@@ -198,7 +193,7 @@
                   >.
                 </p>
                 <p class="mt-2 text-xs text-sky-600 dark:text-cyan-300/80">
-                  Dica de teste: use o código <b>123456</b>
+                  Sugestão de teste: use o código <b>123456</b>
                 </p>
               </div>
 
@@ -337,6 +332,7 @@ import ToastContainer from '@/components/neon/ToastContainer.vue'
 import AuthBrandPanel from '@/components/landing/AuthBrandPanel.vue'
 import AuthStepper from '@/components/landing/AuthStepper.vue'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
+import AppLogo from '@/components/common/AppLogo.vue'
 import Select from 'primevue/select'
 import Checkbox from 'primevue/checkbox'
 import InputOtp from 'primevue/inputotp'
@@ -359,7 +355,7 @@ const loading = ref(false)
 const stepperSteps = [
   {
     label: 'Credenciais',
-    hint: 'Email e senha',
+    hint: 'E-mail e palavra-passe',
     icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a4 4 0 100 8 4 4 0 000-8zm0 10c-3.3 0-6 2.7-6 6h12c0-3.3-2.7-6-6-6z"/></svg>',
   },
   {
@@ -394,10 +390,10 @@ const e1 = reactive<Record<string, string | undefined>>({})
 function validate1(f: string) {
   if (f === 'email')
     e1.email = !s1.email
-      ? 'Informe o email'
+      ? 'Indique o e-mail'
       : /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s1.email)
         ? undefined
-        : 'Email inválido'
+        : 'E-mail inválido'
   if (f === 'phone')
     e1.phone = !s1.phone
       ? 'Informe o telefone'
@@ -429,7 +425,7 @@ async function submitStep1() {
   loading.value = true
   try {
     await registerStep1({ ...s1 })
-    toast.success('Código enviado', 'Verifique email e SMS')
+    toast.success('Código enviado', 'Verifique o e-mail e SMS.')
     step.value = 2
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : 'Erro ao processar registo'
@@ -462,7 +458,7 @@ async function submitStep2() {
 }
 
 function resend() {
-  toast.info('Código reenviado', 'Verifique novamente email e SMS')
+  toast.info('Código reenviado', 'Verifique novamente o e-mail e SMS.')
 }
 
 // Step 3
