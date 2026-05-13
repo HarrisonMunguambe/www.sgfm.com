@@ -39,7 +39,8 @@
         directamente pela plataforma. Automatize aprovações, envie fundos ou benefícios aos
         colaboradores com rapidez e acompanhe tudo através de um painel moderno, seguro e acessível
         em qualquer dispositivo. Com inteligência artificial integrada, obtenha previsões
-        inteligentes e relatórios automáticos para decisões mais rápidas e eficientes.
+        inteligentes e relatórios para decisões mais rápidas e eficientes, com suporte disponível
+        24/7.
       </p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4 sgfm-rise delay-4">
