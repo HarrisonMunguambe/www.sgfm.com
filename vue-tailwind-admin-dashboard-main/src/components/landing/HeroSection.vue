@@ -12,10 +12,10 @@
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div
-        class="inline-flex items-center gap-2 px-3 py-1 rounded-full sgfm-glass text-xs text-slate-600 dark:text-slate-300 mb-6 sgfm-rise"
+        class="inline-flex items-center gap-2 px-3 py-1 rounded-full sgfm-glass text-xs text-slate-600 dark:text-slate-300 mb-6 sgfm-rise font-semibold"
       >
         <span class="sgfm-ticker-dot"></span>
-        Plataforma financeira alimentada por IA • v2.0
+        Plataforma Inteligente de Gestão Financeira
       </div>
 
       <h1
@@ -35,8 +35,11 @@
       <p
         class="mt-8 max-w-2xl mx-auto text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed sgfm-rise delay-3"
       >
-        Controlo em tempo real, aprovações inteligentes e previsões com IA — tudo num painel
-        elegante que a sua equipa financeira vai adorar usar.
+        Tenha controlo total do fundo de maneio em tempo real, com pedidos recebidos via WhatsApp ou
+        directamente pela plataforma. Automatize aprovações, envie fundos ou benefícios aos
+        colaboradores com rapidez e acompanhe tudo através de um painel moderno, seguro e acessível
+        em qualquer dispositivo. Com inteligência artificial integrada, obtenha previsões
+        inteligentes e relatórios automáticos para decisões mais rápidas e eficientes.
       </p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4 sgfm-rise delay-4">
@@ -58,7 +61,7 @@
         </router-link>
       </div>
 
-      <div
+      <!-- <div
         class="mt-12 flex items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-500 sgfm-rise delay-4"
       >
         <div class="flex items-center gap-2">
@@ -85,7 +88,7 @@
           </svg>
           Conforme os requisitos de auditoria
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -94,9 +97,9 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const phrases = [
-  'Aprovações em segundos, não em semanas.',
-  'IA antecipa desvios antes de acontecerem.',
-  'Relatórios prontos para auditoria, num clique.',
+  'Maior controle de fluxo de caixa.',
+  '100% de controle dos Fundos Financeiros.',
+  'Relatórios Automatizados Gerados por Inteligência Artificial.',
 ]
 const current = ref(phrases[0])
 let idx = 0
