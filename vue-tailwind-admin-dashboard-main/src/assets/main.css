@@ -784,6 +784,32 @@ span.flatpickr-weekday,
   color: #f8fafc;
 }
 
+.sgfm-banded > section:nth-of-type(even):not(#testimonials) {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(241, 245, 249, 0.6) 14%,
+    rgba(241, 245, 249, 0.6) 86%,
+    transparent 100%
+  );
+}
+.dark .sgfm-banded > section:nth-of-type(even):not(#testimonials) {
+  background-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.022) 14%,
+    rgba(255, 255, 255, 0.022) 86%,
+    transparent 100%
+  );
+}
+
+#testimonials {
+  background-color: rgba(241, 245, 249, 0.7);
+}
+.dark #testimonials {
+  background-color: rgba(255, 255, 255, 0.025);
+}
+
 .sgfm-grid-bg {
   background-image:
     linear-gradient(rgba(100, 116, 139, 0.08) 1px, transparent 1px),

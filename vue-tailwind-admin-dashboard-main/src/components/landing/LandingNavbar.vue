@@ -7,9 +7,7 @@
         : 'bg-transparent',
     ]"
   >
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16"
-    >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
       <router-link to="/" class="flex items-center gap-2 shrink-0">
         <span class="sm:hidden">
           <AppLogo :full="false" imgClass="h-9 w-9" :width="32" :height="32" />
@@ -19,43 +17,28 @@
         </span>
       </router-link>
 
-      <!-- Desktop nav links (>= lg) -->
-      <div class="hidden lg:flex items-center gap-7 text-sm text-slate-600 dark:text-slate-300">
-        <router-link
-          to="/#features"
-          class="hover:text-sky-600 dark:hover:text-cyan-300 transition"
-        >
-          Funcionalidades
-        </router-link>
-        <router-link
-          to="/#how"
-          class="hover:text-sky-600 dark:hover:text-cyan-300 transition"
-        >
-          Como funciona
-        </router-link>
-        <router-link
-          to="/observatorio"
-          class="hover:text-sky-600 dark:hover:text-cyan-300 transition"
-        >
-          Observatório
-        </router-link>
-        <router-link
-          to="/#testimonials"
-          class="hover:text-sky-600 dark:hover:text-cyan-300 transition"
-        >
-          Depoimentos
+      <div class="hidden lg:flex items-center gap-1 text-sm">
+        <router-link v-for="l in desktopLinks" :key="l.to" :to="l.to" :class="navLinkClass(l)">
+          <span class="relative inline-block">
+            {{ l.label }}
+            <span v-if="isActive(l)" class="nav-active-line"></span>
+          </span>
         </router-link>
       </div>
 
-      <!-- Desktop right side -->
       <div class="hidden md:flex items-center gap-3">
         <ThemeToggle />
         <template v-if="!authed">
           <router-link
             to="/login"
-            class="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition px-3 py-2"
+            class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:bg-white hover:border-sky-300 dark:hover:bg-white/10 dark:hover:border-cyan-300/40 hover:-translate-y-0.5 transition"
           >
-            Iniciar sessão
+            Entrar
+            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                d="M11 3h5a1 1 0 011 1v12a1 1 0 01-1 1h-5v-2h4V5h-4V3zM9 7l-1.4 1.4L9.2 10H3v2h6.2L7.6 13.6 9 15l4-4-4-4z"
+              />
+            </svg>
           </router-link>
           <router-link
             to="/register"
@@ -88,7 +71,6 @@
         </template>
       </div>
 
-      <!-- Mobile: toggle + hamburger -->
       <div class="flex md:hidden items-center gap-2">
         <ThemeToggle />
         <button
@@ -127,7 +109,6 @@
       </div>
     </div>
 
-    <!-- Mobile menu panel -->
     <transition name="menu">
       <div
         v-if="open"
@@ -139,9 +120,18 @@
             :key="l.to"
             :to="l.to"
             @click="open = false"
-            class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition"
+            :class="[
+              'px-3 py-3 rounded-xl text-sm font-medium transition flex items-center justify-between',
+              isActive(l)
+                ? 'bg-sky-50 text-sky-700 dark:bg-cyan-500/10 dark:text-cyan-300'
+                : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5',
+            ]"
           >
-            {{ l.label }}
+            <span>{{ l.label }}</span>
+            <span
+              v-if="isActive(l)"
+              class="h-1.5 w-1.5 rounded-full bg-sky-500 dark:bg-cyan-300"
+            ></span>
           </router-link>
 
           <div class="h-px bg-slate-200 dark:bg-white/10 my-2"></div>
@@ -150,8 +140,13 @@
             <router-link
               to="/login"
               @click="open = false"
-              class="px-3 py-3 rounded-xl text-slate-700 dark:text-slate-200 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition"
+              class="inline-flex items-center justify-center gap-1.5 px-3 py-3 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 bg-white/60 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 transition"
             >
+              <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  d="M11 3h5a1 1 0 011 1v12a1 1 0 01-1 1h-5v-2h4V5h-4V3zM9 7l-1.4 1.4L9.2 10H3v2h6.2L7.6 13.6 9 15l4-4-4-4z"
+                />
+              </svg>
               Iniciar sessão
             </router-link>
             <router-link
@@ -198,19 +193,46 @@ import ThemeToggle from '@/components/landing/ThemeToggle.vue'
 import { isAuthenticated, logout } from '@/services/auth'
 import AppLogo from '@/components/common/AppLogo.vue'
 
+interface NavLink {
+  to: string
+  label: string
+  hash?: string
+  path?: string
+}
+
 const scrolled = ref(false)
 const open = ref(false)
 const route = useRoute()
 const router = useRouter()
 const authed = ref(isAuthenticated())
 const loggingOut = ref(false)
+const activeHash = ref<string>('')
 
-const mobileLinks = [
-  { to: '/#features', label: 'Funcionalidades' },
-  { to: '/#how', label: 'Como funciona' },
-  { to: '/observatorio', label: 'Observatório' },
-  { to: '/#testimonials', label: 'Depoimentos' },
+const desktopLinks: NavLink[] = [
+  { to: '/#features', label: 'Funcionalidades', hash: '#features' },
+  { to: '/#how', label: 'Como funciona', hash: '#how' },
+  { to: '/observatorio', label: 'Observatório', path: '/observatorio' },
+  { to: '/#testimonials', label: 'Depoimentos', hash: '#testimonials' },
 ]
+
+const mobileLinks = desktopLinks
+
+function isActive(link: NavLink) {
+  if (link.path) return route.path.startsWith(link.path)
+  if (link.hash) return route.path === '/' && activeHash.value === link.hash
+  return false
+}
+
+const baseLinkClass = 'relative px-3 py-2 rounded-lg transition-colors duration-200'
+
+function navLinkClass(link: NavLink) {
+  return [
+    baseLinkClass,
+    isActive(link)
+      ? 'text-sky-600 dark:text-cyan-300 font-medium'
+      : 'text-slate-600 dark:text-slate-300 hover:text-sky-600 dark:hover:text-cyan-300',
+  ]
+}
 
 function onScroll() {
   scrolled.value = window.scrollY > 20
@@ -229,13 +251,57 @@ async function onLogout() {
   }
 }
 
-watch(() => route.fullPath, () => {
-  open.value = false
-  authed.value = isAuthenticated()
-})
+watch(
+  () => route.fullPath,
+  () => {
+    open.value = false
+    authed.value = isAuthenticated()
+  },
+)
 
-onMounted(() => window.addEventListener('scroll', onScroll))
-onUnmounted(() => window.removeEventListener('scroll', onScroll))
+let observer: IntersectionObserver | null = null
+const sectionIds = ['features', 'how', 'testimonials', 'choice']
+
+function setupObserver() {
+  observer?.disconnect()
+  if (route.path !== '/') {
+    activeHash.value = ''
+    return
+  }
+  const els = sectionIds
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null)
+  if (!els.length) return
+
+  observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+      if (visible) {
+        activeHash.value = `#${(visible.target as HTMLElement).id}`
+      }
+    },
+    { threshold: [0.2, 0.45, 0.7], rootMargin: '-30% 0px -50% 0px' },
+  )
+  els.forEach((el) => observer!.observe(el))
+}
+
+watch(
+  () => route.path,
+  () => {
+    setTimeout(setupObserver, 50)
+  },
+)
+
+onMounted(() => {
+  window.addEventListener('scroll', onScroll)
+  setTimeout(setupObserver, 50)
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  observer?.disconnect()
+})
 </script>
 
 <style scoped>
@@ -254,5 +320,18 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 .menu-leave-from {
   opacity: 1;
   max-height: 500px;
+}
+
+.nav-active-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+}
+:global(.dark) .nav-active-line {
+  background: linear-gradient(90deg, #00f2fe, #8b5cf6);
 }
 </style>

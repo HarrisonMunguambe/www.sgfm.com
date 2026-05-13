@@ -2,13 +2,14 @@
   <div class="sgfm-surface relative">
     <ParticleBackground />
     <LandingNavbar />
-    <main>
+    <main class="sgfm-banded">
       <HeroSection />
       <StatsSection />
       <HowItWorks />
       <LivePanel />
       <AINewsSection />
       <TestimonialsSection />
+      <FAQSection />
       <ChoiceSection />
     </main>
     <LandingFooter />
@@ -25,6 +26,7 @@ import HowItWorks from '@/components/landing/HowItWorks.vue'
 import LivePanel from '@/components/landing/LivePanel.vue'
 import AINewsSection from '@/components/landing/AINewsSection.vue'
 import TestimonialsSection from '@/components/landing/TestimonialsSection.vue'
+import FAQSection from '@/components/landing/FAQSection.vue'
 import ChoiceSection from '@/components/landing/ChoiceSection.vue'
 import LandingFooter from '@/components/landing/LandingFooter.vue'
 import BackToTop from '@/components/landing/BackToTop.vue'

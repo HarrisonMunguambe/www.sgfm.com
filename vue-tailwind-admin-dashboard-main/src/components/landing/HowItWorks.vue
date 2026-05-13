@@ -19,7 +19,7 @@
         <p
           class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg sgfm-rise delay-2"
         >
-          Do registo à conciliação — um fluxo único, inteligente e auditável, pensado para acelerar
+          Do registo à conciliação, um fluxo único, inteligente e auditável, pensado para acelerar
           decisões sem perder controlo.
         </p>
       </div>
@@ -37,10 +37,7 @@
         >
           <div class="flex items-center justify-between mb-5">
             <div
-              :class="[
-                'h-12 w-12 rounded-xl flex items-center justify-center',
-                step.iconBg,
-              ]"
+              :class="['h-12 w-12 rounded-xl flex items-center justify-center', step.iconBg]"
               v-html="step.icon"
             ></div>
             <div
@@ -55,14 +52,16 @@
             {{ step.desc }}
           </p>
 
-          <div
-            :class="[
-              'mt-5 inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full',
-              step.tagClass,
-            ]"
-          >
-            <span class="h-1.5 w-1.5 rounded-full" :class="step.tagDot"></span>
-            {{ step.tag }}
+          <div class="mt-auto pt-5">
+            <span
+              :class="[
+                'inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full',
+                step.tagClass,
+              ]"
+            >
+              <span class="h-1.5 w-1.5 rounded-full" :class="step.tagDot"></span>
+              {{ step.tag }}
+            </span>
           </div>
         </CardGlass>
       </div>
@@ -81,8 +80,7 @@ const steps = [
     iconBg: 'bg-sky-100 dark:bg-cyan-500/20',
     tagClass: 'bg-sky-50 text-sky-700 dark:bg-cyan-500/10 dark:text-cyan-300',
     tagDot: 'bg-sky-500 dark:bg-cyan-300',
-    icon:
-      '<svg width="22" height="22" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M8 10a4 4 0 100-8 4 4 0 000 8zm0 1.5c-3.3 0-6 1.7-6 4V17h10v-1.5c0-2.3-2.7-4-6-4zm9-3h-2V6h-1.5v2.5H11V10h2.5v2.5H15V10h2V8.5z"/></svg>',
+    icon: '<svg width="22" height="22" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M8 10a4 4 0 100-8 4 4 0 000 8zm0 1.5c-3.3 0-6 1.7-6 4V17h10v-1.5c0-2.3-2.7-4-6-4zm9-3h-2V6h-1.5v2.5H11V10h2.5v2.5H15V10h2V8.5z"/></svg>',
   },
   {
     title: 'Submeta o pedido',
@@ -91,8 +89,7 @@ const steps = [
     iconBg: 'bg-violet-100 dark:bg-violet-500/20',
     tagClass: 'bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300',
     tagDot: 'bg-violet-500 dark:bg-violet-300',
-    icon:
-      '<svg width="22" height="22" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M4 3h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm1 3v2h10V6H5zm0 4v2h10v-2H5zm0 4v2h7v-2H5z"/></svg>',
+    icon: '<svg width="22" height="22" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M4 3h12a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V4a1 1 0 011-1zm1 3v2h10V6H5zm0 4v2h10v-2H5zm0 4v2h7v-2H5z"/></svg>',
   },
   {
     title: 'Aprovação e gestão',
@@ -101,8 +98,7 @@ const steps = [
     iconBg: 'bg-emerald-100 dark:bg-emerald-500/20',
     tagClass: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300',
     tagDot: 'bg-emerald-500 dark:bg-emerald-300',
-    icon:
-      '<svg width="22" height="22" viewBox="0 0 20 20" fill="#10b981"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm-1 11.4L5.6 10 7 8.6l2 2L13 6.6 14.4 8 9 13.4z"/></svg>',
+    icon: '<svg width="22" height="22" viewBox="0 0 20 20" fill="#10b981"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm-1 11.4L5.6 10 7 8.6l2 2L13 6.6 14.4 8 9 13.4z"/></svg>',
   },
   {
     title: 'Comprovativo e auditoria',
@@ -111,8 +107,7 @@ const steps = [
     iconBg: 'bg-indigo-100 dark:bg-indigo-500/20',
     tagClass: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-300',
     tagDot: 'bg-indigo-500 dark:bg-indigo-300',
-    icon:
-      '<svg width="22" height="22" viewBox="0 0 20 20" fill="#6366f1"><path d="M5 2h7l4 4v11a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1zm6 1.5V7h3.5L11 3.5zM6.5 10h7v1.2h-7V10zm0 2.5h7v1.2h-7v-1.2zm0 2.5h4.5v1.2H6.5V15z"/></svg>',
+    icon: '<svg width="22" height="22" viewBox="0 0 20 20" fill="#6366f1"><path d="M5 2h7l4 4v11a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1zm6 1.5V7h3.5L11 3.5zM6.5 10h7v1.2h-7V10zm0 2.5h7v1.2h-7v-1.2zm0 2.5h4.5v1.2H6.5V15z"/></svg>',
   },
 ]
 </script>
