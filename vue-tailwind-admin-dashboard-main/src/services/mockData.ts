@@ -97,7 +97,7 @@ export const MOCK_INSIGHTS: Insight[] = [
       },
     ],
     recommendations: [
-      'Ative aprovação mobile para reduzir tempo médio em 20-30%',
+      'Active aprovação mobile para reduzir tempo médio em 20-30%',
       'Configure limites automáticos por departamento para reduzir retrabalho',
       'Reveja mensalmente a taxa de reposição atempada',
     ],

@@ -29,10 +29,10 @@
         <!-- Header -->
         <div class="sgfm-rise">
           <div
-            class="inline-flex items-center gap-2 px-3 py-1 rounded-full sgfm-glass text-xs text-slate-700 dark:text-slate-300 mb-4 sm:mb-5"
+            class="font-semibold inline-flex items-center gap-2 px-3 py-1 rounded-full sgfm-glass text-xs text-slate-700 dark:text-slate-300 mb-4 sm:mb-5"
           >
             <span class="sgfm-ticker-dot"></span>
-            Análises geradas a partir da rede SGFM
+            Análises geradas a usando Inteligência Artificial
           </div>
           <h1
             class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08]"

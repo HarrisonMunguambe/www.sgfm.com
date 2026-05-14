@@ -67,13 +67,19 @@
               </li>
             </ul>
 
-            <div
-              class="mt-auto pt-6 inline-flex items-center gap-2 text-sky-600 dark:text-cyan-300 text-sm font-semibold group-hover:gap-3 transition-all"
-            >
-              Iniciar sessão
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
-              </svg>
+            <div class="mt-auto pt-6">
+              <span
+                class="relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-semibold text-sky-700 dark:text-cyan-200 bg-white/70 dark:bg-white/5 border border-sky-200 dark:border-cyan-400/30 shadow-[0_4px_14px_-4px_rgba(14,165,233,0.25)] transition-all duration-300 group-hover:bg-sky-50 dark:group-hover:bg-cyan-500/10 group-hover:border-sky-400 dark:group-hover:border-cyan-300/60 group-hover:shadow-[0_10px_24px_-6px_rgba(14,165,233,0.45)] group-hover:-translate-y-0.5"
+              >
+                Iniciar sessão
+                <svg
+                  class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
+                </svg>
+              </span>
             </div>
           </CardGlass>
         </router-link>
@@ -126,13 +132,22 @@
               </li>
             </ul>
 
-            <div
-              class="mt-auto pt-6 inline-flex items-center gap-2 text-violet-600 dark:text-violet-300 text-sm font-semibold group-hover:gap-3 transition-all"
-            >
-              Iniciar registo
-              <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
-              </svg>
+            <div class="mt-auto pt-6">
+              <span
+                class="relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-600 shadow-[0_10px_24px_-8px_rgba(99,102,241,0.6)] transition-all duration-300 group-hover:shadow-[0_14px_32px_-6px_rgba(139,92,246,0.7)] group-hover:-translate-y-0.5 overflow-hidden"
+              >
+                <span
+                  class="absolute inset-0 bg-gradient-to-r from-violet-600 via-indigo-500 to-sky-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                ></span>
+                <span class="relative">Iniciar registo</span>
+                <svg
+                  class="relative h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z" />
+                </svg>
+              </span>
             </div>
           </CardGlass>
         </router-link>

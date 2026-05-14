@@ -75,7 +75,7 @@ import CardGlass from '@/components/neon/CardGlass.vue'
 const steps = [
   {
     title: 'Crie a sua conta',
-    desc: 'Registe-se, valide o email com um código e complete o perfil — nome, telefone, departamento e cargo. Pronto em menos de 2 minutos.',
+    desc: 'Registe-se, valide a sua conta usando o seu email com um código OTP e preencha o seu perfil com os seus dados e informações de contacto.',
     tag: 'Em ~2 minutos',
     iconBg: 'bg-sky-100 dark:bg-cyan-500/20',
     tagClass: 'bg-sky-50 text-sky-700 dark:bg-cyan-500/10 dark:text-cyan-300',
@@ -93,7 +93,7 @@ const steps = [
   },
   {
     title: 'Aprovação e gestão',
-    desc: 'O Fiel de Caixa ou Director Financeiro analisa, aprova ou recusa. Cada decisão fica registada — data, autor e motivo — para total transparência.',
+    desc: 'O Fiel de Caixa ou Director Financeiro analisa, aprova ou recusa. Cada decisão fica registada data, autor e motivo para total transparência.',
     tag: 'Decisão registada',
     iconBg: 'bg-emerald-100 dark:bg-emerald-500/20',
     tagClass: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300',

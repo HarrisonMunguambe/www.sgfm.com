@@ -209,10 +209,11 @@ const loggingOut = ref(false)
 const activeHash = ref<string>('')
 
 const desktopLinks: NavLink[] = [
+  { to: '/#inicio', label: 'Início', hash: '#inicio' },
   { to: '/#features', label: 'Funcionalidades', hash: '#features' },
   { to: '/#how', label: 'Como funciona', hash: '#how' },
   { to: '/observatorio', label: 'Observatório', path: '/observatorio' },
-  { to: '/#testimonials', label: 'Depoimentos', hash: '#testimonials' },
+  { to: '/#faq', label: 'FAQ', hash: '#faq' },
 ]
 
 const mobileLinks = desktopLinks
@@ -236,6 +237,9 @@ function navLinkClass(link: NavLink) {
 
 function onScroll() {
   scrolled.value = window.scrollY > 20
+  if (route.path === '/' && window.scrollY < 200) {
+    activeHash.value = '#inicio'
+  }
 }
 
 async function onLogout() {
@@ -260,7 +264,7 @@ watch(
 )
 
 let observer: IntersectionObserver | null = null
-const sectionIds = ['features', 'how', 'testimonials', 'choice']
+const sectionIds = ['inicio', 'features', 'how', 'faq', 'choice']
 
 function setupObserver() {
   observer?.disconnect()

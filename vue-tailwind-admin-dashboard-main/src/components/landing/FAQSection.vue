@@ -23,8 +23,8 @@
         <p
           class="mt-4 text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-base sm:text-lg sgfm-rise delay-2"
         >
-          Reunimos as perguntas mais comuns sobre o SGFM. Se mesmo assim não encontrar resposta,
-          a nossa equipa está pronta para ajudar.
+          Reunimos as perguntas mais comuns sobre o SGFM. Se mesmo assim não encontrar resposta, a
+          nossa equipa está pronta para ajudar.
         </p>
       </div>
 
@@ -151,7 +151,7 @@ const faqs = [
     q: 'Como faço para criar uma conta no SGFM?',
     a: [
       'O registo é feito em três passos simples. Primeiro, informe o seu e-mail, número de telemóvel e crie uma senha, aceitando os termos e condições.',
-      'De seguida, receberá um código OTP por e-mail e SMS — insira-o para verificar a sua identidade.',
+      'De seguida, receberá um código OTP por e-mail e SMS insira-o para verificar a sua identidade.',
       'Por fim, preencha o seu nome, departamento e cargo na empresa. Após concluir estes passos, a sua conta fica activa e pronta para usar.',
     ],
   },
@@ -165,7 +165,7 @@ const faqs = [
   {
     q: 'Posso fazer pedidos pelo WhatsApp?',
     a: [
-      'Sim, o SGFM permite pedidos multicanal. Pode submeter um pedido directamente pelo painel web ou através do WhatsApp — envia uma mensagem e o sistema regista automaticamente.',
+      'Sim, o SGFM permite pedidos multicanal. Pode submeter um pedido directamente pelo painel web ou através do WhatsApp envia uma mensagem e o sistema regista automaticamente.',
       'Os pedidos vindos do WhatsApp seguem o mesmo fluxo de aprovação e ficam visíveis no histórico do colaborador, com a mesma rastreabilidade.',
     ],
   },

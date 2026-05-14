@@ -2,7 +2,9 @@
   <div class="relative h-full overflow-hidden sgfm-brand-panel text-white">
     <!-- Background decoration -->
     <div class="absolute inset-0 sgfm-grid-bg opacity-60 pointer-events-none"></div>
-    <div class="absolute -top-16 -left-16 w-80 h-80 rounded-full blur-3xl bg-cyan-400/30 sgfm-float"></div>
+    <div
+      class="absolute -top-16 -left-16 w-80 h-80 rounded-full blur-3xl bg-cyan-400/30 sgfm-float"
+    ></div>
     <div
       class="absolute -bottom-16 -right-16 w-96 h-96 rounded-full blur-3xl bg-violet-500/30 sgfm-float"
       style="animation-delay: 1.5s"
@@ -38,11 +40,7 @@
 
         <!-- Benefícios -->
         <ul class="mt-8 space-y-3.5">
-          <li
-            v-for="b in bullets"
-            :key="b"
-            class="flex items-start gap-3 text-sm text-slate-100"
-          >
+          <li v-for="b in bullets" :key="b" class="flex items-start gap-3 text-sm text-slate-100">
             <span
               class="mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-full bg-cyan-300/20 border border-cyan-300/40 text-cyan-200"
             >
@@ -63,7 +61,7 @@
               d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
             />
           </svg>
-          SSL Bancário
+          Plataforma Multicanal disponível 24/7
         </div>
         <div class="flex items-center gap-1.5">
           <svg width="14" height="14" viewBox="0 0 20 20" fill="#34d399">
@@ -71,7 +69,7 @@
               d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
             />
           </svg>
-          Conformidade com auditoria
+          Agente de Suporte disponível 24/7
         </div>
       </div>
     </div>
@@ -94,11 +92,11 @@ withDefaults(
     title: 'Gestão financeira',
     titleAccent: 'em tempo real.',
     description:
-      'O SGFM reúne requisições, aprovações e reposições de fundo de maneio num único fluxo — com previsões inteligentes para antecipar desvios.',
+      'O SGFM reúne requisições, aprovações e reposições de fundo de maneio num único fluxo com previsões inteligentes para antecipar desvios.',
     bullets: () => [
-      'Aprovações em segundos, auditáveis de ponta a ponta',
-      'Alertas com IA quando um gasto foge do padrão histórico',
-      'Relatórios prontos para exportar em PDF ou Excel',
+      'Painel financeiro actualizado em tempo real',
+      'Alertas e Relatórios automáticos com Inteligência Artificial',
+      'Histórico completo e auditoria integrada',
     ],
   },
 )
