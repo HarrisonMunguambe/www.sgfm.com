@@ -84,8 +84,8 @@
                 <p
                   class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
                 >
-                  Previsões, benchmarks setoriais, recomendações e alertas gerados a partir dos
-                  movimentos do teu fundo de maneio e da rede agregada de organizações SGFM.
+                  Previsões, benchmarks sectoriais, recomendações e alertas gerados a partir dos
+                  movimentos do teu fundo de maneio agradado ao SGFM.
                 </p>
 
                 <ul class="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
@@ -97,9 +97,7 @@
                       fill="currentColor"
                       class="text-sky-500 dark:text-cyan-300 shrink-0"
                     >
-                      <path
-                        d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z"
-                      />
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
                     </svg>
                     Previsões e recomendações IA
                   </li>
@@ -113,7 +111,7 @@
                     >
                       <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
                     </svg>
-                    Benchmarks por setor
+                    Benchmarks por sector
                   </li>
                   <li class="flex items-center gap-2">
                     <svg
@@ -129,13 +127,15 @@
                   </li>
                 </ul>
 
-                <div
-                  class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-sky-600 dark:text-cyan-300 group-hover:gap-3 transition-all"
-                >
-                  Explorar análises da empresa
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M7 4l6 6-6 6V4z" />
-                  </svg>
+                <div class="mt-7">
+                  <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_10px_25px_-10px_rgba(79,70,229,0.7)] hover:shadow-[0_15px_30px_-10px_rgba(79,70,229,0.85)] group-hover:gap-3 group-hover:from-sky-600 group-hover:to-indigo-700 transition-all"
+                  >
+                    Explorar análises da empresa
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M7 4l6 6-6 6V4z" />
+                    </svg>
+                  </span>
                 </div>
               </div>
             </CardGlass>
@@ -177,8 +177,7 @@
                 <p
                   class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
                 >
-                  Manchetes de economia e negócios em português, agregadas em tempo real de fontes
-                  verificadas. Cache local garante que nunca vês o ecrã vazio.
+                  Manchetes de economia e negócios, agregadas em tempo real de fontes verificadas.
                 </p>
 
                 <ul class="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
@@ -204,7 +203,7 @@
                     >
                       <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
                     </svg>
-                    Português, actualizadas continuamente
+                    Actualizadas continuamente
                   </li>
                   <li class="flex items-center gap-2">
                     <svg
@@ -216,17 +215,19 @@
                     >
                       <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
                     </svg>
-                    Cache offline: nunca ecrã vazio
+                    Fontes verificadas Mundialmente
                   </li>
                 </ul>
 
-                <div
-                  class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-rose-600 dark:text-rose-300 group-hover:gap-3 transition-all"
-                >
-                  Ver notícias globais
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M7 4l6 6-6 6V4z" />
-                  </svg>
+                <div class="mt-7">
+                  <span
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-500 to-rose-500 shadow-[0_10px_25px_-10px_rgba(244,63,94,0.7)] hover:shadow-[0_15px_30px_-10px_rgba(244,63,94,0.85)] group-hover:gap-3 group-hover:from-violet-600 group-hover:to-rose-600 transition-all"
+                  >
+                    Ver notícias globais
+                    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M7 4l6 6-6 6V4z" />
+                    </svg>
+                  </span>
                 </div>
               </div>
             </CardGlass>

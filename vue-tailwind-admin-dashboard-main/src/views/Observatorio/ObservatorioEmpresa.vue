@@ -52,7 +52,7 @@
             class="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
           >
             Previsões, benchmarks e recomendações baseadas em dados agregados e anonimizados de
-            centenas de organizações moçambicanas que usam o SGFM. Atualizado continuamente.
+            centenas de organizações moçambicanas que usam o SGFM.
           </p>
         </div>
 

@@ -30,10 +30,7 @@
             <button
               type="button"
               @click="toggleMenu(l.to)"
-              :class="[
-                ...navLinkClass(l),
-                'inline-flex items-center gap-1.5 cursor-pointer',
-              ]"
+              :class="[...navLinkClass(l), 'inline-flex items-center gap-1.5 cursor-pointer']"
               :aria-expanded="openSubmenu === l.to"
               aria-haspopup="menu"
             >
@@ -98,11 +95,7 @@
           </template>
 
           <!-- Item normal -->
-          <router-link
-            v-else
-            :to="l.to"
-            :class="navLinkClass(l)"
-          >
+          <router-link v-else :to="l.to" :class="navLinkClass(l)">
             <span class="relative inline-block">
               {{ l.label }}
               <span v-if="isActive(l)" class="nav-active-line"></span>
@@ -218,7 +211,10 @@
               ></span>
             </router-link>
             <!-- Subitens (Observatório) -->
-            <div v-if="l.children && l.children.length" class="ml-3 mt-1 pl-3 border-l border-slate-200 dark:border-white/10 flex flex-col gap-1">
+            <div
+              v-if="l.children && l.children.length"
+              class="ml-3 mt-1 pl-3 border-l border-slate-200 dark:border-white/10 flex flex-col gap-1"
+            >
               <router-link
                 v-for="child in l.children"
                 :key="child.to"
@@ -232,7 +228,13 @@
                     child.iconBg,
                   ]"
                 >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" v-html="child.iconPath"></svg>
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    v-html="child.iconPath"
+                  ></svg>
                 </span>
                 <span class="truncate">{{ child.label }}</span>
               </router-link>
@@ -336,7 +338,7 @@ const desktopLinks: NavLink[] = [
       {
         to: '/observatorio/empresa',
         label: 'A minha empresa',
-        description: 'Previsões e benchmarks dos dados SGFM',
+        description: 'Previsões e benchmarks dos dados de seu SGFM',
         iconBg: 'bg-gradient-to-br from-sky-500 to-indigo-600',
         iconPath:
           '<path d="M3 13h2v8H3v-8zm4-6h2v14H7V7zm4 3h2v11h-2V10zm4-7h2v18h-2V3zm4 9h2v9h-2v-9z"/>',
@@ -344,7 +346,7 @@ const desktopLinks: NavLink[] = [
       {
         to: '/observatorio/global',
         label: 'Mercados globais',
-        description: 'Notícias financeiras em PT, em tempo real',
+        description: 'Notícias financeiras do Mundo, em tempo real',
         iconBg: 'bg-gradient-to-br from-violet-500 to-rose-500',
         iconPath:
           '<path d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3a15.6 15.6 0 00-1.1-5.2A8 8 0 0118.9 11zm-6.9 9c-1 0-2.2-2.3-2.8-6h5.6c-.6 3.7-1.8 6-2.8 6zm-2.9-8c.6-3.7 1.8-6 2.9-6s2.3 2.3 2.9 6H9.1zM9.2 5.8A15.6 15.6 0 008.1 11h-3a8 8 0 014.1-5.2zM5.1 13h3a15.6 15.6 0 001.1 5.2A8 8 0 015.1 13zm9.7 5.2A15.6 15.6 0 0015.9 13h3a8 8 0 01-4.1 5.2z"/>',
@@ -483,7 +485,9 @@ onUnmounted(() => {
 
 .submenu-enter-active,
 .submenu-leave-active {
-  transition: opacity 0.18s ease, transform 0.18s ease;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 .submenu-enter-from,
 .submenu-leave-to {

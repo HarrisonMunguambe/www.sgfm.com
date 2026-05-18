@@ -1,17 +1,25 @@
 <template>
   <section id="insights" class="relative py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
-        <div>
-          <p class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase">
-            Observatório Financeiro
-          </p>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-            Análises que a sua equipa
-            <span class="sgfm-gradient-text">não pode ignorar</span>
-          </h2>
-        </div>
-        <div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
+      <div class="text-center mb-10">
+        <p class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase">
+          Observatório Financeiro
+        </p>
+        <h2
+          class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight sgfm-rise delay-1"
+        >
+          A tua empresa e o mercado,
+          <span class="sgfm-gradient-text">numa só vista</span>
+        </h2>
+        <p
+          class="mt-4 mx-auto max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed sgfm-rise delay-2"
+        >
+          Previsões e recomendações geradas pela IA do SGFM a partir dos teus dados internos,
+          combinadas com manchetes verificadas de mercados globais.
+        </p>
+        <div
+          class="mt-5 flex items-center justify-center gap-4 text-xs text-slate-500 dark:text-slate-400 flex-wrap"
+        >
           <span class="inline-flex items-center gap-2">
             <span class="sgfm-ticker-dot"></span>
             Atualizado {{ lastUpdate }}

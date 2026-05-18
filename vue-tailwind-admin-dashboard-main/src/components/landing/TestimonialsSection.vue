@@ -5,8 +5,10 @@
         <p class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase">
           Depoimentos
         </p>
-        <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">
-          Equipas financeiras que <span class="sgfm-gradient-text">dormem melhor</span>
+        <h2
+          class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white tracking-tight sgfm-rise delay-1"
+        >
+          A confiança de quem <span class="sgfm-gradient-text">decide com dados</span>
         </h2>
       </div>
 

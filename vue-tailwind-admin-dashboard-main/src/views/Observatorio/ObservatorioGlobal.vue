@@ -32,7 +32,7 @@
           <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
             <path d="M7 4l6 6-6 6V4z" />
           </svg>
-          <span class="text-slate-900 dark:text-white font-medium">Mercados globais</span>
+          <span class="text-slate-900 dark:text-white font-medium">Mercados Globais</span>
         </nav>
 
         <!-- Header -->
@@ -46,13 +46,13 @@
           <h1
             class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08]"
           >
-            <span class="sgfm-gradient-text">Mercados globais</span>
+            <span class="sgfm-gradient-text">Mercados Globais</span>
           </h1>
           <p
             class="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
           >
-            Manchetes de economia e negócios em português, agregadas de fontes verificadas.
-            A última leitura fica guardada localmente para nunca veres o ecrã vazio.
+            Acompanhe as principais manchetes de economia e mercados globais, agregadas de fontes
+            fiáveis e actualizadas em tempo real.
           </p>
         </div>
 
