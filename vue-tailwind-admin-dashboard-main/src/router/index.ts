@@ -40,10 +40,27 @@ const router = createRouter({
       meta: { title: 'Observatório Financeiro', public: true },
     },
     {
-      path: '/observatorio/:slug',
+      path: '/observatorio/empresa',
+      name: 'ObservatorioEmpresa',
+      component: () => import('@/views/Observatorio/ObservatorioEmpresa.vue'),
+      meta: { title: 'Observatório — A minha empresa', public: true },
+    },
+    {
+      path: '/observatorio/global',
+      name: 'ObservatorioGlobal',
+      component: () => import('@/views/Observatorio/ObservatorioGlobal.vue'),
+      meta: { title: 'Observatório — Mercados globais', public: true },
+    },
+    {
+      path: '/observatorio/analise/:slug',
       name: 'InsightDetail',
       component: () => import('@/views/Observatorio/InsightDetail.vue'),
       meta: { title: 'Análise', public: true },
+    },
+    // Compat: links antigos /observatorio/<slug> redireccionam para a nova rota
+    {
+      path: '/observatorio/:slug',
+      redirect: (to) => `/observatorio/analise/${to.params.slug}`,
     },
 
     // Legacy auth paths redirect to the new ones

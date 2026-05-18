@@ -243,7 +243,7 @@
             <router-link
               v-for="r in related"
               :key="r.id"
-              :to="`/observatorio/${r.slug}`"
+              :to="`/observatorio/analise/${r.slug}`"
               class="block group"
             >
               <div

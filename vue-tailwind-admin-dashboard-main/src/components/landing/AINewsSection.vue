@@ -63,7 +63,7 @@
           >
             <span class="text-xs text-slate-500">{{ n.source }}</span>
             <router-link
-              :to="`/observatorio/${n.slug}`"
+              :to="`/observatorio/analise/${n.slug}`"
               class="text-xs font-medium text-sky-600 hover:text-sky-700 dark:text-cyan-300 dark:hover:text-cyan-200 inline-flex items-center gap-1"
             >
               Ler mais

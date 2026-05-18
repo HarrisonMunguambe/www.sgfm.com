@@ -32,7 +32,7 @@
             class="font-semibold inline-flex items-center gap-2 px-3 py-1 rounded-full sgfm-glass text-xs text-slate-700 dark:text-slate-300 mb-4 sm:mb-5"
           >
             <span class="sgfm-ticker-dot"></span>
-            Análises geradas a usando Inteligência Artificial
+            Análises geradas usando Inteligência Artificial
           </div>
           <h1
             class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08]"
@@ -42,114 +42,195 @@
           <p
             class="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
           >
-            Previsões, benchmarks e recomendações baseadas em dados agregados e anonimizados de
-            centenas de organizações moçambicanas que usam o SGFM. Atualizado continuamente.
+            Escolhe a tua perspectiva: análises da tua organização com base nos dados do SGFM, ou
+            notícias financeiras globais em português, agregadas de fontes verificadas.
           </p>
         </div>
 
-        <!-- Stats strip -->
-        <div class="mt-8 sm:mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 sgfm-rise delay-1">
-          <StatPill label="Análises disponíveis" :value="String(insights.length)" />
-          <StatPill label="Empresas na rede" value="412" />
-          <StatPill label="Setores cobertos" value="9" />
-          <StatPill label="Confiança média" value="89%" />
-        </div>
-
-        <!-- Filters: horizontal scroll on mobile, wrap on sm+ -->
-        <div class="mt-10 sm:mt-12 sgfm-rise delay-2">
-          <div
-            class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap"
-          >
-            <button
-              v-for="c in categories"
-              :key="c.value"
-              @click="active = c.value"
-              :class="[
-                'shrink-0 px-3.5 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition border whitespace-nowrap',
-                active === c.value
-                  ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white border-transparent shadow-[0_8px_20px_-8px_rgba(79,70,229,0.55)]'
-                  : 'bg-white dark:bg-white/5 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-white/10 hover:border-sky-300 dark:hover:border-cyan-400/50',
-              ]"
-            >
-              {{ c.label }}
-              <span
-                v-if="c.value !== 'all'"
-                :class="[
-                  'ml-1.5 text-[10px] font-bold px-1.5 py-0.5 rounded',
-                  active === c.value ? 'bg-white/20' : 'bg-slate-100 dark:bg-white/10',
-                ]"
-              >
-                {{ countByCategory(c.value) }}
-              </span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Grid -->
-        <div class="mt-6 sm:mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <router-link
-            v-for="(n, i) in filtered"
-            :key="n.id"
-            :to="`/observatorio/${n.slug}`"
-            class="block group"
-          >
+        <!-- Two big cards -->
+        <div class="mt-10 sm:mt-14 grid md:grid-cols-2 gap-5 sm:gap-7">
+          <!-- Card 1: Empresa -->
+          <router-link to="/observatorio/empresa" class="block group sgfm-rise delay-1">
             <CardGlass
               hover
-              :class="[
-                'p-5 sm:p-6 flex flex-col h-full transition-transform group-hover:-translate-y-1 sgfm-rise',
-                `delay-${(i % 4) + 1}`,
-              ]"
+              class="relative h-full p-7 sm:p-9 flex flex-col overflow-hidden transition-transform group-hover:-translate-y-1"
             >
-              <div class="flex items-center justify-between gap-2 mb-4 h-6">
-                <span
-                  :class="[
-                    'text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full border truncate max-w-[60%]',
-                    categoryBadge(n.category),
-                  ]"
+              <div
+                class="absolute -top-16 -right-16 w-64 h-64 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-sky-400 to-indigo-500 group-hover:opacity-50 transition-opacity"
+              ></div>
+
+              <div class="relative">
+                <div
+                  class="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-sky-500 to-indigo-600 text-white shadow-[0_10px_30px_-10px_rgba(79,70,229,0.6)]"
                 >
-                  {{ n.tag }}
-                </span>
-                <span class="text-xs text-slate-500 flex items-center gap-1 shrink-0">
-                  <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
                     <path
-                      d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 3a1 1 0 011 1v4.6l3 1.7-1 1.7-4-2.3V6a1 1 0 011-1z"
+                      d="M3 13h2v8H3v-8zm4-6h2v14H7V7zm4 3h2v11h-2V10zm4-7h2v18h-2V3zm4 9h2v9h-2v-9z"
                     />
                   </svg>
-                  {{ n.readMinutes }} min
-                </span>
-              </div>
+                </div>
 
-              <h3
-                class="text-slate-900 dark:text-white font-semibold leading-snug line-clamp-2 min-h-[3rem]"
-              >
-                {{ n.title }}
-              </h3>
-
-              <p
-                class="mt-3 text-sm text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 min-h-[4.2rem]"
-              >
-                {{ n.snippet }}
-              </p>
-
-              <div
-                class="mt-auto pt-4 border-t border-slate-200 dark:border-white/5 flex items-center justify-between gap-2"
-              >
-                <span class="text-xs text-slate-500 truncate">{{ n.source }}</span>
                 <span
-                  class="shrink-0 text-xs font-medium text-sky-600 dark:text-cyan-300 inline-flex items-center gap-1 group-hover:gap-2 transition-all"
+                  class="ml-3 inline-flex items-center gap-1 align-middle text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full border bg-sky-500/10 text-sky-700 border-sky-300/60 dark:bg-cyan-500/15 dark:text-cyan-200 dark:border-cyan-400/30"
                 >
-                  Ler análise
-                  <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                  Dados internos
+                </span>
+
+                <h2
+                  class="mt-6 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white leading-tight"
+                >
+                  A minha empresa
+                </h2>
+                <p
+                  class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
+                >
+                  Previsões, benchmarks setoriais, recomendações e alertas gerados a partir dos
+                  movimentos do teu fundo de maneio e da rede agregada de organizações SGFM.
+                </p>
+
+                <ul class="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-sky-500 dark:text-cyan-300 shrink-0"
+                    >
+                      <path
+                        d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z"
+                      />
+                    </svg>
+                    Previsões e recomendações IA
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-sky-500 dark:text-cyan-300 shrink-0"
+                    >
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
+                    </svg>
+                    Benchmarks por setor
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-sky-500 dark:text-cyan-300 shrink-0"
+                    >
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
+                    </svg>
+                    Alertas e oportunidades
+                  </li>
+                </ul>
+
+                <div
+                  class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-sky-600 dark:text-cyan-300 group-hover:gap-3 transition-all"
+                >
+                  Explorar análises da empresa
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M7 4l6 6-6 6V4z" />
                   </svg>
-                </span>
+                </div>
               </div>
             </CardGlass>
           </router-link>
-        </div>
 
-        <div v-if="filtered.length === 0" class="mt-12 text-center text-sm text-slate-500">
-          Sem análises nesta categoria.
+          <!-- Card 2: Global -->
+          <router-link to="/observatorio/global" class="block group sgfm-rise delay-2">
+            <CardGlass
+              hover
+              class="relative h-full p-7 sm:p-9 flex flex-col overflow-hidden transition-transform group-hover:-translate-y-1"
+            >
+              <div
+                class="absolute -top-16 -right-16 w-64 h-64 rounded-full blur-3xl opacity-30 bg-gradient-to-br from-violet-400 to-rose-500 group-hover:opacity-50 transition-opacity"
+              ></div>
+
+              <div class="relative">
+                <div
+                  class="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-violet-500 to-rose-500 text-white shadow-[0_10px_30px_-10px_rgba(244,63,94,0.55)]"
+                >
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 2a10 10 0 100 20 10 10 0 000-20zm6.9 9h-3a15.6 15.6 0 00-1.1-5.2A8 8 0 0118.9 11zm-6.9 9c-1 0-2.2-2.3-2.8-6h5.6c-.6 3.7-1.8 6-2.8 6zm-2.9-8c.6-3.7 1.8-6 2.9-6s2.3 2.3 2.9 6H9.1zM9.2 5.8A15.6 15.6 0 008.1 11h-3a8 8 0 014.1-5.2zM5.1 13h3a15.6 15.6 0 001.1 5.2A8 8 0 015.1 13zm9.7 5.2A15.6 15.6 0 0015.9 13h3a8 8 0 01-4.1 5.2z"
+                    />
+                  </svg>
+                </div>
+
+                <span
+                  class="ml-3 inline-flex items-center gap-1.5 align-middle text-[10px] uppercase tracking-widest font-bold px-2 py-1 rounded-full border bg-rose-500/10 text-rose-700 border-rose-300/60 dark:bg-rose-500/15 dark:text-rose-200 dark:border-rose-400/30"
+                >
+                  <span class="sgfm-ticker-dot"></span>
+                  Notícias ao vivo
+                </span>
+
+                <h2
+                  class="mt-6 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white leading-tight"
+                >
+                  Mercados globais
+                </h2>
+                <p
+                  class="mt-3 text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
+                >
+                  Manchetes de economia e negócios em português, agregadas em tempo real de fontes
+                  verificadas. Cache local garante que nunca vês o ecrã vazio.
+                </p>
+
+                <ul class="mt-5 space-y-2 text-sm text-slate-700 dark:text-slate-300">
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-rose-500 dark:text-rose-300 shrink-0"
+                    >
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
+                    </svg>
+                    Fontes verificadas (categoria negócios)
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-rose-500 dark:text-rose-300 shrink-0"
+                    >
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
+                    </svg>
+                    Português, actualizadas continuamente
+                  </li>
+                  <li class="flex items-center gap-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      class="text-rose-500 dark:text-rose-300 shrink-0"
+                    >
+                      <path d="M16.7 5.3l-9 9-3.4-3.4 1.4-1.4 2 2 7.6-7.6 1.4 1.4z" />
+                    </svg>
+                    Cache offline: nunca ecrã vazio
+                  </li>
+                </ul>
+
+                <div
+                  class="mt-7 inline-flex items-center gap-2 text-sm font-semibold text-rose-600 dark:text-rose-300 group-hover:gap-3 transition-all"
+                >
+                  Ver notícias globais
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M7 4l6 6-6 6V4z" />
+                  </svg>
+                </div>
+              </div>
+            </CardGlass>
+          </router-link>
         </div>
       </div>
     </main>
@@ -160,50 +241,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import LandingNavbar from '@/components/landing/LandingNavbar.vue'
 import LandingFooter from '@/components/landing/LandingFooter.vue'
 import BackToTop from '@/components/landing/BackToTop.vue'
 import CardGlass from '@/components/neon/CardGlass.vue'
-import StatPill from '@/components/observatorio/StatPill.vue'
-import { MOCK_INSIGHTS, type Insight } from '@/services/mockData'
-
-const insights = MOCK_INSIGHTS
-type CategoryValue = 'all' | Insight['category']
-
-const categories: { value: CategoryValue; label: string }[] = [
-  { value: 'all', label: 'Todas' },
-  { value: 'Previsão', label: 'Previsões' },
-  { value: 'Recomendação', label: 'Recomendações' },
-  { value: 'Mercado', label: 'Mercado' },
-  { value: 'Benchmark', label: 'Benchmarks' },
-  { value: 'Alerta', label: 'Alertas' },
-]
-
-const active = ref<CategoryValue>('all')
-
-const filtered = computed(() =>
-  active.value === 'all' ? insights : insights.filter((i) => i.category === active.value),
-)
-
-function countByCategory(v: CategoryValue) {
-  if (v === 'all') return insights.length
-  return insights.filter((i) => i.category === v).length
-}
-
-function categoryBadge(c: Insight['category']) {
-  switch (c) {
-    case 'Previsão':
-      return 'bg-sky-500/10 text-sky-700 border-sky-300/60 dark:bg-cyan-500/15 dark:text-cyan-200 dark:border-cyan-400/30'
-    case 'Recomendação':
-      return 'bg-violet-500/10 text-violet-700 border-violet-300/60 dark:bg-violet-500/15 dark:text-violet-200 dark:border-violet-400/30'
-    case 'Mercado':
-      return 'bg-indigo-500/10 text-indigo-700 border-indigo-300/60 dark:bg-indigo-500/15 dark:text-indigo-200 dark:border-indigo-400/30'
-    case 'Benchmark':
-      return 'bg-emerald-500/10 text-emerald-700 border-emerald-300/60 dark:bg-emerald-500/15 dark:text-emerald-200 dark:border-emerald-400/30'
-    case 'Alerta':
-      return 'bg-rose-500/10 text-rose-700 border-rose-300/60 dark:bg-rose-500/15 dark:text-rose-200 dark:border-rose-400/30'
-  }
-  return ''
-}
 </script>
