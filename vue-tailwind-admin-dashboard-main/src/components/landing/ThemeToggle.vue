@@ -9,13 +9,13 @@
       class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-br from-sky-400/20 to-violet-400/20 dark:from-cyan-400/20 dark:to-violet-500/20"
     ></span>
 
-    <!-- Sun icon (visible in light mode) -->
+    <!-- Sun icon (shown when in dark mode; action is to switch to light) -->
     <svg
       class="absolute h-5 w-5 text-amber-500 transition-all duration-500"
       :class="
         isDarkMode
-          ? 'opacity-0 rotate-90 scale-0'
-          : 'opacity-100 rotate-0 scale-100'
+          ? 'opacity-100 rotate-0 scale-100'
+          : 'opacity-0 rotate-90 scale-0'
       "
       viewBox="0 0 24 24"
       fill="none"
@@ -28,13 +28,13 @@
       <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
     </svg>
 
-    <!-- Moon icon (visible in dark mode) -->
+    <!-- Moon icon (shown when in light mode; action is to switch to dark) -->
     <svg
-      class="absolute h-5 w-5 text-indigo-300 transition-all duration-500"
+      class="absolute h-5 w-5 text-slate-700 dark:text-indigo-300 transition-all duration-500"
       :class="
         isDarkMode
-          ? 'opacity-100 rotate-0 scale-100'
-          : 'opacity-0 -rotate-90 scale-0'
+          ? 'opacity-0 -rotate-90 scale-0'
+          : 'opacity-100 rotate-0 scale-100'
       "
       viewBox="0 0 24 24"
       fill="none"

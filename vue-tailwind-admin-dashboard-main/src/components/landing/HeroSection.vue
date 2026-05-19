@@ -27,7 +27,10 @@
       </h1>
 
       <div class="mt-6 h-7 sgfm-rise delay-2">
-        <span class="sgfm-typewriter text-slate-600 dark:text-slate-300 text-base sm:text-lg">
+        <span
+          :key="current"
+          class="sgfm-typewriter text-slate-600 dark:text-slate-300 text-base sm:text-lg"
+        >
           {{ current }}
         </span>
       </div>
@@ -110,7 +113,7 @@ onMounted(() => {
   timer = setInterval(() => {
     idx = (idx + 1) % phrases.length
     current.value = phrases[idx]
-  }, 3500)
+  }, 8000)
 })
 onUnmounted(() => timer && clearInterval(timer))
 
