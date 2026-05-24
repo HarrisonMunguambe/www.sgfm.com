@@ -38,6 +38,7 @@
         <CardGlass
           v-for="(n, i) in news"
           :key="n.id"
+          v-spotlight
           hover
           :class="['p-6 flex flex-col sgfm-rise', `delay-${i + 1}`]"
         >
@@ -109,6 +110,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import CardGlass from '@/components/neon/CardGlass.vue'
 import { MOCK_AI_NEWS, MOCK_INSIGHTS } from '@/services/mockData'
+import { vSpotlight } from '@/composables/landingEffects'
 
 const news = ref(MOCK_AI_NEWS)
 const totalInsights = MOCK_INSIGHTS.length

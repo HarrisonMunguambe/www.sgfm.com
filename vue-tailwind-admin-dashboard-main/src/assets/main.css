@@ -969,3 +969,69 @@ span.flatpickr-weekday,
   box-shadow: 0 0 12px #10b981;
   animation: sgfm-pulse 1.8s ease-in-out infinite;
 }
+
+/* Magnetic hover — cursor-following transform driven by directive CSS vars */
+.sgfm-magnetic {
+  transform: translate3d(var(--mag-x, 0), var(--mag-y, 0), 0);
+  transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+/* Spotlight — radial glow that follows the cursor on hover */
+.sgfm-spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.sgfm-spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    520px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(14, 165, 233, 0.18),
+    rgba(139, 92, 246, 0.10) 30%,
+    transparent 55%
+  );
+  z-index: 2;
+  mix-blend-mode: plus-lighter;
+}
+.dark .sgfm-spotlight::after {
+  background: radial-gradient(
+    520px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(0, 242, 254, 0.22),
+    rgba(139, 92, 246, 0.14) 30%,
+    transparent 55%
+  );
+}
+.sgfm-spotlight:hover::after {
+  opacity: 1;
+}
+
+/* Scroll-reveal — applied by v-reveal directive */
+.sgfm-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+.sgfm-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sgfm-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .sgfm-magnetic {
+    transform: none;
+    transition: none;
+  }
+}

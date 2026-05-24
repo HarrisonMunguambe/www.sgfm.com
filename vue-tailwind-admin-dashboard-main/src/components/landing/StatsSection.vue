@@ -28,12 +28,13 @@
             segundo no seu painel de gestor.
           </p>
 
-          <div class="grid grid-cols-2 gap-4 mt-10">
+          <div ref="statsGridRef" class="grid grid-cols-2 gap-4 mt-10">
             <CardGlass
               v-for="(s, i) in stats"
               :key="s.label"
+              v-reveal="{ delay: i * 120 }"
               hover
-              :class="['p-5 sgfm-rise', `delay-${Math.min(i + 1, 4)}`]"
+              class="p-5"
             >
               <div class="flex items-center justify-between mb-3">
                 <div
@@ -211,8 +212,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import CardGlass from '@/components/neon/CardGlass.vue'
+import { vReveal } from '@/composables/landingEffects'
 
 type RangeKey = 'D' | 'S' | 'M'
 
@@ -231,12 +233,59 @@ const buckets: Record<RangeKey, RangeBucket> = {
   M: { total: 1_250_000, series: [180, 240, 215, 280, 320, 360], label: 'Este mês' },
 }
 
-const approved = ref(87)
-const savings = ref(12.4)
-const users = ref(24)
+const approvedTarget = 87
+const savingsTarget = 12.4
+const usersTarget = 24
+const totalManagedTarget = 1_250_000
+
+const approved = ref(0)
+const savings = ref(0)
+const users = ref(0)
+const totalManagedDisplay = ref(0)
 
 const currentBucket = computed(() => buckets[range.value])
-const totalManaged = computed(() => buckets.M.total)
+
+const statsGridRef = ref<HTMLElement | null>(null)
+const prefersReducedMotion =
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+function tween(setter: (v: number) => void, to: number, duration = 1600) {
+  if (prefersReducedMotion) {
+    setter(to)
+    return
+  }
+  const start = performance.now()
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / duration)
+    const eased = 1 - Math.pow(1 - t, 3)
+    setter(to * eased)
+    if (t < 1) requestAnimationFrame(step)
+  }
+  requestAnimationFrame(step)
+}
+
+let obs: IntersectionObserver | null = null
+onMounted(() => {
+  if (!statsGridRef.value) return
+  obs = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          tween((v) => (approved.value = Math.round(v)), approvedTarget)
+          tween((v) => (savings.value = v), savingsTarget)
+          tween((v) => (users.value = Math.round(v)), usersTarget)
+          tween((v) => (totalManagedDisplay.value = Math.round(v)), totalManagedTarget)
+          obs?.disconnect()
+          break
+        }
+      }
+    },
+    { threshold: 0.25 },
+  )
+  obs.observe(statsGridRef.value)
+})
+onUnmounted(() => obs?.disconnect())
 
 function formatMZN(n: number) {
   return new Intl.NumberFormat('pt-MZ', { maximumFractionDigits: 0 }).format(n) + ' MT'
@@ -305,7 +354,7 @@ const activity = [
 const stats = computed(() => [
   {
     label: 'Total gerido este mês',
-    display: formatMZN(totalManaged.value),
+    display: formatMZN(totalManagedDisplay.value),
     delta: '+8,2%',
     iconBg: 'bg-sky-100 dark:bg-cyan-500/20',
     icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 3a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/></svg>',

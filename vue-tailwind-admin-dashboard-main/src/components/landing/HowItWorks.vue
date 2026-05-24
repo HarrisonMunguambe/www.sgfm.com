@@ -32,8 +32,10 @@
         <CardGlass
           v-for="(step, i) in steps"
           :key="step.title"
+          v-reveal="{ delay: i * 140 }"
+          v-spotlight
           hover
-          :class="['p-6 relative sgfm-rise', `delay-${Math.min(i + 1, 4)}`]"
+          class="p-6 relative"
         >
           <div class="flex items-center justify-between mb-5">
             <div
@@ -41,7 +43,7 @@
               v-html="step.icon"
             ></div>
             <div
-              class="text-4xl font-extrabold tabular-nums leading-none bg-clip-text text-transparent bg-gradient-to-br from-slate-300 to-slate-100 dark:from-slate-600 dark:to-slate-800"
+              class="text-4xl font-extrabold tabular-nums leading-none bg-clip-text text-transparent bg-gradient-to-br from-slate-500 to-slate-300 dark:from-slate-300 dark:to-slate-500"
             >
               0{{ i + 1 }}
             </div>
@@ -71,6 +73,7 @@
 
 <script setup lang="ts">
 import CardGlass from '@/components/neon/CardGlass.vue'
+import { vReveal, vSpotlight } from '@/composables/landingEffects'
 
 const steps = [
   {

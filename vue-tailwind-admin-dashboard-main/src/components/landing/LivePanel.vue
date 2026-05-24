@@ -35,7 +35,7 @@
           </ul>
         </div>
 
-        <CardGlass glow class="p-6 sgfm-neon-cyan live-card">
+        <CardGlass v-spotlight glow class="p-6 sgfm-neon-cyan live-card">
           <div class="flex items-center justify-between h-12">
             <div>
               <div class="text-xs text-slate-500 dark:text-slate-400">Saldo atual do fundo</div>
@@ -136,6 +136,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 import CardGlass from '@/components/neon/CardGlass.vue'
 import MovementDetailsDialog from '@/components/landing/MovementDetailsDialog.vue'
 import { MOCK_RECENT_MOVEMENTS } from '@/services/mockData'
+import { vSpotlight } from '@/composables/landingEffects'
 
 const bullets = [
   'Entradas e saídas actualizadas em tempo real',

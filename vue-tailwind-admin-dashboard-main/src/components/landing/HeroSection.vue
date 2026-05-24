@@ -48,8 +48,9 @@
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4 sgfm-rise delay-4">
         <button
+          v-magnetic="0.35"
           @click="scrollToChoice"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-500 shadow-[0_15px_35px_-10px_rgba(79,70,229,0.55)] hover:shadow-[0_15px_35px_-5px_rgba(139,92,246,0.65)] hover:-translate-y-0.5 transition-all"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-white bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-500 shadow-[0_15px_35px_-10px_rgba(79,70,229,0.55)] hover:shadow-[0_20px_45px_-8px_rgba(139,92,246,0.7)]"
         >
           Começar agora
           <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
@@ -58,10 +59,14 @@
         </button>
 
         <router-link
+          v-magnetic="0.25"
           to="/login"
-          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-slate-700 dark:text-white border border-slate-200 dark:border-white/15 bg-white/80 dark:bg-white/5 backdrop-blur hover:bg-white hover:border-sky-300 dark:hover:bg-white/10 dark:hover:border-cyan-300/50 transition"
+          class="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-slate-700 dark:text-white border border-slate-200 dark:border-white/15 bg-white/80 dark:bg-white/5 backdrop-blur hover:bg-white hover:border-sky-300 dark:hover:bg-white/10 dark:hover:border-cyan-300/50"
         >
           Já tenho conta
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10 10a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z" />
+          </svg>
         </router-link>
       </div>
 
@@ -99,6 +104,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import { vMagnetic } from '@/composables/landingEffects'
 
 const phrases = [
   'Maior controle de fluxo de caixa.',
