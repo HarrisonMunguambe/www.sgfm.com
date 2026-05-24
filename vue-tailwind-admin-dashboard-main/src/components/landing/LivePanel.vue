@@ -6,13 +6,15 @@
           <p class="text-sky-600 dark:text-cyan-300 text-sm font-medium tracking-widest uppercase">
             Ao vivo
           </p>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
+          <h2
+            class="mt-3 text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white leading-tight"
+          >
             Acompanhe o seu fundo <span class="sgfm-gradient-text">em tempo real</span>
           </h2>
           <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
-            Isto não é apenas uma demonstração — é uma simulação real do painel do SGFM. O saldo é
-            atualizado, as movimentações chegam e os alertas são acionados. Imagine isto com os dados
-            da sua empresa.
+            Veja o saldo actual do fundo, a evolução recente e as últimas movimentações (entradas e
+            saídas) por departamento. A cada novo registo, o painel actualiza automaticamente e
+            destaca variações que merecem atenção.
           </p>
 
           <ul class="mt-6 space-y-3">
@@ -37,9 +39,7 @@
           <div class="flex items-center justify-between h-12">
             <div>
               <div class="text-xs text-slate-500 dark:text-slate-400">Saldo atual do fundo</div>
-              <div
-                class="mt-1 text-3xl font-bold text-slate-900 dark:text-white tabular-nums"
-              >
+              <div class="mt-1 text-3xl font-bold text-slate-900 dark:text-white tabular-nums">
                 {{ formatMZN(balance) }}
               </div>
             </div>
@@ -127,11 +127,7 @@
       </div>
     </div>
 
-    <MovementDetailsDialog
-      :open="dialogOpen"
-      :movement="selected"
-      @close="dialogOpen = false"
-    />
+    <MovementDetailsDialog :open="dialogOpen" :movement="selected" @close="dialogOpen = false" />
   </section>
 </template>
 
@@ -142,9 +138,9 @@ import MovementDetailsDialog from '@/components/landing/MovementDetailsDialog.vu
 import { MOCK_RECENT_MOVEMENTS } from '@/services/mockData'
 
 const bullets = [
-  'Aprovações e rejeições em tempo real por departamento',
-  'Alertas de IA quando um gasto desvia do padrão histórico',
-  'Integração direta com conciliação bancária (em breve)',
+  'Entradas e saídas actualizadas em tempo real',
+  'Histórico das últimas movimentações por departamento',
+  'Conciliação bancária integrada (em breve)',
 ]
 
 const balance = ref(2_845_300)

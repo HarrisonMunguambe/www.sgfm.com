@@ -182,7 +182,9 @@
       <div
         class="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-500"
       >
-        <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/40 px-3 py-1.5 text-[11px] font-medium text-slate-600 backdrop-blur-sm transition-colors duration-300 hover:border-slate-300 dark:border-slate-700/60 dark:bg-slate-900/40 dark:text-slate-300 dark:hover:border-slate-600">
+        <div
+          class="inline-flex items-center gap-2 rounded-full border border-slate-200/60 bg-white/40 px-3 py-1.5 text-[11px] font-medium text-slate-600 backdrop-blur-sm transition-colors duration-300 hover:border-slate-300 dark:border-slate-700/60 dark:bg-slate-900/40 dark:text-slate-300 dark:hover:border-slate-600"
+        >
           <svg
             class="h-3 w-3 text-slate-400"
             viewBox="0 0 24 24"
@@ -198,7 +200,10 @@
           <span>
             <span class="font-semibold text-slate-700 dark:text-slate-200">{{ year }}</span>
             <span class="mx-1 text-slate-300 dark:text-slate-600">•</span>
-            <span class="bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text font-semibold text-transparent dark:from-slate-200 dark:to-slate-400">SGFM</span>
+            <span
+              class="bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text font-semibold text-transparent dark:from-slate-200 dark:to-slate-400"
+              >SGFM</span
+            >
             <span class="hidden sm:inline">— Todos os direitos reservados.</span>
           </span>
         </div>
@@ -210,12 +215,16 @@
             class="sgfm-credit group inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-sky-500/10 px-3 py-1.5 text-[11px] font-medium text-slate-700 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/60 hover:from-emerald-500/20 hover:via-teal-500/20 hover:to-sky-500/20 hover:shadow-[0_0_20px_-4px_rgba(16,185,129,0.5)] hover:scale-105 dark:text-slate-200"
           >
             <span class="relative flex h-2 w-2">
-              <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span
+                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+              ></span>
               <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
             </span>
             <span>
-              Projecto e Desenvolvido por
-              <span class="bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 bg-clip-text font-semibold text-transparent">
+              Projectado e Desenvolvido por
+              <span
+                class="bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 bg-clip-text font-semibold text-transparent"
+              >
                 Eng. Harrison Munguambe
               </span>
             </span>
