@@ -760,6 +760,14 @@ span.flatpickr-weekday,
 }
 
 /* ========================================================================
+   reCAPTCHA v3 badge — empurra-o para cima para não colidir com o widget
+   do Chatbase no canto inferior direito.
+   ======================================================================== */
+.grecaptcha-badge {
+  bottom: 90px !important;
+}
+
+/* ========================================================================
    SGFM — Light fintech theme with neon accents + glassmorphism
    Uses the app's existing ThemeProvider: default light, `dark` class for dark.
    ======================================================================== */

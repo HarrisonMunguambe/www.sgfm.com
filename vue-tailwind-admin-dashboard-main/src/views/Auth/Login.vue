@@ -6,7 +6,7 @@
         <AuthBrandPanel
           tag="Inicie sessão no SGFM"
           title="Bem-vindo"
-          titleAccent="de volta."
+          titleAccent="de volta"
           description="Retome ao controlo do fundo de maneio da sua organização, com acesso rápido, seguro e inteligente."
           :bullets="[
             'Painel em tempo real com saldo e movimentos',
@@ -91,36 +91,70 @@
               <div class="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
             </div>
 
-            <form @submit.prevent="onSubmit" class="space-y-4" novalidate>
-              <InputNeon
-                id="login"
-                v-model="form.login"
-                label="E-mail ou telefone"
-                placeholder="nome@empresa.com ou +258…"
-                :error="errors.login"
-                required
-                autocomplete="username"
-                @blur="validateField('login')"
-              />
+            <!--
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              FORM com validação automática via PrimeVue Forms + Zod
+              ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-              <InputNeon
-                id="password"
-                v-model="form.password"
-                label="Palavra-passe"
-                placeholder="Pelo menos 4 caracteres"
-                type="password"
-                :error="errors.password"
-                required
-                autocomplete="current-password"
-                @blur="validateField('password')"
-              />
+              <Form>
+                - resolver: a função que valida os values contra o schema Zod
+                - initial-values: estado inicial de cada campo
+                - @submit: handler que recebe { valid, values, errors }
+                - O slot v-slot="$form" expõe o estado global do form (não usado aqui)
 
+              <FormField name="...">
+                - name: tem de bater com a chave no schema Zod
+                - O slot v-slot="$field" expõe:
+                    $field.props      → modelValue + onUpdate:modelValue + onBlur (spread no input)
+                    $field.invalid    → true se foi tocado E tem erro
+                    $field.error      → objecto com .message quando inválido
+                - O touched é gerido sozinho: só fica invalid depois do user tocar
+                  ou depois de carregar em "Iniciar sessão"
+            -->
+            <Form
+              :resolver="resolver"
+              :initial-values="{ login: '', password: '' }"
+              @submit="onFormSubmit"
+              class="space-y-4"
+            >
+              <!-- Campo: login (e-mail ou telefone) -->
+              <FormField v-slot="$field" name="login">
+                <InputNeon
+                  v-bind="$field.props"
+                  id="login"
+                  label="E-mail ou telefone"
+                  placeholder="nome@empresa.com ou +258…"
+                  autocomplete="username"
+                  required
+                  :error="$field.invalid ? $field.error?.message : undefined"
+                />
+              </FormField>
+
+              <!-- Campo: password -->
+              <FormField v-slot="$field" name="password">
+                <InputNeon
+                  v-bind="$field.props"
+                  id="password"
+                  label="Palavra-passe"
+                  placeholder="Pelo menos 4 caracteres"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  :error="$field.invalid ? $field.error?.message : undefined"
+                />
+              </FormField>
+
+              <!--
+                Estes dois itens (remember + esqueci) ficam FORA do <FormField>:
+                - "Manter sessão" é um ref local sem validação
+                - O link "Esqueceu a palavra-passe?" é navegação, não input
+              -->
               <div class="flex items-center justify-between text-sm">
                 <label
                   class="flex items-center gap-2 text-slate-600 dark:text-slate-400 cursor-pointer select-none"
                 >
                   <input
-                    v-model="form.remember"
+                    v-model="remember"
                     type="checkbox"
                     class="h-4 w-4 rounded border-slate-300 text-sky-500 focus:ring-sky-500/50 dark:border-white/20 dark:bg-white/5 dark:text-cyan-400"
                   />
@@ -137,7 +171,7 @@
               <ButtonNeon type="submit" block :loading="loading" variant="primary">
                 Iniciar sessão
               </ButtonNeon>
-            </form>
+            </Form>
 
             <p class="mt-8 text-sm text-center text-slate-600 dark:text-slate-400">
               Ainda não tem uma conta?
@@ -158,14 +192,24 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { AxiosError } from 'axios'
+
+// PrimeVue Forms + Zod
+import { Form, FormField, type FormSubmitEvent } from '@primevue/forms'
+import { zodResolver } from '@primevue/forms/resolvers/zod'
+import { z } from 'zod'
+
+// Inputs / wrappers da app
 import InputNeon from '@/components/neon/InputNeon.vue'
 import ButtonNeon from '@/components/neon/ButtonNeon.vue'
 import ToastContainer from '@/components/neon/ToastContainer.vue'
 import AuthBrandPanel from '@/components/landing/AuthBrandPanel.vue'
 import ThemeToggle from '@/components/landing/ThemeToggle.vue'
 import AppLogo from '@/components/common/AppLogo.vue'
+
+// Serviços + composables
 import { useToast } from '@/composables/useToast'
 import { login as doLogin } from '@/services/auth'
 import { API_BASE_URL } from '@/services/api'
@@ -173,45 +217,97 @@ import { API_BASE_URL } from '@/services/api'
 const router = useRouter()
 const toast = useToast()
 
-const form = reactive({ login: '', password: '', remember: false })
-const errors = reactive<{ login?: string; password?: string }>({})
+// Estado da UI — só o que NÃO é gerido pelo Form
 const loading = ref(false)
+const remember = ref(false)
 
-function validateField(f: 'login' | 'password') {
-  if (f === 'login') {
-    if (!form.login) errors.login = 'Indique o e-mail ou o telefone'
-    else if (!/^([^\s@]+@[^\s@]+\.[^\s@]+|\+?\d[\d\s-]{5,})$/.test(form.login))
-      errors.login = 'Formato inválido'
-    else errors.login = undefined
-  }
-  if (f === 'password') {
-    if (!form.password) errors.password = 'Informe a palavra-passe'
-    else if (form.password.length < 4) errors.password = 'Mínimo de 4 caracteres'
-    else errors.password = undefined
-  }
-}
+// ──────────────────────────────────────────────────────────
+// SCHEMA — define as regras de validação em forma declarativa.
+// Cada chave (login, password) corresponde a um <FormField name="..." />
+// no template. As mensagens em z.* aparecem em $field.error.message.
+// ──────────────────────────────────────────────────────────
+const schema = z.object({
+  login: z
+    .string()
+    .min(1, 'Indique o e-mail ou o telefone')
+    .regex(/^([^\s@]+@[^\s@]+\.[^\s@]+|\+?\d[\d\s-]{5,})$/, 'Formato inválido'),
+  password: z.string().min(1, 'Informe a palavra-passe').min(4, 'Mínimo de 4 caracteres'),
+})
 
-function validateAll() {
-  validateField('login')
-  validateField('password')
-  return !errors.login && !errors.password
-}
+// O resolver é uma adapter que liga o schema Zod ao PrimeVue Forms.
+// É passado para o <Form :resolver="resolver">.
+const resolver = zodResolver(schema)
 
-async function onSubmit() {
-  if (!validateAll()) return
+// Tipo dos valores que o form devolve no submit (inferido do schema).
+type LoginValues = z.infer<typeof schema>
+
+// ──────────────────────────────────────────────────────────
+// SUBMIT — chamado pelo <Form @submit="...">.
+// O PrimeVue Forms só nos dá o controlo DEPOIS de validar tudo.
+// Se houver erros, valid=false e nem fazemos chamada à API.
+// ──────────────────────────────────────────────────────────
+async function onFormSubmit(event: FormSubmitEvent) {
+  // O PrimeVue Forms tipa `values` como Record<string, any> (genérico).
+  // Como nós já validámos contra o nosso schema Zod, podemos
+  // afirmar com segurança o tipo concreto LoginValues.
+  if (!event.valid) return // erros já estão a ser mostrados pelos $field.invalid
+  const values = event.values as LoginValues
+
   loading.value = true
   try {
-    await doLogin(form.login, form.password)
+    await doLogin(values.login, values.password)
     toast.success('Bem-vindo ao SGFM', 'Sessão iniciada com sucesso.')
     router.push('/dashboard')
-  } catch (e: unknown) {
-    const msg = e instanceof Error ? e.message : 'Não foi possível iniciar sessão.'
+  } catch (err: unknown) {
+    const msg = extractBackendError(err, 'Não foi possível iniciar sessão.')
     toast.error('Falha na autenticação', msg)
   } finally {
     loading.value = false
   }
 }
 
+// ──────────────────────────────────────────────────────────
+// Helper para extrair a mensagem mais útil de um erro do Laravel.
+//
+// O backend responde em formatos diferentes consoante o caso:
+//
+//   422 Validation Error:
+//   { success: false,
+//     message: "Dados inválidos",
+//     errors: { login: ["Credenciais inválidas."] } }
+//
+//   500 / outras:
+//   { message: "Algo correu mal." }
+//
+// Ordem de preferência:
+//   1. errors.<campo>[0]  — o mais específico (ex: "Credenciais inválidas.")
+//   2. message            — o genérico (ex: "Dados inválidos")
+//   3. err.message        — erro JS puro (sem ser Axios)
+//   4. fallback           — texto default da view
+// ──────────────────────────────────────────────────────────
+function extractBackendError(err: unknown, fallback: string): string {
+  if (err instanceof AxiosError) {
+    const data = err.response?.data as
+      | { message?: string; errors?: Record<string, string[]> }
+      | undefined
+
+    // 1. Preferir mensagens específicas por campo
+    //    (devolve o primeiro erro do primeiro campo que tenha erros)
+    if (data?.errors) {
+      for (const field of Object.keys(data.errors)) {
+        const messages = data.errors[field]
+        if (messages && messages.length > 0) return messages[0]
+      }
+    }
+
+    // 2. Cair na mensagem genérica
+    if (typeof data?.message === 'string') return data.message
+  }
+  if (err instanceof Error) return err.message
+  return fallback
+}
+
+// Login via Google (redirect ao backend que faz OAuth)
 function signInWithGoogle() {
   window.location.href = `${API_BASE_URL}/auth/google/redirect`
 }

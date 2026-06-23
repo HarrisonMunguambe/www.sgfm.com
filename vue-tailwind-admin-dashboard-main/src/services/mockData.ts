@@ -1,24 +1,3 @@
-export const MOCK_DEPARTMENTS = [
-  { id: 1, name: 'Financeiro' },
-  { id: 2, name: 'Recursos Humanos' },
-  { id: 3, name: 'Tecnologia da Informação' },
-  { id: 4, name: 'Operações' },
-  { id: 5, name: 'Auditoria Interna' },
-  { id: 6, name: 'Compras e Logística' },
-  { id: 7, name: 'Direção Geral' },
-]
-
-export const MOCK_ROLES = [
-  { id: 1, name: 'Gestor de Fundo' },
-  { id: 2, name: 'Solicitante' },
-  { id: 3, name: 'Aprovador' },
-  { id: 4, name: 'Tesoureiro' },
-  { id: 5, name: 'Auditor' },
-  { id: 6, name: 'Administrador' },
-]
-
-export const MOCK_OTP_CODE = '123456'
-
 export const MOCK_STATS = {
   totalManaged: 18_450_000,
   approvedRequests: 1_284,
@@ -345,27 +324,3 @@ export const MOCK_TESTIMONIALS = [
   },
 ]
 
-export const MOCK_USER = {
-  id: 42,
-  name: 'Utilizador SGFM',
-  email: 'utilizador@sgfm.com',
-  phone: '+258 84 000 0000',
-  department: 'Financeiro',
-  role: 'Gestor de Fundo',
-}
-
-export interface RegisterStep1 {
-  email: string
-  phone: string
-  password: string
-  password_confirmation: string
-  terms: boolean
-  security_question: string
-}
-
-export interface RegisterStep3 {
-  full_name: string
-  department_id: number | null
-  role_id: number | null
-  alt_phone?: string
-}

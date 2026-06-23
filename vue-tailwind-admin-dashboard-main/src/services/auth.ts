@@ -1,123 +1,85 @@
-import api from './api'
-import { MOCK_DEPARTMENTS, MOCK_OTP_CODE, MOCK_ROLES, MOCK_USER } from './mockData'
-import type { RegisterStep1, RegisterStep3 } from './mockData'
+// ──────────────────────────────────────────────────────────
+// Camada de auth — a IMPLEMENTAR seguindo o guia (Pinia + types/auth.ts)
+//
+// O que está pronto:
+//   - Tipos partilhados (AuthUser, RegisterStep1Input, RegisterStep3Input)
+//   - Helpers de sessão local (getStoredUser, getStoredToken, isAuthenticated)
+//   - Função logout local (só limpa o localStorage)
+//
+// O que falta TU implementares:
+//   - login, registerStep1, verifyOtp, registerStep3
+//   - forgotPassword, resetPassword
+//   - fetchDepartments, fetchRoles
+//
+// Todas as funções "TODO" lançam erro propositadamente para deixar claro
+// quando estão a ser chamadas sem implementação. Quando ligares ao backend,
+// substituis cada `throw` por `await api.post(...)` / `api.get(...)`.
+// ──────────────────────────────────────────────────────────
 
-const USE_MOCK = true
+// ──────────────────────────────────────────────────────────
+// Tipos partilhados
+// ──────────────────────────────────────────────────────────
 
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
+// Inicio de desenvolvimento
 
-export interface AuthUser {
-  id: number
-  name: string
-  email: string
-  phone?: string
-  department?: string
-  role?: string
-}
+//  aqui e onde tenho as rotas ao backend
+import api from '@/services/api'
+// aqui e onde tenho os tipos do backend - a tal tipagem do typescript
+import type { ApiSuccess, AuthUser,LoginPayload, LoginResponse } from '@/types/auth'
+// para poder usar dados tipados de AuthUser em outras views, exporto o tipo AuthUser
+export type { AuthUser }
 
-function persistSession(token: string, user: AuthUser) {
-  localStorage.setItem('sgfm_token', token)
-  localStorage.setItem('sgfm_user', JSON.stringify(user))
-}
+// import do reccptcha
+import {useRecaptcha} from '@/composables/useRecaptcha'
+
+// ──────────────────────────────────────────────────────────
+// Sessão local (sem backend) — usado pelo navbar, router, etc.
+// ──────────────────────────────────────────────────────────
+
+
+const { executeRecaptcha } = useRecaptcha()
+
+
+const TOKEN_KEY = 'sgfm_token'
+const USER_KEY = 'sgfm_user'
 
 export function getStoredUser(): AuthUser | null {
-  const raw = localStorage.getItem('sgfm_user')
+  const raw = localStorage.getItem(USER_KEY)
   return raw ? (JSON.parse(raw) as AuthUser) : null
 }
 
 export function getStoredToken(): string | null {
-  return localStorage.getItem('sgfm_token')
+  return localStorage.getItem(TOKEN_KEY)
 }
 
 export function isAuthenticated(): boolean {
   return !!getStoredToken()
 }
 
-export async function login(login: string, password: string): Promise<AuthUser> {
-  if (USE_MOCK) {
-    await wait(900)
-    if (!login || !password) throw new Error('Credenciais inválidas')
-    if (password.length < 4) throw new Error('Credenciais inválidas')
-    const user: AuthUser = { ...MOCK_USER, email: login.includes('@') ? login : MOCK_USER.email }
-    persistSession('mock-token-' + Date.now(), user)
-    return user
-  }
-  const { data } = await api.post('/auth/login', { login, password })
-  persistSession(data.token, data.user)
-  return data.user
-}
-
+// Logout local — limpa a sessão. Substitui pela versão que também chama
+// /auth/logout quando ligares ao backend.
 export async function logout(): Promise<void> {
-  if (!USE_MOCK) {
-    try {
-      await api.post('/auth/logout')
-    } catch {
-      /* ignore */
-    }
-  }
-  localStorage.removeItem('sgfm_token')
-  localStorage.removeItem('sgfm_user')
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem(USER_KEY)
 }
 
-export async function registerStep1(payload: RegisterStep1): Promise<{ ok: true }> {
-  if (USE_MOCK) {
-    await wait(700)
-    if (payload.password !== payload.password_confirmation)
-      throw new Error('As palavras-passe não coincidem')
-    if (!payload.terms) throw new Error('Deve aceitar os termos')
-    localStorage.setItem('sgfm_register_email', payload.email)
-    return { ok: true }
-  }
-  await api.post('/auth/register/step1', payload)
-  return { ok: true }
-}
+// ──────────────────────────────────────────────────────────
+// TODO: ligar ao backend (POST /api/v1/auth/login)
+// ──────────────────────────────────────────────────────────
+export async function login(loginField: string, password: string): Promise<AuthUser> {
 
-export async function verifyOtp(code: string): Promise<{ ok: true }> {
-  if (USE_MOCK) {
-    await wait(600)
-    if (code !== MOCK_OTP_CODE) throw new Error('Código OTP inválido')
-    return { ok: true }
+  const payload: LoginPayload = {
+    login: loginField,
+    password: password,
+    recaptcha_token: 'recaptchaToken'
   }
-  await api.post('/auth/register/verify-otp', { code })
-  return { ok: true }
-}
+  const { data } = await api.post<ApiSuccess<LoginResponse>>('auth/login', payload)
 
-export async function registerStep3(payload: RegisterStep3): Promise<AuthUser> {
-  if (USE_MOCK) {
-    await wait(900)
-    const dept = MOCK_DEPARTMENTS.find((d) => d.id === payload.department_id)?.name ?? 'Financeiro'
-    const role = MOCK_ROLES.find((r) => r.id === payload.role_id)?.name ?? 'Solicitante'
-    const email = localStorage.getItem('sgfm_register_email') || 'novo@sgfm.com'
-    const user: AuthUser = {
-      id: Math.floor(Math.random() * 10_000),
-      name: payload.full_name,
-      email,
-      department: dept,
-      role,
-    }
-    persistSession('mock-token-' + Date.now(), user)
-    localStorage.removeItem('sgfm_register_email')
-    return user
-  }
-  const { data } = await api.post('/auth/register/step3', payload)
-  persistSession(data.token, data.user)
-  return data.user
-}
+  // guardar token e user no localStorage
+  localStorage.setItem(TOKEN_KEY, data.data.token)
+  localStorage.setItem(USER_KEY, JSON.stringify(data.data.user))
 
-export async function fetchDepartments() {
-  if (USE_MOCK) {
-    await wait(300)
-    return MOCK_DEPARTMENTS
-  }
-  const { data } = await api.get('/departments')
-  return data
-}
+  // retornar o user tipado para a view que chamou login()
+  return data.data.user
 
-export async function fetchRoles() {
-  if (USE_MOCK) {
-    await wait(300)
-    return MOCK_ROLES
-  }
-  const { data } = await api.get('/roles')
-  return data
 }

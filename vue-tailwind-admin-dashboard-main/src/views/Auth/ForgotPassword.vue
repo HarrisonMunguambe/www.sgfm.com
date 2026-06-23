@@ -234,9 +234,6 @@ import AppLogo from '@/components/common/AppLogo.vue'
 import InputOtp from 'primevue/inputotp'
 import { useToast } from '@/composables/useToast'
 
-const MOCK_OTP = '123456'
-const wait = (ms: number) => new Promise((r) => setTimeout(r, ms))
-
 const router = useRouter()
 const toast = useToast()
 
@@ -273,41 +270,29 @@ function validateEmail() {
 async function submitEmail() {
   validateEmail()
   if (emailError.value) return
-  loading.value = true
-  try {
-    await wait(700)
-    toast.success('Código enviado', 'Verifique o seu e-mail e SMS.')
-    step.value = 2
-  } finally {
-    loading.value = false
-  }
+  // TODO: chamar forgotPassword(email.value) do services/auth.ts
+  toast.success('Código enviado', 'Verifique o seu e-mail.')
+  step.value = 2
 }
 
 // ---------- STEP 2: OTP via PrimeVue ----------
 const otpCode = ref('')
 const otpError = ref('')
 
-async function submitOtp() {
+function submitOtp() {
+  // O backend valida o OTP apenas no /password/reset (em conjunto com a nova
+  // senha). Aqui só validamos o formato e avançamos para o ecrã final.
   if (otpCode.value.length !== 6) {
     otpError.value = 'Introduza os 6 dígitos'
     return
   }
-  loading.value = true
-  try {
-    await wait(600)
-    if (otpCode.value !== MOCK_OTP) {
-      otpError.value = 'Código inválido'
-      return
-    }
-    toast.success('Código verificado', 'Agora defina a nova palavra-passe')
-    step.value = 3
-  } finally {
-    loading.value = false
-  }
+  otpError.value = ''
+  step.value = 3
 }
 
 function resend() {
-  toast.info('Código reenviado', 'Verifique novamente o e-mail e SMS.')
+  // TODO: chamar forgotPassword(email.value) do services/auth.ts
+  toast.info('Código reenviado', 'Verifique o seu e-mail.')
 }
 
 // ---------- STEP 3: new password ----------
@@ -375,7 +360,7 @@ async function submitNewPassword() {
   if (newErrors.newPassword || newErrors.confirmPassword) return
   loading.value = true
   try {
-    await wait(800)
+    // TODO: chamar resetPassword({ email, otp, password, password_confirmation })
     toast.success('Palavra-passe redefinida', 'Pode agora iniciar sessão com a nova palavra-passe.')
     setTimeout(() => router.push('/login'), 600)
   } finally {

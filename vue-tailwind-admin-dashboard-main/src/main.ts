@@ -17,6 +17,16 @@ import { definePreset } from '@primeuix/themes'
 import { applyThemeToDocument, getInitialTheme } from './utils/theme'
 import { initChatbase } from './services/chatbase'
 
+// Pinia
+import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
+
+
+
 // SGFM color preset — sky/indigo primary so it matches the landing accents
 const SGFMPreset = definePreset(Aura, {
   semantic: {
@@ -43,6 +53,9 @@ applyThemeToDocument(getInitialTheme())
 
 // Global Chatbase embed (all pages)
 initChatbase()
+
+//pinia
+app.use(pinia)
 
 app.use(router)
 app.use(VueApexCharts)

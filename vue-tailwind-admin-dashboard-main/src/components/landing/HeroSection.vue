@@ -21,7 +21,7 @@
       <h1
         class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.05] sgfm-rise delay-1"
       >
-        <span class="sgfm-gradient-text">SGFM</span>
+        <span class="sgfm-gradient-text">Órbita</span>
         <br />
         <span>Gestão de Fundo de Maneio</span>
       </h1>

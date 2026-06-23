@@ -193,16 +193,6 @@
                 <!-- Actions -->
                 <div class="flex flex-wrap gap-3 justify-end">
                   <button
-                    class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 inline-flex items-center gap-2 dark:text-slate-200 dark:bg-white/5 dark:border-white/10 dark:hover:bg-white/10 transition"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
-                      <path
-                        d="M10 2a1 1 0 011 1v8.6l2.3-2.3 1.4 1.4L10 15.4 5.3 10.7l1.4-1.4L9 11.6V3a1 1 0 011-1zm-7 14h14v2H3v-2z"
-                      />
-                    </svg>
-                    Exportar PDF
-                  </button>
-                  <button
                     class="px-4 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-sky-500 to-indigo-600 shadow-[0_8px_20px_-6px_rgba(79,70,229,0.55)] hover:shadow-[0_10px_25px_-4px_rgba(139,92,246,0.65)] hover:-translate-y-0.5 inline-flex items-center gap-2 transition"
                   >
                     Ver requisição
