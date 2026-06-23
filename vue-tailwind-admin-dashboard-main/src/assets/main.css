@@ -768,6 +768,45 @@ span.flatpickr-weekday,
 }
 
 /* ========================================================================
+   ApexCharts — tooltip override (consistente em light/dark + sempre legível)
+   ======================================================================== */
+.apexcharts-tooltip.apexcharts-theme-dark,
+.apexcharts-tooltip.apexcharts-theme-light {
+  background: rgba(15, 23, 42, 0.96) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.45) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+.apexcharts-tooltip-title {
+  background: rgba(30, 41, 59, 0.96) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  font-weight: 600 !important;
+}
+.apexcharts-tooltip-text,
+.apexcharts-tooltip-y-group,
+.apexcharts-tooltip-text-y-value,
+.apexcharts-tooltip-text-y-label,
+.apexcharts-tooltip-series-group {
+  color: #f8fafc !important;
+}
+.apexcharts-xaxistooltip,
+.apexcharts-yaxistooltip {
+  background: rgba(15, 23, 42, 0.96) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 6px !important;
+}
+.apexcharts-xaxistooltip::before,
+.apexcharts-xaxistooltip::after,
+.apexcharts-yaxistooltip::before,
+.apexcharts-yaxistooltip::after {
+  border-color: transparent !important;
+}
+
+/* ========================================================================
    SGFM — Light fintech theme with neon accents + glassmorphism
    Uses the app's existing ThemeProvider: default light, `dark` class for dark.
    ======================================================================== */
