@@ -3,17 +3,7 @@
     <div class="min-h-screen grid lg:grid-cols-2">
       <!-- LEFT — brand -->
       <div class="hidden lg:block">
-        <AuthBrandPanel
-          tag="Recuperar acesso"
-          title="Esqueceu a palavra-passe?"
-          titleAccent="Sem preocupações."
-          description="Em três passos simples volta a ter acesso ao seu SGFM. Processo seguro: verificação por OTP e auditoria completa."
-          :bullets="[
-            'Código de verificação por e-mail e SMS',
-            'Política de palavras-passe robusta, com validação em tempo real',
-            'A sua conta mantém-se auditada em cada passo',
-          ]"
-        />
+        <AuthBrandPanel visual="recover" :visual-step="step" />
       </div>
 
       <!-- RIGHT — form -->

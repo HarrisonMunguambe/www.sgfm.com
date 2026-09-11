@@ -51,8 +51,8 @@
           <p
             class="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-relaxed"
           >
-            Acompanhe as principais manchetes de economia e mercados globais, agregadas de fontes
-            fiáveis e actualizadas em tempo real.
+            Acompanhe as principais manchetes de economia, mercados e tecnologia, de Portugal e do
+            mundo, agregadas de fontes fiáveis.
           </p>
         </div>
 

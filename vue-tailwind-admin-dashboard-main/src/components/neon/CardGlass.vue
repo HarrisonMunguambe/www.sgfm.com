@@ -45,7 +45,7 @@ defineProps<{
   opacity: 0.55;
   z-index: 0;
 }
-:global(.dark) .neon-border-anim::before {
+.dark .neon-border-anim::before {
   background: linear-gradient(120deg, #00f2fe, #4facfe, #8b5cf6, #00f2fe);
   opacity: 1;
 }

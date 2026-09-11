@@ -88,7 +88,7 @@ const steps = [
   {
     title: 'Submeta o pedido',
     desc: 'Indique o valor, a finalidade e anexe a justificativa. O pedido segue automaticamente para o responsável, com notificação em tempo real.',
-    tag: 'Via WhatsApp ou painel',
+    tag: 'Via WhatsApp, email, SMS ou painel',
     iconBg: 'bg-violet-100 dark:bg-violet-500/20',
     tagClass: 'bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-300',
     tagDot: 'bg-violet-500 dark:bg-violet-300',

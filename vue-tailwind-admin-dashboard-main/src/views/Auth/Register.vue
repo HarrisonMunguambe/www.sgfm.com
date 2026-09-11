@@ -3,17 +3,7 @@
     <div class="min-h-screen grid lg:grid-cols-2">
       <!-- LEFT — brand / storytelling -->
       <div class="hidden lg:block">
-        <AuthBrandPanel
-          tag="Junte-se ao SGFM"
-          title="Comece a gerir o fundo em"
-          titleAccent="menos de 2 minutos."
-          description="Crie a sua conta, configure a organização e tenha acesso a uma plataforma moderna, segura e preparada para crescer com a sua equipa."
-          :bullets="[
-            'Registo guiado com verificação OTP',
-            'Estrutura por departamentos e cargos configurável',
-            'Início de sessão com Google disponível',
-          ]"
-        />
+        <AuthBrandPanel visual="setup" :visual-step="step" />
       </div>
 
       <!-- RIGHT — form -->
@@ -71,14 +61,12 @@
                       autocomplete="email"
                       @blur="validate1('email')"
                     />
-                    <InputNeon
+                    <PhoneInput
                       id="reg-phone"
                       v-model="s1.phone"
                       label="Telefone"
-                      type="tel"
                       :error="e1.phone"
                       required
-                      autocomplete="tel"
                       @blur="validate1('phone')"
                     />
                   </div>
@@ -297,12 +285,10 @@
                     </div>
                   </div>
 
-                  <InputNeon
+                  <PhoneInput
                     id="reg-altphone"
                     v-model="s3.alt_phone"
                     label="Telefone alternativo (opcional)"
-                    type="tel"
-                    autocomplete="tel"
                   />
 
                   <ButtonNeon type="submit" block :loading="loading" variant="primary" class="mt-2">
@@ -324,6 +310,7 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import InputNeon from '@/components/neon/InputNeon.vue'
+import PhoneInput from '@/components/neon/PhoneInput.vue'
 import ButtonNeon from '@/components/neon/ButtonNeon.vue'
 import ToastContainer from '@/components/neon/ToastContainer.vue'
 import AuthBrandPanel from '@/components/landing/AuthBrandPanel.vue'
@@ -394,9 +381,9 @@ function validate1(f: string) {
   if (f === 'phone')
     e1.phone = !s1.phone
       ? 'Informe o telefone'
-      : /^\+?\d[\d\s-]{5,}$/.test(s1.phone)
+      : /^\d{9}$/.test(s1.phone)
         ? undefined
-        : 'Telefone inválido'
+        : 'Telefone deve ter 9 dígitos'
   if (f === 'password')
     e1.password = !s1.password
       ? 'Informe a palavra-passe'

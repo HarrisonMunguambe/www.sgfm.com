@@ -108,7 +108,7 @@
           </div>
           <div class="flex flex-wrap gap-3">
             <a
-              href="mailto:suporte@sgfm.co.mz"
+              href="mailto:info.sgfm@gmail.com"
               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 text-sm font-medium text-slate-700 dark:text-slate-100 hover:border-sky-300 dark:hover:border-cyan-300/40 hover:-translate-y-0.5 transition"
             >
               <svg width="16" height="16" viewBox="0 0 20 20" fill="#0ea5e9">
@@ -116,7 +116,7 @@
                   d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm2 0l6 4 6-4H4zm12 2.2l-5.4 3.6a1 1 0 01-1.2 0L4 7.2V15h12V7.2z"
                 />
               </svg>
-              suporte@sgfm.co.mz
+              info.sgfm@gmail.com
             </a>
             <a
               href="tel:+258833478649"

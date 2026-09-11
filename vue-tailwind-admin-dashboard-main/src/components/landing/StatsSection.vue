@@ -19,13 +19,13 @@
           <h2
             class="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white leading-tight sgfm-rise delay-1"
           >
-            Dados que <span class="sgfm-gradient-text">falam por si</span>
+            Menos burocracia, <span class="sgfm-gradient-text">mais controlo</span>
           </h2>
           <p
             class="mt-5 text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed max-w-xl sgfm-rise delay-2"
           >
-            Veja a sua empresa em movimento. Cada pedido, aprovação e poupança são actualizados ao
-            segundo no seu painel de gestor.
+            Sem formulários em papel, sem assinaturas pelos corredores e sem recibos perdidos. Cada
+            pedido fica rápido de aprovar e fácil de auditar.
           </p>
 
           <div ref="statsGridRef" class="grid grid-cols-2 gap-4 mt-10">
@@ -36,15 +36,15 @@
               hover
               class="p-5"
             >
-              <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center justify-between gap-2 mb-3">
                 <div
-                  :class="['h-10 w-10 rounded-lg flex items-center justify-center', s.iconBg]"
+                  :class="['h-10 w-10 shrink-0 rounded-lg flex items-center justify-center', s.iconBg]"
                   v-html="s.icon"
                 ></div>
                 <span
-                  class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300"
+                  class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300 truncate"
                 >
-                  {{ s.delta }}
+                  {{ s.chip }}
                 </span>
               </div>
               <div
@@ -59,149 +59,125 @@
           </div>
         </div>
 
-        <div class="relative sgfm-rise delay-2 h-full">
-          <!-- <div
-            class="absolute -top-4 left-4 z-20 px-3 py-1.5 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur shadow-lg border border-white/60 dark:border-white/10 flex items-center gap-2 text-xs font-medium text-slate-700 dark:text-slate-200"
-          >
-            <span class="relative flex h-2 w-2">
-              <span
-                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
-              ></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            Em directo
-          </div> -->
-
+        <div ref="cycleRef" class="relative sgfm-rise delay-2 h-full">
           <div
             class="absolute -bottom-4 right-6 z-20 px-3 py-1.5 rounded-full bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-500 text-white text-xs font-semibold shadow-[0_10px_25px_-8px_rgba(99,102,241,0.6)] flex items-center gap-1.5"
           >
             <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M3 14l5-5 4 4 5-7v3h-2.6l-2.4 3.4-4-4L4.4 14z" />
+              <path d="M11 1L3 11h6l-1 8 8-10h-6l1-8z" />
             </svg>
-            +12,6% este mês
+            De dias para minutos
           </div>
 
           <CardGlass class="p-6 relative h-full">
             <div class="h-full flex flex-col">
-              <div class="flex items-start justify-between mb-5">
-                <div>
+              <div class="flex items-start justify-between gap-4 mb-6">
+                <div class="min-w-0">
                   <div class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    Movimentos · {{ currentBucket.label }}
+                    Ciclo de um pedido
                   </div>
                   <div
-                    class="mt-1 text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tabular-nums"
+                    :key="mode"
+                    :class="[
+                      'swap-in mt-1 text-2xl sm:text-3xl font-bold tabular-nums',
+                      current.ok ? 'text-slate-900 dark:text-white' : 'text-rose-600 dark:text-rose-300',
+                    ]"
                   >
-                    {{ formatMZN(currentBucket.total) }}
+                    {{ current.total }}
+                  </div>
+                  <div class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
+                    do pedido ao comprovativo
                   </div>
                 </div>
-                <div class="flex gap-1 p-1 rounded-lg bg-slate-100/70 dark:bg-white/5">
+                <div
+                  class="flex shrink-0 gap-1 p-1 rounded-lg bg-slate-100/70 dark:bg-white/5"
+                  role="group"
+                  aria-label="Comparar processo"
+                >
                   <button
-                    v-for="r in rangeKeys"
-                    :key="r"
+                    v-for="k in modeKeys"
+                    :key="k"
                     type="button"
-                    @click="range = r"
+                    :aria-pressed="mode === k"
+                    @click="setMode(k)"
                     :class="[
-                      'text-xs px-2.5 py-1 rounded-md font-medium transition',
-                      range === r
+                      'text-xs px-2.5 py-1 rounded-md font-medium transition whitespace-nowrap',
+                      mode === k
                         ? 'bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-sm'
                         : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white',
                     ]"
                   >
-                    {{ r }}
+                    {{ modes[k].label }}
                   </button>
                 </div>
               </div>
 
-              <div class="flex-1 min-h-[140px] flex items-stretch">
-                <svg viewBox="0 0 400 140" class="w-full h-full" preserveAspectRatio="none">
-                  <defs>
-                    <linearGradient id="chartGrad" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.35" />
-                      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0" />
-                    </linearGradient>
-                    <linearGradient id="chartLine" x1="0" x2="1" y1="0" y2="0">
-                      <stop offset="0%" stop-color="#0ea5e9" />
-                      <stop offset="100%" stop-color="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
-                  <line
-                    v-for="y in [35, 70, 105]"
-                    :key="y"
-                    x1="0"
-                    :y1="y"
-                    x2="400"
-                    :y2="y"
-                    stroke="currentColor"
-                    stroke-width="0.5"
-                    class="text-slate-200 dark:text-white/10"
-                    stroke-dasharray="3 4"
-                  />
-                  <path :d="areaPath" fill="url(#chartGrad)" class="chart-anim" />
-                  <path
-                    :d="linePath"
-                    fill="none"
-                    stroke="url(#chartLine)"
-                    stroke-width="2.5"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                    class="chart-anim"
-                  />
-                  <circle
-                    v-for="(p, i) in chartPoints"
-                    :key="i"
-                    :cx="p.x"
-                    :cy="p.y"
-                    :r="i === chartPoints.length - 1 ? 5 : 3"
-                    fill="#fff"
-                    :stroke="i === chartPoints.length - 1 ? '#8b5cf6' : '#0ea5e9'"
-                    stroke-width="2"
-                  />
-                  <circle
-                    :cx="chartPoints[chartPoints.length - 1].x"
-                    :cy="chartPoints[chartPoints.length - 1].y"
-                    r="5"
-                    fill="#8b5cf6"
-                    opacity="0.3"
-                    class="pulse-dot"
-                  />
-                </svg>
-              </div>
+              <ol class="flex-1 flex flex-col justify-between gap-4">
+                <li v-for="(s, i) in current.steps" :key="i">
+                  <div class="flex items-center gap-3">
+                    <span
+                      :class="[
+                        'h-8 w-8 shrink-0 rounded-lg flex items-center justify-center text-xs font-bold tabular-nums transition-colors duration-500',
+                        current.dotClass,
+                      ]"
+                    >
+                      0{{ i + 1 }}
+                    </span>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-baseline justify-between gap-3">
+                        <span
+                          :key="mode + s.title"
+                          class="swap-in text-sm font-medium text-slate-800 dark:text-slate-100 truncate"
+                        >
+                          {{ s.title }}
+                        </span>
+                        <span
+                          :key="mode + s.time"
+                          :class="['swap-in text-sm font-semibold tabular-nums shrink-0', current.timeClass]"
+                        >
+                          {{ s.time }}
+                        </span>
+                      </div>
+                      <div
+                        :key="mode + s.desc"
+                        class="swap-in text-xs text-slate-500 dark:text-slate-400 truncate"
+                      >
+                        {{ s.desc }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-2 ml-11 h-1.5 rounded-full bg-slate-100 dark:bg-white/[0.06] overflow-hidden">
+                    <div
+                      :class="['cycle-bar h-full rounded-full bg-gradient-to-r', current.barClass]"
+                      :style="{ width: `${barWidth(s.minutes)}%`, transitionDelay: `${i * 90}ms` }"
+                    ></div>
+                  </div>
+                </li>
+              </ol>
 
-              <div class="mt-5 space-y-2.5">
-                <div
-                  v-for="(a, i) in activity"
-                  :key="i"
+              <div
+                class="mt-6 pt-5 border-t border-slate-200/70 dark:border-white/10 flex flex-wrap gap-2"
+              >
+                <span
+                  v-for="t in current.tags"
+                  :key="mode + t"
                   :class="[
-                    'flex items-center gap-3 p-2.5 rounded-lg bg-slate-50/80 dark:bg-white/5 border border-slate-100 dark:border-white/5 sgfm-rise',
-                    `delay-${i + 2}`,
+                    'swap-in inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full',
+                    current.ok
+                      ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-300'
+                      : 'bg-rose-50 text-rose-700 dark:bg-rose-500/10 dark:text-rose-300',
                   ]"
                 >
-                  <div
-                    :class="[
-                      'h-9 w-9 rounded-full flex items-center justify-center shrink-0',
-                      a.iconBg,
-                    ]"
-                    v-html="a.icon"
-                  ></div>
-                  <div class="flex-1 min-w-0">
-                    <div
-                      class="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 truncate"
-                    >
-                      {{ a.title }}
-                    </div>
-                    <div class="text-[10px] sm:text-xs text-slate-500 dark:text-slate-400">
-                      {{ a.time }}
-                    </div>
-                  </div>
-                  <div
-                    :class="[
-                      'text-xs sm:text-sm font-semibold tabular-nums shrink-0',
-                      a.amountClass,
-                    ]"
-                  >
-                    {{ a.amount }}
-                  </div>
-                </div>
+                  <svg v-if="current.ok" width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M8 13.2L4.8 10l-1.4 1.4L8 16l9-9-1.4-1.4z" />
+                  </svg>
+                  <svg v-else width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      d="M5.4 4L4 5.4 8.6 10 4 14.6 5.4 16l4.6-4.6 4.6 4.6 1.4-1.4-4.6-4.6L16 5.4 14.6 4 10 8.6z"
+                    />
+                  </svg>
+                  {{ t }}
+                </span>
               </div>
             </div>
           </CardGlass>
@@ -216,41 +192,85 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import CardGlass from '@/components/neon/CardGlass.vue'
 import { vReveal } from '@/composables/landingEffects'
 
-type RangeKey = 'D' | 'S' | 'M'
+type ModeKey = 'paper' | 'sgfm'
 
-interface RangeBucket {
-  total: number
-  series: number[]
+interface Step {
+  title: string
+  desc: string
+  time: string
+  minutes: number
+}
+
+interface Mode {
   label: string
+  total: string
+  ok: boolean
+  barClass: string
+  timeClass: string
+  dotClass: string
+  steps: Step[]
+  tags: string[]
 }
 
-const range = ref<RangeKey>('S')
-const rangeKeys: RangeKey[] = ['D', 'S', 'M']
+// Barras em escala logarítmica: minutos e dias no mesmo gráfico sem que os minutos desapareçam
+const MAX_MINUTES = 2880
+const barWidth = (min: number) =>
+  Math.max(4, Math.round((Math.log10(min + 1) / Math.log10(MAX_MINUTES + 1)) * 100))
 
-const buckets: Record<RangeKey, RangeBucket> = {
-  D: { total: 48_500, series: [8, 14, 11, 18, 22, 19, 26], label: 'Hoje' },
-  S: { total: 295_000, series: [42, 55, 48, 63, 58, 72, 80], label: 'Esta semana' },
-  M: { total: 1_250_000, series: [180, 240, 215, 280, 320, 360], label: 'Este mês' },
+const modes: Record<ModeKey, Mode> = {
+  paper: {
+    label: 'Em papel',
+    total: '≈ 3 dias',
+    ok: false,
+    barClass: 'from-rose-400 to-amber-400',
+    timeClass: 'text-rose-600 dark:text-rose-300',
+    dotClass: 'bg-rose-100 text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
+    steps: [
+      { title: 'Preencher requisição', desc: 'Formulário em papel', time: '4 h', minutes: 240 },
+      { title: 'Recolher assinaturas', desc: 'Gestor e Financeiro', time: '1–2 dias', minutes: 2160 },
+      { title: 'Levantar o valor', desc: 'Deslocação à caixa', time: '3 h', minutes: 180 },
+      { title: 'Entregar recibos', desc: 'Arquivo manual', time: '1 dia', minutes: 1440 },
+    ],
+    tags: ['Papel', 'Deslocações', 'Recibos perdidos'],
+  },
+  sgfm: {
+    label: 'Com SGFM',
+    total: '≈ 5 min',
+    ok: true,
+    barClass: 'from-sky-500 via-indigo-500 to-violet-500',
+    timeClass: 'text-sky-600 dark:text-cyan-300',
+    dotClass: 'bg-sky-100 text-sky-700 dark:bg-cyan-500/15 dark:text-cyan-300',
+    steps: [
+      { title: 'Enviar pedido', desc: 'Via WhatsApp ou painel', time: '1 min', minutes: 1 },
+      { title: 'Aprovar', desc: 'Notificação no telemóvel', time: '3 min', minutes: 3 },
+      { title: 'Receber o valor', desc: 'Envio directo ao colaborador', time: 'segundos', minutes: 0.2 },
+      { title: 'Enviar comprovativo', desc: 'Foto do recibo', time: '1 min', minutes: 1 },
+    ],
+    tags: ['Sem papel', 'Sem deslocações', 'Auditável'],
+  },
 }
 
-const approvedTarget = 87
-const savingsTarget = 12.4
-const usersTarget = 24
-const totalManagedTarget = 1_250_000
+const modeKeys: ModeKey[] = ['paper', 'sgfm']
+const mode = ref<ModeKey>('paper')
+const current = computed(() => modes[mode.value])
+let touched = false
 
-const approved = ref(0)
-const savings = ref(0)
-const users = ref(0)
-const totalManagedDisplay = ref(0)
+function setMode(k: ModeKey) {
+  touched = true
+  mode.value = k
+}
 
-const currentBucket = computed(() => buckets[range.value])
+const approvalMin = ref(60)
+const traceable = ref(0)
+const paperForms = ref(40)
 
 const statsGridRef = ref<HTMLElement | null>(null)
+const cycleRef = ref<HTMLElement | null>(null)
 const prefersReducedMotion =
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function tween(setter: (v: number) => void, to: number, duration = 1600) {
+function tween(setter: (v: number) => void, from: number, to: number, duration = 1600) {
   if (prefersReducedMotion) {
     setter(to)
     return
@@ -259,147 +279,101 @@ function tween(setter: (v: number) => void, to: number, duration = 1600) {
   const step = (now: number) => {
     const t = Math.min(1, (now - start) / duration)
     const eased = 1 - Math.pow(1 - t, 3)
-    setter(to * eased)
+    setter(from + (to - from) * eased)
     if (t < 1) requestAnimationFrame(step)
   }
   requestAnimationFrame(step)
 }
 
 let obs: IntersectionObserver | null = null
+let autoSwitch: ReturnType<typeof setTimeout> | undefined
+
 onMounted(() => {
-  if (!statsGridRef.value) return
   obs = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (entry.isIntersecting) {
-          tween((v) => (approved.value = Math.round(v)), approvedTarget)
-          tween((v) => (savings.value = v), savingsTarget)
-          tween((v) => (users.value = Math.round(v)), usersTarget)
-          tween((v) => (totalManagedDisplay.value = Math.round(v)), totalManagedTarget)
-          obs?.disconnect()
-          break
+        if (!entry.isIntersecting) continue
+        if (entry.target === statsGridRef.value) {
+          tween((v) => (approvalMin.value = v), 60, 5)
+          tween((v) => (traceable.value = v), 0, 100)
+          tween((v) => (paperForms.value = v), 40, 0)
+        } else if (entry.target === cycleRef.value) {
+          // Mostra primeiro o processo em papel e depois a diferença com o SGFM
+          autoSwitch = setTimeout(() => {
+            if (!touched) mode.value = 'sgfm'
+          }, 1400)
         }
+        obs?.unobserve(entry.target)
       }
     },
-    { threshold: 0.25 },
+    { threshold: 0.3 },
   )
-  obs.observe(statsGridRef.value)
-})
-onUnmounted(() => obs?.disconnect())
-
-function formatMZN(n: number) {
-  return new Intl.NumberFormat('pt-MZ', { maximumFractionDigits: 0 }).format(n) + ' MT'
-}
-
-const chartPoints = computed(() => {
-  const w = 400
-  const h = 140
-  const pad = 10
-  const values = currentBucket.value.series
-  const max = Math.max(...values)
-  const min = Math.min(...values)
-  const span = Math.max(1, max - min)
-  return values.map((v, i) => ({
-    x: pad + (i * (w - pad * 2)) / Math.max(1, values.length - 1),
-    y: h - pad - ((v - min) / span) * (h - pad * 2),
-  }))
+  if (statsGridRef.value) obs.observe(statsGridRef.value)
+  if (cycleRef.value) obs.observe(cycleRef.value)
 })
 
-const linePath = computed(() => {
-  const pts = chartPoints.value
-  if (!pts.length) return ''
-  return pts
-    .map((p, i) => {
-      if (i === 0) return `M ${p.x} ${p.y}`
-      const prev = pts[i - 1]
-      const cx = (prev.x + p.x) / 2
-      return `Q ${prev.x} ${prev.y} ${cx} ${(prev.y + p.y) / 2} T ${p.x} ${p.y}`
-    })
-    .join(' ')
+onUnmounted(() => {
+  obs?.disconnect()
+  clearTimeout(autoSwitch)
 })
-
-const areaPath = computed(() => {
-  const pts = chartPoints.value
-  if (!pts.length) return ''
-  return `${linePath.value} L ${pts[pts.length - 1].x} 140 L ${pts[0].x} 140 Z`
-})
-
-const activity = [
-  {
-    title: 'Pedido aprovado · Marketing',
-    time: 'há 2 min · via WhatsApp',
-    amount: '+ 12 500 MT',
-    amountClass: 'text-emerald-600 dark:text-emerald-400',
-    iconBg: 'bg-emerald-100 dark:bg-emerald-500/20',
-    icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="#10b981"><path d="M8 13.2L4.8 10l-1.4 1.4L8 16l9-9-1.4-1.4z"/></svg>',
-  },
-  {
-    title: 'Transferência para colaborador',
-    time: 'há 8 min · Logística',
-    amount: '+ 4 500 MT',
-    amountClass: 'text-sky-600 dark:text-cyan-300',
-    iconBg: 'bg-sky-100 dark:bg-cyan-500/20',
-    icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M3 10h12l-4-4 1.4-1.4L18.8 10l-6.4 6.4L11 15l4-4H3z"/></svg>',
-  },
-  {
-    title: 'Relatório IA gerado',
-    time: 'há 14 min · automático',
-    amount: 'Mensal',
-    amountClass: 'text-violet-600 dark:text-violet-300',
-    iconBg: 'bg-violet-100 dark:bg-violet-500/20',
-    icon: '<svg width="16" height="16" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M10 2l2.4 5 5.6.8-4 4 1 5.6L10 14.8 4.9 17.4l1-5.6-4-4L7.6 7z"/></svg>',
-  },
-]
 
 const stats = computed(() => [
   {
-    label: 'Total gerido este mês',
-    display: formatMZN(totalManagedDisplay.value),
-    delta: '+8,2%',
+    label: 'Tempo médio de aprovação',
+    display: `< ${Math.round(approvalMin.value)} min`,
+    chip: 'vs. 2–3 dias',
     iconBg: 'bg-sky-100 dark:bg-cyan-500/20',
-    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm0 3a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"/></svg>',
+    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#0ea5e9"><path d="M10 2a8 8 0 100 16 8 8 0 000-16zm.8 4v3.7l3 1.8-.8 1.3-3.8-2.3V6h1.6z"/></svg>',
   },
   {
-    label: 'Requisições aprovadas',
-    display: approved.value.toLocaleString('pt-MZ'),
-    delta: '+12,6%',
+    label: 'Pedidos rastreáveis',
+    display: `${Math.round(traceable.value)}%`,
+    chip: 'Trilha completa',
     iconBg: 'bg-emerald-100 dark:bg-emerald-500/20',
-    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#10b981"><path d="M8 13.2L4.8 10l-1.4 1.4L8 16l9-9-1.4-1.4z"/></svg>',
+    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#10b981"><path d="M10 2l6.5 2.5v5c0 4-2.8 7.4-6.5 8.5-3.7-1.1-6.5-4.5-6.5-8.5v-5L10 2zm-1 10.4l4.7-4.7-1.1-1.1L9 10.2 7.4 8.6l-1.1 1.1L9 12.4z"/></svg>',
   },
   {
-    label: 'Economia média',
-    display: savings.value.toFixed(1) + '%',
-    delta: '+1,4%',
+    label: 'Formulários em papel',
+    display: `${Math.round(paperForms.value)}`,
+    chip: '100% digital',
     iconBg: 'bg-violet-100 dark:bg-violet-500/20',
-    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M3 14l5-5 4 4 5-7v10H3z"/></svg>',
+    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#8b5cf6"><path d="M5 2h7l4 4v11a1 1 0 01-1 1H5a1 1 0 01-1-1V3a1 1 0 011-1zm6 1.5V7h3.5L11 3.5zM6.5 10h7v1.2h-7V10zm0 2.5h7v1.2h-7v-1.2zm0 2.5h4.5v1.2H6.5V15z"/></svg>',
   },
   {
-    label: 'Utilizadores activos',
-    display: users.value.toLocaleString('pt-MZ'),
-    delta: '+3,1%',
+    label: 'Pedidos via WhatsApp',
+    display: '24/7',
+    chip: 'Sempre disponível',
     iconBg: 'bg-indigo-100 dark:bg-indigo-500/20',
-    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#6366f1"><path d="M10 10a4 4 0 100-8 4 4 0 000 8zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5z"/></svg>',
+    icon: '<svg width="18" height="18" viewBox="0 0 20 20" fill="#6366f1"><path d="M10 2.5c-4.4 0-8 3.1-8 7 0 1.9.9 3.7 2.4 4.9L4 17.5l3.6-1.6c.8.2 1.6.4 2.4.4 4.4 0 8-3.1 8-7s-3.6-6.8-8-6.8z"/></svg>',
   },
 ])
 </script>
 
 <style scoped>
-.chart-anim {
-  transition: d 0.8s ease-in-out;
+.cycle-bar {
+  transition: width 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-.pulse-dot {
-  transform-origin: center;
-  animation: pulse-grow 1.8s ease-in-out infinite;
+
+.swap-in {
+  animation: swap-in 0.4s ease both;
 }
-@keyframes pulse-grow {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.3;
-  }
-  50% {
-    transform: scale(2.2);
+@keyframes swap-in {
+  from {
     opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cycle-bar {
+    transition: none;
+  }
+  .swap-in {
+    animation: none;
   }
 }
 </style>

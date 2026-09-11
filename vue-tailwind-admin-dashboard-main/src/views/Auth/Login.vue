@@ -3,17 +3,7 @@
     <div class="min-h-screen grid lg:grid-cols-2">
       <!-- LEFT — brand / storytelling -->
       <div class="hidden lg:block">
-        <AuthBrandPanel
-          tag="Inicie sessão no SGFM"
-          title="Bem-vindo"
-          titleAccent="de volta"
-          description="Retome ao controlo do fundo de maneio da sua organização, com acesso rápido, seguro e inteligente."
-          :bullets="[
-            'Painel em tempo real com saldo e movimentos',
-            'Aprovações com um clique em qualquer dispositivo',
-            'Auditoria completa e informações com IA incluídas',
-          ]"
-        />
+        <AuthBrandPanel visual="live" />
       </div>
 
       <!-- RIGHT — form -->
@@ -45,9 +35,13 @@
             </router-link>
 
             <div class="mb-8">
-              <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Iniciar sessão</h1>
+              <h1
+                class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white"
+              >
+                Bem-vindo <span class="sgfm-gradient-text">de volta</span>
+              </h1>
               <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
-                Introduza as suas credenciais para continuar.
+                Inicie sessão para retomar o controlo do fundo de maneio da sua organização.
               </p>
             </div>
 
@@ -309,6 +303,6 @@ function extractBackendError(err: unknown, fallback: string): string {
 
 // Login via Google (redirect ao backend que faz OAuth)
 function signInWithGoogle() {
-  window.location.href = `${API_BASE_URL}/auth/google/redirect`
+  window.location.href = `${API_BASE_URL}auth/google/redirect`
 }
 </script>

@@ -504,7 +504,7 @@ onUnmounted(() => {
   border-radius: 9999px;
   background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
 }
-:global(.dark) .nav-active-line {
+.dark .nav-active-line {
   background: linear-gradient(90deg, #00f2fe, #8b5cf6);
 }
 </style>

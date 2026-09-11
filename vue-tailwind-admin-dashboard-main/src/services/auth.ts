@@ -83,3 +83,73 @@ export async function login(loginField: string, password: string): Promise<AuthU
   return data.data.user
 
 }
+
+// ──────────────────────────────────────────────────────────
+// STUBS — funções que o Register.vue/ForgotPassword.vue importam.
+// Existem só para o módulo carregar. Quando ligares cada uma ao backend,
+// substituis o corpo por uma chamada `await api.post(...)` / `api.get(...)`.
+// ──────────────────────────────────────────────────────────
+
+// Tipos das payloads aceites pelas views (mesmo formato que já enviam)
+export interface RegisterStep1Input {
+  email: string
+  phone: string
+  password: string
+  password_confirmation: string
+  terms: boolean
+  security_question: string
+}
+
+export interface RegisterStep3Input {
+  full_name: string
+  department_id: number | null
+  role_id: number | null
+  alt_phone?: string
+}
+
+// TODO: POST /api/v1/auth/register/step1
+export async function registerStep1(payload: RegisterStep1Input): Promise<{ ok: true }> {
+  void payload
+  throw new Error('registerStep1() ainda não está implementado.')
+}
+
+// TODO: POST /api/v1/auth/register/step2
+export async function verifyOtp(code: string): Promise<{ ok: true }> {
+  void code
+  throw new Error('verifyOtp() ainda não está implementado.')
+}
+
+// TODO: POST /api/v1/auth/register/step3
+export async function registerStep3(payload: RegisterStep3Input): Promise<AuthUser> {
+  void payload
+  throw new Error('registerStep3() ainda não está implementado.')
+}
+
+// TODO: POST /api/v1/auth/password/forgot
+export async function forgotPassword(email: string): Promise<{ ok: true }> {
+  void email
+  throw new Error('forgotPassword() ainda não está implementado.')
+}
+
+// TODO: POST /api/v1/auth/password/reset
+export async function resetPassword(payload: {
+  email: string
+  otp: string
+  password: string
+  password_confirmation: string
+}): Promise<{ ok: true }> {
+  void payload
+  throw new Error('resetPassword() ainda não está implementado.')
+}
+
+// TODO: GET /api/v1/departments
+export async function fetchDepartments(): Promise<{ id: number; name: string }[]> {
+  // Devolve array vazio em vez de throw para a view do Register conseguir
+  // renderizar — só os dropdowns ficam vazios até ligares ao backend.
+  return []
+}
+
+// TODO: GET /api/v1/roles
+export async function fetchRoles(): Promise<{ id: number; name: string }[]> {
+  return []
+}

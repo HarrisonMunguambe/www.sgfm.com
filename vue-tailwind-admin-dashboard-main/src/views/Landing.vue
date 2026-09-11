@@ -6,7 +6,7 @@
       <HeroSection />
       <StatsSection />
       <HowItWorks />
-      <LivePanel />
+      <RoleAccessSection />
       <AINewsSection />
       <TestimonialsSection />
       <FAQSection />
@@ -23,7 +23,7 @@ import LandingNavbar from '@/components/landing/LandingNavbar.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
 import StatsSection from '@/components/landing/StatsSection.vue'
 import HowItWorks from '@/components/landing/HowItWorks.vue'
-import LivePanel from '@/components/landing/LivePanel.vue'
+import RoleAccessSection from '@/components/landing/RoleAccessSection.vue'
 import AINewsSection from '@/components/landing/AINewsSection.vue'
 import TestimonialsSection from '@/components/landing/TestimonialsSection.vue'
 import FAQSection from '@/components/landing/FAQSection.vue'

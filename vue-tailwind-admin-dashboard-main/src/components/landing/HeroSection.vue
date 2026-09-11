@@ -1,5 +1,5 @@
 <template>
-  <section id="inicio" class="relative pt-32 pb-20 overflow-hidden">
+  <section id="inicio" class="relative pt-32 pb-12 overflow-hidden">
     <div class="absolute inset-0 sgfm-grid-bg pointer-events-none"></div>
 
     <div
@@ -36,13 +36,10 @@
       </div>
 
       <p
-        class="mt-8 max-w-2xl mx-auto text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed sgfm-rise delay-3"
+        class="mt-6 max-w-xl mx-auto text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed sgfm-rise delay-3"
       >
-        Tenha controlo total do fundo de maneio em tempo real, com pedidos recebidos via WhatsApp ou
-        directamente pela plataforma. Automatize aprovações, envie fundos ou benefícios aos
-        colaboradores com rapidez e acompanhe tudo através de um painel moderno, seguro e acessível
-        em qualquer dispositivo. Com inteligência artificial integrada, obtenha previsões
-        inteligentes e relatórios para decisões mais rápidas e eficientes, com suporte disponível
+        Receba pedidos via WhatsApp, SMS, email e painel aprove, em segundos e acompanhe cada
+        metical do fundo de maneio em tempo real com relatórios inteligentes e suporte inteligente
         24/7.
       </p>
 
@@ -69,6 +66,8 @@
           </svg>
         </router-link>
       </div>
+
+      <HeroVisual3D class="mt-12 sm:mt-16 sgfm-rise delay-4" />
 
       <!-- <div
         class="mt-12 flex items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-500 sgfm-rise delay-4"
@@ -105,6 +104,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
 import { vMagnetic } from '@/composables/landingEffects'
+import HeroVisual3D from '@/components/landing/HeroVisual3D.vue'
 
 const phrases = [
   'Maior controle de fluxo de caixa.',

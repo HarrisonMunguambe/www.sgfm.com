@@ -1082,3 +1082,169 @@ span.flatpickr-weekday,
     transition: none;
   }
 }
+
+/* ========================================================================
+   Visuais 3D — hero da landing e painel de autenticação
+   ======================================================================== */
+
+/* Camada com parallax: --mx/--my (-1..1) vêm do cursor, --d é a profundidade */
+.sgfm-parallax {
+  position: absolute;
+  z-index: 2;
+  transform: translate3d(
+    calc(var(--mx, 0) * var(--d, 10) * 1px),
+    calc(var(--my, 0) * var(--d, 10) * 1px),
+    0
+  );
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.sgfm-parallax--back {
+  z-index: 0;
+}
+
+.sgfm-bob {
+  animation: sgfm-bob var(--dur, 6s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes sgfm-bob {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  50% { transform: translateY(-12px) rotate(calc(var(--rot, 0deg) + var(--swing, 3deg))); }
+}
+/* Cartões com texto sobem e descem sem rodar: texto rodado perde nitidez */
+.sgfm-bob:has(> .sgfm-float-card) {
+  --swing: 0deg;
+}
+
+/* Ícones 3D (PNG sem fundo) — sombra que se adapta ao tema */
+.sgfm-3d-obj {
+  filter: drop-shadow(0 18px 18px rgba(15, 23, 42, 0.22));
+}
+.dark .sgfm-3d-obj {
+  filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 16px rgba(0, 242, 254, 0.14));
+}
+
+/* Cartão flutuante em vidro */
+.sgfm-float-card {
+  text-align: left;
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 24px 48px -22px rgba(15, 23, 42, 0.3),
+    0 2px 6px -2px rgba(15, 23, 42, 0.06);
+}
+.dark .sgfm-float-card {
+  background: rgba(15, 23, 42, 0.66);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 24px 48px -22px rgba(0, 0, 0, 0.75),
+    0 0 30px -12px rgba(0, 242, 254, 0.25);
+}
+.sgfm-float-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+.dark .sgfm-float-pill {
+  color: #e2e8f0;
+}
+
+/* Órbitas: anel inclinado com um satélite que fica sempre de frente.
+   Tamanho (--os) e centro vertical (--oy) são definidos por quem usa. */
+.sgfm-orbit {
+  position: absolute;
+  left: 50%;
+  top: var(--oy);
+  width: var(--os);
+  height: var(--os);
+  margin-left: calc(var(--os) / -2);
+  margin-top: calc(var(--os) / -2);
+  border-radius: 9999px;
+  transform: rotateX(76deg);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+.sgfm-orbit--outer {
+  border: 1.5px solid rgba(14, 165, 233, 0.35);
+  box-shadow:
+    0 0 22px rgba(14, 165, 233, 0.18),
+    inset 0 0 22px rgba(14, 165, 233, 0.1);
+}
+.dark .sgfm-orbit--outer {
+  border-color: rgba(0, 242, 254, 0.4);
+  box-shadow:
+    0 0 28px rgba(0, 242, 254, 0.28),
+    inset 0 0 28px rgba(0, 242, 254, 0.14);
+}
+.sgfm-orbit--inner {
+  border: 1px dashed rgba(139, 92, 246, 0.4);
+}
+.dark .sgfm-orbit--inner {
+  border-color: rgba(167, 139, 250, 0.45);
+}
+.sgfm-orbit-spin {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-style: preserve-3d;
+  animation: sgfm-orbit-spin 22s linear infinite;
+}
+.sgfm-orbit-spin--rev {
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+/* Roda em sentido contrário e "levanta-se" para ficar sempre de frente */
+.sgfm-orbit-sat {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-style: preserve-3d;
+  animation: sgfm-orbit-billboard 22s linear infinite;
+}
+.sgfm-orbit-spin--rev .sgfm-orbit-sat {
+  animation-duration: 15s;
+  animation-direction: reverse;
+}
+.sgfm-orbit-coin {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  filter: drop-shadow(0 8px 10px rgba(15, 23, 42, 0.25));
+}
+.sgfm-orbit-dot {
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 9999px;
+  background: #22d3ee;
+  box-shadow: 0 0 12px 3px rgba(34, 211, 238, 0.7);
+}
+@keyframes sgfm-orbit-spin {
+  to { transform: rotateZ(360deg); }
+}
+@keyframes sgfm-orbit-billboard {
+  from { transform: rotateZ(0deg) rotateX(-76deg); }
+  to { transform: rotateZ(-360deg) rotateX(-76deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sgfm-bob,
+  .sgfm-orbit-spin,
+  .sgfm-orbit-sat {
+    animation: none;
+  }
+  .sgfm-orbit-sat {
+    transform: rotateX(-76deg);
+  }
+  .sgfm-parallax {
+    transition: none;
+  }
+}

@@ -75,6 +75,15 @@ const router = createRouter({
       meta: { title: 'Dashboard', requiresAuth: true },
     },
 
+    { path: '/auth/callback', component: () => import('@/views/OAuth/AuthCallback.vue'), meta: { title: 'A Entrar...', public: true } },
+
+{
+  path: '/complete-profile',
+  name: 'completeProfile',
+  component: () => import('@/views/Auth/CompleteProfile.vue'),
+  meta: { title: 'Completar perfil', requiresAuth: true },
+},
+
     // ---- Admin template routes (kept for future use, all protected) ----
     { path: '/dashboard/ecommerce', redirect: '/dashboard' },
     {

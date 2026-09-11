@@ -1,0 +1,4 @@
+# Variáveis de ambiente (chaves de API, segredos OAuth) — nunca versionar
+.env
+.env.*
+!.env.example

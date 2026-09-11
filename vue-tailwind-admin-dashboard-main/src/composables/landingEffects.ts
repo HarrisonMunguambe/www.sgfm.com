@@ -1,9 +1,8 @@
 import type { Directive } from 'vue'
-import { onMounted, onUnmounted, ref, type Ref } from 'vue'
+import { onMounted, onUnmounted, reactive, ref, type Ref } from 'vue'
 
 const isReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const isTouchOrSmall = () =>
   typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
@@ -84,7 +83,7 @@ export const vReveal: Directive<RevealEl, RevealOpts | number | undefined> = {
       return
     }
     const opts: RevealOpts =
-      typeof binding.value === 'number' ? { delay: binding.value } : binding.value ?? {}
+      typeof binding.value === 'number' ? { delay: binding.value } : (binding.value ?? {})
 
     el.classList.add('sgfm-reveal')
     if (opts.delay) el.style.transitionDelay = `${opts.delay}ms`
@@ -107,6 +106,47 @@ export const vReveal: Directive<RevealEl, RevealOpts | number | undefined> = {
   beforeUnmount(el) {
     el.__revealObs?.disconnect()
   },
+}
+
+/**
+ * Posição do cursor normalizada (-1..1) em relação ao centro do elemento.
+ * Alimenta as variáveis --mx/--my usadas pelas camadas `.sgfm-parallax`.
+ * Fica parada (0, 0) com prefers-reduced-motion ou em ecrãs sem rato.
+ */
+export function usePointerParallax(target: Ref<HTMLElement | null>) {
+  const pointer = reactive({ x: 0, y: 0 })
+  let raf = 0
+  let lastX = 0
+  let lastY = 0
+  const clamp = (v: number) => Math.max(-1, Math.min(1, v))
+  const round = (v: number) => Math.round(v * 1000) / 1000
+
+  const apply = () => {
+    raf = 0
+    const el = target.value
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    if (r.bottom < 0 || r.top > window.innerHeight) return
+    pointer.x = round(clamp((lastX - (r.left + r.width / 2)) / (r.width / 2)))
+    pointer.y = round(clamp((lastY - (r.top + r.height / 2)) / (r.height / 2)))
+  }
+  const onMove = (e: PointerEvent) => {
+    lastX = e.clientX
+    lastY = e.clientY
+    if (!raf) raf = requestAnimationFrame(apply)
+  }
+
+  onMounted(() => {
+    if (isReducedMotion() || !window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+      return
+    window.addEventListener('pointermove', onMove, { passive: true })
+  })
+  onUnmounted(() => {
+    window.removeEventListener('pointermove', onMove)
+    if (raf) cancelAnimationFrame(raf)
+  })
+
+  return pointer
 }
 
 interface CountUpOptions {

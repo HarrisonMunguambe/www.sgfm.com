@@ -1,5 +1,7 @@
 <template>
-  <div class="relative h-full overflow-hidden sgfm-brand-panel text-white">
+  <div
+    class="relative h-full lg:h-screen lg:sticky lg:top-0 overflow-hidden sgfm-brand-panel text-white"
+  >
     <!-- Background decoration -->
     <div class="absolute inset-0 sgfm-grid-bg opacity-60 pointer-events-none"></div>
     <div
@@ -10,9 +12,9 @@
       style="animation-delay: 1.5s"
     ></div>
 
-    <div class="relative h-full flex flex-col justify-between p-8 sm:p-12">
+    <div class="relative h-full flex flex-col gap-6 p-8 sm:p-12">
       <!-- Top: logo -->
-      <router-link to="/" class="inline-flex items-center gap-2 w-max">
+      <router-link to="/" class="inline-flex items-center gap-2 w-max shrink-0">
         <AppLogo
           full
           forceTheme="dark"
@@ -22,10 +24,18 @@
         />
       </router-link>
 
-      <!-- Middle: headline -->
-      <div class="max-w-md">
+      <!-- Com visual: só o logo e a pré-visualização do dashboard, sem texto -->
+      <AuthDashboard3D
+        v-if="visual"
+        :variant="visual"
+        :step="visualStep"
+        class="flex-1 min-h-[240px] w-full"
+      />
+
+      <!-- Sem visual: headline e benefícios em texto -->
+      <div v-else class="flex-1 flex flex-col justify-center max-w-md">
         <div
-          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur text-xs font-medium mb-5"
+          class="inline-flex items-center gap-2 w-max px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur text-xs font-medium mb-5"
         >
           <span class="sgfm-ticker-dot"></span>
           {{ tag }}
@@ -38,7 +48,6 @@
           {{ description }}
         </p>
 
-        <!-- Benefícios -->
         <ul class="mt-8 space-y-3.5">
           <li v-for="b in bullets" :key="b" class="flex items-start gap-3 text-sm text-slate-100">
             <span
@@ -52,32 +61,13 @@
           </li>
         </ul>
       </div>
-
-      <!-- Bottom: trust row -->
-      <div class="flex items-center gap-5 text-xs text-slate-300">
-        <div class="flex items-center gap-1.5">
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="#34d399">
-            <path
-              d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
-            />
-          </svg>
-          Plataforma Multicanal disponível 24/7
-        </div>
-        <div class="flex items-center gap-1.5">
-          <svg width="14" height="14" viewBox="0 0 20 20" fill="#34d399">
-            <path
-              d="M10 2a8 8 0 100 16 8 8 0 000-16zm4 6.3l-5 5-3-3 1.4-1.4L9 10.5l3.6-3.6L14 8.3z"
-            />
-          </svg>
-          Agente de Suporte disponível 24/7
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import AppLogo from '@/components/common/AppLogo.vue'
+import AuthDashboard3D from '@/components/landing/AuthDashboard3D.vue'
 
 withDefaults(
   defineProps<{
@@ -86,6 +76,10 @@ withDefaults(
     titleAccent?: string
     description?: string
     bullets?: string[]
+    /** Pré-visualização 3D do dashboard: 'live' (login) ou 'setup' (registo). Substitui o texto. */
+    visual?: 'live' | 'setup' | 'recover'
+    /** Passo actual do registo, para a variante 'setup' acompanhar o formulário. */
+    visualStep?: number
   }>(),
   {
     tag: 'Plataforma financeira com IA',
@@ -98,6 +92,8 @@ withDefaults(
       'Alertas e Relatórios automáticos com Inteligência Artificial',
       'Histórico completo e auditoria integrada',
     ],
+    visual: undefined,
+    visualStep: undefined,
   },
 )
 </script>
